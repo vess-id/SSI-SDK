@@ -1,4 +1,4 @@
-import { CredentialDataSupplier, VcIssuer } from '@sphereon/oid4vci-issuer'
+import { CredentialDataSupplier, VcIssuer } from '@vess-id/oid4vci-issuer'
 import { createVciIssuerBuilder } from './functions'
 import { AuthorizationServerMetadata, IssuerMetadata } from '@sphereon/oid4vci-common'
 import { IIssuerOptions, IMetadataOptions, IRequiredContext } from './types/IOID4VCIIssuer'

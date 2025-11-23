@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import { checkAuth, sendErrorResponse } from '@sphereon/ssi-express-support'
-import { LOG, VcIssuer } from '@sphereon/oid4vci-issuer'
+import { LOG, VcIssuer } from '@vess-id/oid4vci-issuer'
 import { determinePath } from '@sphereon/oid4vci-issuer-server'
 import { IGetIssueStatusEndpointOpts } from '@sphereon/oid4vci-issuer-server'
 import { IRequiredContext } from './types'

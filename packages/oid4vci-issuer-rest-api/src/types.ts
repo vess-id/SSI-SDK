@@ -1,6 +1,6 @@
 import { IIdentifierResolution } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IOID4VCIIssuer } from '@vess-id/ssi-sdk.oid4vci-issuer'
-import { IOID4VCIStore } from '@vess-id/ssi-sdk.oid4vci-issuer-store'
+import { IOID4VCIStore } from '@sphereon/ssi-sdk.oid4vci-issuer-store'
 import { IAgentContext, ICredentialIssuer, ICredentialVerifier, IDIDManager, IKeyManager, IResolver } from '@veramo/core'
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { IVcdmCredentialPlugin } from '@sphereon/ssi-sdk.credential-vcdm'

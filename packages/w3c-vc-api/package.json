@@ -23,7 +23,7 @@
     "start:dev": "ts-node __tests__/agent.ts"
   },
   "dependencies": {
-    "@vess-id/did-auth-siop": "workspace:*",
+    "@vess-id/did-auth-siop": "0.20.0",
     "@sphereon/ssi-express-support": "workspace:*",
     "@sphereon/ssi-sdk-ext.identifier-resolution": "workspace:*",
     "@sphereon/ssi-sdk-ext.jwt-service": "workspace:*",

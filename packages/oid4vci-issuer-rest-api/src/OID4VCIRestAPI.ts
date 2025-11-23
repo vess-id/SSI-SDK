@@ -1,4 +1,4 @@
-import { CredentialDataSupplier, VcIssuer } from '@sphereon/oid4vci-issuer'
+import { CredentialDataSupplier, VcIssuer } from '@vess-id/oid4vci-issuer'
 import { getBasePath, OID4VCIServer } from '@sphereon/oid4vci-issuer-server'
 import { IOID4VCIServerOpts } from '@sphereon/oid4vci-issuer-server'
 import { ExpressSupport } from '@sphereon/ssi-express-support'

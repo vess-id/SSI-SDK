@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@vess-id/did-auth-siop": "workspace:*",
+    "@vess-id/did-auth-siop": "0.20.0",
     "@sphereon/ssi-sdk.core": "workspace:*",
     "@sphereon/ssi-types": "workspace:*",
     "uint8arrays": "^3.1.1"

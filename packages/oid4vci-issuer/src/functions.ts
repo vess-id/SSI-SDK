@@ -10,7 +10,7 @@ import {
   type OID4VCICredentialFormat,
   StatusListOpts,
 } from '@sphereon/oid4vci-common'
-import { CredentialDataSupplier, CredentialIssuanceInput, CredentialSignerCallback, VcIssuer, VcIssuerBuilder } from '@sphereon/oid4vci-issuer'
+import { CredentialDataSupplier, CredentialIssuanceInput, CredentialSignerCallback, VcIssuer, VcIssuerBuilder } from '@vess-id/oid4vci-issuer'
 import { getAgentResolver, IDIDOptions } from '@sphereon/ssi-sdk-ext.did-utils'
 import { legacyKeyRefsToIdentifierOpts, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { contextHasPlugin } from '@sphereon/ssi-sdk.agent-config'

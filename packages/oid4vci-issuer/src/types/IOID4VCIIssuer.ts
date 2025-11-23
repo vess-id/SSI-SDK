@@ -14,10 +14,10 @@ import {
   QRCodeOpts,
   StatusListOpts,
 } from '@sphereon/oid4vci-common'
-import { CredentialDataSupplier, IssuerCorrelation } from '@sphereon/oid4vci-issuer'
+import { CredentialDataSupplier, IssuerCorrelation } from '@vess-id/oid4vci-issuer'
 import { IDIDOptions, ResolveOpts } from '@sphereon/ssi-sdk-ext.did-utils'
 import { IIdentifierResolution, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
-import { IOID4VCIStore } from '@vess-id/ssi-sdk.oid4vci-issuer-store'
+import { IOID4VCIStore } from '@sphereon/ssi-sdk.oid4vci-issuer-store'
 import { ICredential } from '@sphereon/ssi-types'
 import { IAgentContext, ICredentialIssuer, IDIDManager, IKeyManager, IPluginMethodMap, IResolver } from '@veramo/core'
 import { IssuerInstance } from '../IssuerInstance'
