@@ -5,8 +5,8 @@ import { JwkDIDProvider } from '@sphereon/ssi-sdk-ext.did-provider-jwk'
 import { SphereonKeyManager } from '@sphereon/ssi-sdk-ext.key-manager'
 import { toJwk } from '@sphereon/ssi-sdk-ext.key-utils'
 import { SphereonKeyManagementSystem } from '@sphereon/ssi-sdk-ext.kms-local'
-import { OID4VCIIssuer } from '@sphereon/ssi-sdk.oid4vci-issuer'
-import { IMetadataImportArgs, OID4VCIStore } from '@sphereon/ssi-sdk.oid4vci-issuer-store'
+import { OID4VCIIssuer } from '@vess-id/ssi-sdk.oid4vci-issuer'
+import { IMetadataImportArgs, OID4VCIStore } from '@vess-id/ssi-sdk.oid4vci-issuer-store'
 import {
   CredentialProviderJsonld,
   LdDefaultContexts,

@@ -1,4 +1,4 @@
-import { AuthorizationResponseStateStatus } from '@sphereon/did-auth-siop'
+import { AuthorizationResponseStateStatus } from '@vess-id/did-auth-siop'
 import {
   AuthorizationServerMetadata,
   CredentialRequestV1_0_15,

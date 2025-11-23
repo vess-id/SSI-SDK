@@ -8,7 +8,7 @@ import {
   IIssuerInstanceArgs,
   IssuerInstance,
   createVerifyAuthResponseCallback,
-} from '@sphereon/ssi-sdk.oid4vci-issuer'
+} from '@vess-id/ssi-sdk.oid4vci-issuer'
 import express, { Express, Request, Response, Router } from 'express'
 import { IRequiredContext } from './types'
 import swaggerUi from 'swagger-ui-express'

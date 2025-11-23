@@ -1,4 +1,4 @@
-import { VerifiedAuthorizationRequest } from '@sphereon/did-auth-siop'
+import { VerifiedAuthorizationRequest } from '@vess-id/did-auth-siop'
 import { DidAuthConfig, Identity, Party } from '@sphereon/ssi-sdk.data-store-types'
 import { assign, createMachine, DoneInvokeEvent, interpret } from 'xstate'
 import { translate } from '../localization/Localization'

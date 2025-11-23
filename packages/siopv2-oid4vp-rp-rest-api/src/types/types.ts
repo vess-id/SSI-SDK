@@ -1,4 +1,4 @@
-import { CreateAuthorizationRequestPayload, CreateAuthorizationResponsePayload } from '@sphereon/did-auth-siop'
+import { CreateAuthorizationRequestPayload, CreateAuthorizationResponsePayload } from '@vess-id/did-auth-siop'
 import { GenericAuthArgs, ISingleEndpointOpts } from '@sphereon/ssi-express-support'
 import { IPDManager } from '@sphereon/ssi-sdk.pd-manager'
 import { AuthorizationRequestStateStatus, AuthorizationResponseStateStatus } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
@@ -6,7 +6,7 @@ import { ISIOPv2RP } from '@sphereon/ssi-sdk.siopv2-oid4vp-rp-auth'
 import { IAgentContext, ICredentialVerifier } from '@veramo/core'
 import { Request, Response } from 'express'
 import { QRCodeOpts } from './QRCode.types'
-import { VerifiedData } from '@sphereon/did-auth-siop'
+import { VerifiedData } from '@vess-id/did-auth-siop'
 
 export type SiopFeatures = 'rp-status' | 'siop'
 

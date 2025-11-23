@@ -1,4 +1,4 @@
-import { AuthorizationResponsePayload, PresentationSubmission } from '@sphereon/did-auth-siop'
+import { AuthorizationResponsePayload, PresentationSubmission } from '@vess-id/did-auth-siop'
 import { checkAuth, ISingleEndpointOpts, sendErrorResponse } from '@sphereon/ssi-express-support'
 import { AuthorizationChallengeValidationResponse } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
 import { CredentialMapper } from '@sphereon/ssi-types'

@@ -1,4 +1,4 @@
-import { DiscoveryMetadataPayload, JWK } from '@sphereon/did-auth-siop'
+import { DiscoveryMetadataPayload, JWK } from '@vess-id/did-auth-siop'
 import { OID4VCICredentialFormat, RequestObjectOpts } from '@sphereon/oid4vci-common'
 import { Format, PresentationDefinitionV2 } from '@sphereon/pex-models'
 import { IIdentifierResolution, ManagedIdentifierDidOpts, ManagedIdentifierDidResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'

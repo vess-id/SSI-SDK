@@ -16,7 +16,7 @@ import {
   SubjectType,
   SupportedVersion,
   VerifyJwtCallback,
-} from '@sphereon/did-auth-siop'
+} from '@vess-id/did-auth-siop'
 import { CreateJwtCallback, JwtHeader, JwtIssuer, JwtPayload, SigningAlgo } from '@sphereon/oid4vc-common'
 import { IPresentationDefinition } from '@sphereon/pex'
 import { getAgentDIDMethods, getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'

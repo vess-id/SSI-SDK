@@ -9,7 +9,7 @@ import {
 import { assertValidAccessTokenRequest, createAccessTokenResponse, VcIssuer } from '@sphereon/oid4vci-issuer'
 import { retrieveWellknown } from '@sphereon/oid4vci-client'
 import { getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'
-import { IMetadataOptions } from '@sphereon/ssi-sdk.oid4vci-issuer-store'
+import { IMetadataOptions } from '@vess-id/ssi-sdk.oid4vci-issuer-store'
 import { IAgentPlugin } from '@veramo/core'
 import { getAccessTokenSignerCallback } from '../functions'
 import {

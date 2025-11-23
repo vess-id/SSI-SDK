@@ -1,4 +1,4 @@
-import { AuthorizationRequest } from '@sphereon/did-auth-siop'
+import { AuthorizationRequest } from '@vess-id/did-auth-siop'
 import { getOrCreatePrimaryIdentifier, SupportedDidMethodEnum } from '@sphereon/ssi-sdk-ext.did-utils'
 import { isOID4VCIssuerIdentifier, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { encodeJoseBlob } from '@sphereon/ssi-sdk.core'

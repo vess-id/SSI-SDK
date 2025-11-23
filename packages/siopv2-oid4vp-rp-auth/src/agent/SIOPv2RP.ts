@@ -7,7 +7,7 @@ import {
   decodeUriAsJson,
   EncodedDcqlPresentationVpToken,
   VerifiedAuthorizationResponse,
-} from '@sphereon/did-auth-siop'
+} from '@vess-id/did-auth-siop'
 import { getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'
 import { shaHasher as defaultHasher } from '@sphereon/ssi-sdk.core'
 import { validate as isValidUUID } from 'uuid'

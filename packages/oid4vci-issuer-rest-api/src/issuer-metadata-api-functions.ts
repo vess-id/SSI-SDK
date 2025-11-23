@@ -5,7 +5,7 @@ import { determinePath } from '@sphereon/oid4vci-issuer-server'
 import { IGetIssueStatusEndpointOpts } from '@sphereon/oid4vci-issuer-server'
 import { IRequiredContext } from './types'
 import { CredentialConfigurationSupportedV1_0_15 } from '@sphereon/oid4vci-common'
-import { IssuerInstance } from '@sphereon/ssi-sdk.oid4vci-issuer'
+import { IssuerInstance } from '@vess-id/ssi-sdk.oid4vci-issuer'
 import { IssuerMetadataV1_0_15 } from '@sphereon/oid4vci-common'
 
 export function getCredentialConfigurationsEndpoint(

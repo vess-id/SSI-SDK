@@ -1,4 +1,4 @@
-import { VerifiedAuthorizationRequest } from '@sphereon/did-auth-siop'
+import { VerifiedAuthorizationRequest } from '@vess-id/did-auth-siop'
 import { ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { DidAuthConfig, Party } from '@sphereon/ssi-sdk.data-store-types'
 import { BaseActionObject, Interpreter, ResolveTypegenMeta, ServiceMap, State, StateMachine, TypegenDisabled } from 'xstate'

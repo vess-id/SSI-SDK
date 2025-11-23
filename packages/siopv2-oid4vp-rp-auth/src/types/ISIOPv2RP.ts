@@ -14,8 +14,8 @@ import {
   SupportedVersion,
   VerifiedAuthorizationResponse,
   VerifyJwtCallback,
-} from '@sphereon/did-auth-siop'
-import { CheckLinkedDomain } from '@sphereon/did-auth-siop-adapter'
+} from '@vess-id/did-auth-siop'
+import { CheckLinkedDomain } from '@vess-id/did-auth-siop-adapter'
 import { DIDDocument } from '@sphereon/did-uni-client'
 import { JwtIssuer } from '@sphereon/oid4vc-common'
 import { IPresentationDefinition } from '@sphereon/pex'

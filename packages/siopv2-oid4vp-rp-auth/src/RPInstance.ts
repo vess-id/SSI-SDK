@@ -1,4 +1,4 @@
-import { AuthorizationRequest, RP, URI } from '@sphereon/did-auth-siop'
+import { AuthorizationRequest, RP, URI } from '@vess-id/did-auth-siop'
 import { ICreateAuthRequestArgs, IPresentationOptions, IRequiredContext, IRPOptions } from './types/ISIOPv2RP'
 import { createRPBuilder, getRequestVersion, getSigningAlgo } from './functions'
 import { v4 as uuidv4 } from 'uuid'
