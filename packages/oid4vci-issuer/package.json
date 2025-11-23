@@ -1,5 +1,5 @@
 {
-  "name": "@sphereon/ssi-sdk.oid4vci-issuer",
+  "name":"@vess-id/ssi-sdk.oid4vci-issuer",
   "version": "0.36.0",
   "source": "./src/index.ts",
   "type": "module",
@@ -28,7 +28,7 @@
   "dependencies": {
     "@sphereon/oid4vci-client": "0.20.0",
     "@sphereon/oid4vci-common": "0.20.0",
-    "@sphereon/oid4vci-issuer": "0.20.0",
+    "@vess-id/oid4vci-issuer": "0.20.0",
     "@sphereon/ssi-sdk-ext.did-utils": "workspace:*",
     "@sphereon/ssi-sdk-ext.identifier-resolution": "workspace:*",
     "@sphereon/ssi-sdk-ext.jwt-service": "workspace:*",
