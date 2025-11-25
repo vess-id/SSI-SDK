@@ -13,14 +13,14 @@ import {
   JsonLdIssuerCredentialDefinition,
   QRCodeOpts,
   StatusListOpts,
-} from '@sphereon/oid4vci-common'
+} from '@vess-id/oid4vci-common'
 import { CredentialDataSupplier, IssuerCorrelation } from '@vess-id/oid4vci-issuer'
 import { IDIDOptions, ResolveOpts } from '@sphereon/ssi-sdk-ext.did-utils'
 import { IIdentifierResolution, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IOID4VCIStore } from '@sphereon/ssi-sdk.oid4vci-issuer-store'
 import { ICredential } from '@sphereon/ssi-types'
 import { IAgentContext, ICredentialIssuer, IDIDManager, IKeyManager, IPluginMethodMap, IResolver } from '@veramo/core'
-import { IssuerInstance } from '../IssuerInstance'
+import { IssuerInstance, IStateManagerOptions } from '../IssuerInstance'
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 
 export type IssuerCredentialDefinition = JsonLdIssuerCredentialDefinition
@@ -32,11 +32,20 @@ export interface IOID4VCIIssuer extends IPluginMethodMap {
   oid4vciGetInstance(args: IIssuerInstanceArgs, context: IRequiredContext): Promise<IssuerInstance>
 }
 
+/**
+ * OID4VCI Issuer plugin options
+ * Supports external state managers (e.g., Redis) for distributed session management
+ */
 export interface IOID4VCIIssuerOpts {
   defaultStoreId?: string
   defaultNamespace?: string
   resolveOpts?: ResolveOpts
   returnSessions?: boolean
+  /**
+   * External state managers for distributed session management
+   * If provided, these will be used instead of in-memory state managers
+   */
+  stateManagerOptions?: IStateManagerOptions
 }
 
 export interface ICreateOfferArgs extends IIssuerInstanceArgs {

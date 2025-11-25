@@ -4,9 +4,8 @@ import { LOG, VcIssuer } from '@vess-id/oid4vci-issuer'
 import { determinePath } from '@sphereon/oid4vci-issuer-server'
 import { IGetIssueStatusEndpointOpts } from '@sphereon/oid4vci-issuer-server'
 import { IRequiredContext } from './types'
-import { CredentialConfigurationSupportedV1_0_15 } from '@sphereon/oid4vci-common'
+import { CredentialConfigurationSupportedV1_0_15, IssuerMetadataV1_0_15 } from '@vess-id/oid4vci-common'
 import { IssuerInstance } from '@vess-id/ssi-sdk.oid4vci-issuer'
-import { IssuerMetadataV1_0_15 } from '@sphereon/oid4vci-common'
 
 export function getCredentialConfigurationsEndpoint(
   router: Router,

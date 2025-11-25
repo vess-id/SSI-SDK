@@ -5,7 +5,7 @@ import {
   IssuerMetadata,
   OpenIDResponse,
   WellKnownEndpoints,
-} from '@sphereon/oid4vci-common'
+} from '@vess-id/oid4vci-common'
 import { assertValidAccessTokenRequest, createAccessTokenResponse, VcIssuer } from '@vess-id/oid4vci-issuer'
 import { retrieveWellknown } from '@sphereon/oid4vci-client'
 import { getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'
@@ -64,6 +64,11 @@ export class OID4VCIIssuer implements IAgentPlugin {
       .then((issuer: VcIssuer) => issuer.issueCredential(issueArgs))
   }
 
+  /**
+   * Create Access Token Response
+   * OID4VCI 1.0: Token Response does NOT include c_nonce.
+   * Wallets must use the Nonce Endpoint (Section 7) to obtain c_nonce values.
+   */
   private async oid4vciCreateAccessTokenResponse(
     accessTokenArgs: IAssertValidAccessTokenArgs,
     context: IRequiredContext,
@@ -79,11 +84,10 @@ export class OID4VCIIssuer implements IAgentPlugin {
       if (!accessTokenIssuer) {
         return Promise.reject(Error(`Could not determine access token issuer`))
       }
+      // OID4VCI 1.0: Token Response does NOT include c_nonce
       return createAccessTokenResponse(accessTokenArgs.request, {
         accessTokenIssuer,
         tokenExpiresIn: accessTokenArgs.expirationDuration,
-        cNonceExpiresIn: accessTokenArgs.expirationDuration,
-        cNonces: issuer.cNonces,
         credentialOfferSessions: issuer.credentialOfferSessions,
         accessTokenSignerCallback: await getAccessTokenSignerCallback(instance.issuerOptions, context),
       })
@@ -139,6 +143,8 @@ export class OID4VCIIssuer implements IAgentPlugin {
         metadataOpts,
         issuerMetadata,
         authorizationServerMetadata,
+        // Pass external state managers if configured in plugin options
+        stateManagerOptions: this._opts.stateManagerOptions,
       }),
     )
     return this.oid4vciGetInstance(args, context)

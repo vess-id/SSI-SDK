@@ -1,4 +1,4 @@
-import { CredentialsSupportedDisplay, NameAndLocale } from '@sphereon/oid4vci-common'
+import { CredentialsSupportedDisplay, NameAndLocale } from '@vess-id/oid4vci-common'
 import { IBasicCredentialClaim, IBasicCredentialLocaleBranding, IBasicIssuerLocaleBranding } from '@sphereon/ssi-sdk.data-store-types'
 import { SdJwtClaimDisplayMetadata, SdJwtClaimMetadata, SdJwtClaimPath, SdJwtTypeDisplayMetadata } from '@sphereon/ssi-types'
 import {

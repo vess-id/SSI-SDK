@@ -2,7 +2,7 @@ import { AuthorizationRequest, RP, URI } from '@vess-id/did-auth-siop'
 import { ICreateAuthRequestArgs, IPresentationOptions, IRequiredContext, IRPOptions } from './types/ISIOPv2RP'
 import { createRPBuilder, getRequestVersion, getSigningAlgo } from './functions'
 import { v4 as uuidv4 } from 'uuid'
-import { JwtIssuer } from '@sphereon/oid4vc-common'
+import { JwtIssuer } from '@vess-id/oid4vc-common'
 import {
   ensureManagedIdentifierResult,
   isManagedIdentifierDidResult,
