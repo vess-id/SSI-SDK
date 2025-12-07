@@ -1,6 +1,6 @@
 {
-  "name": "@sphereon/ssi-sdk.pd-manager",
-  "version": "0.36.0",
+  "name": "@vess-id/ssi-sdk.pd-manager",
+  "version": "1.0.1",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -29,9 +29,9 @@
   "dependencies": {
     "@sphereon/pex": "5.0.0-unstable.28",
     "@sphereon/pex-models": "^2.3.2",
-    "@sphereon/ssi-sdk.data-store": "workspace:*",
-    "@sphereon/ssi-sdk.data-store-types": "workspace:*",
-    "@sphereon/ssi-types": "workspace:*",
+    "@sphereon/ssi-sdk.data-store": "^0.36.0",
+    "@sphereon/ssi-sdk.data-store-types": "^0.36.0",
+    "@sphereon/ssi-types": "^0.34.0",
     "cross-fetch": "^4.1.0",
     "dcql": "1.0.1",
     "debug": "^4.3.5",
@@ -39,7 +39,7 @@
     "typeorm": "0.3.20"
   },
   "devDependencies": {
-    "@sphereon/ssi-sdk.agent-config": "workspace:*",
+    "@sphereon/ssi-sdk.agent-config": "^0.34.0",
     "@types/semver": "^7.5.8",
     "@veramo/remote-client": "4.2.0",
     "@veramo/remote-server": "4.2.0"
@@ -55,14 +55,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "git@github.com:Sphereon-Opensource/SSI-SDK.git",
-  "author": "Sphereon <dev@sphereon.com>",
+  "repository": "git@github.com:cvoxelprotocol/SSI-SDK.git",
+  "author": "VESS (forked from Sphereon)",
   "license": "Apache-2.0",
   "keywords": [
-    "Sphereon",
+    "VESS",
     "SSI",
     "Veramo",
-    "Presentation Defintion Manager",
-    "PD Manager"
+    "Presentation Definition Manager",
+    "PD Manager",
+    "DCQL",
+    "OID4VP"
   ]
 }

@@ -143,7 +143,9 @@ export class SIOPv2RP implements IAgentPlugin {
       }
 
       // FIXME SSISDK-64 currently assuming that all vp tokens are or type EncodedDcqlPresentationVpToken as we only work with DCQL now. But the types still indicate it can be another type of vp token
-      const vpToken = responseState.response.payload.vp_token && JSON.parse(responseState.response.payload.vp_token as EncodedDcqlPresentationVpToken)
+      // OID4VP 1.0: Handle vp_token that might already be parsed as object or stringified
+      const rawVpToken = responseState.response.payload.vp_token
+      const vpToken = rawVpToken && (typeof rawVpToken === 'string' ? JSON.parse(rawVpToken as EncodedDcqlPresentationVpToken) : rawVpToken)
       const claims = []
       for (const [credentialQueryId, presentationValue] of Object.entries(vpToken)) {
         let singleVP: OriginalVerifiablePresentation
@@ -239,13 +241,15 @@ export class SIOPv2RP implements IAgentPlugin {
   }
 
   private async siopUpdateRequestState(args: IUpdateRequestStateArgs, context: IRequiredContext): Promise<AuthorizationRequestState> {
-    if (args.state !== 'authorization_request_created') {
-      throw Error(`Only 'authorization_request_created' status is supported for this method at this point`)
+    // OID4VP 1.0: Support both 'authorization_request_created' and 'authorization_request_retrieved' states
+    if (args.state !== 'authorization_request_created' && args.state !== 'authorization_request_retrieved') {
+      throw Error(`Only 'authorization_request_created' and 'authorization_request_retrieved' status values are supported for this method`)
     }
     return await this.getRPInstance({ createWhenNotPresent: false, queryId: args.queryId }, context)
       // todo: In the SIOP library we need to update the signal method to be more like this method
       .then((rp) =>
         rp.get(context).then(async (rp) => {
+          // Signal that the auth request has been retrieved (transitions state from created to retrieved)
           await rp.signalAuthRequestRetrieved({
             correlationId: args.correlationId,
             error: args.error ? new Error(args.error) : undefined,
