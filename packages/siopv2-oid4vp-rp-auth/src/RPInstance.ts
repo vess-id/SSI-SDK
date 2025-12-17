@@ -40,6 +40,7 @@ export class RPInstance {
 
   public async createAuthorizationRequestURI(createArgs: ICreateAuthRequestArgs, context: IRequiredContext): Promise<URI> {
     const { correlationId, queryId, claims, requestByReferenceURI, responseURI, responseURIType, callback, responseRedirectURI } = createArgs
+    console.log(`[RPInstance.createAuthorizationRequestURI] Received requestByReferenceURI:`, requestByReferenceURI)
     const nonce = createArgs.nonce ?? uuidv4()
     const state = createArgs.state ?? correlationId
     let jwtIssuer: JwtIssuer
@@ -61,8 +62,8 @@ export class RPInstance {
       return Promise.reject(Error(`JWT issuer method ${resolution.method} not yet supported`))
     }
 
-    return await this.get(context).then((rp) =>
-      rp.createAuthorizationRequestURI({
+    return await this.get(context).then((rp) => {
+      const rpCallArgs = {
         version: getRequestVersion(this.rpOptions),
         correlationId,
         queryId,
@@ -75,8 +76,10 @@ export class RPInstance {
         jwtIssuer,
         callback,
         responseRedirectURI,
-      }),
-    )
+      }
+      console.log(`[RPInstance.createAuthorizationRequestURI] Calling RP.createAuthorizationRequestURI with:`, JSON.stringify(rpCallArgs, null, 2))
+      return rp.createAuthorizationRequestURI(rpCallArgs)
+    })
   }
 
   public async createAuthorizationRequest(

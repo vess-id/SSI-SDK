@@ -5,6 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  '@sphereon/ssi-sdk.data-store': npm:@vess-id/ssi-sdk.data-store@^1.0.0
+  '@sphereon/ssi-sdk.pd-manager': npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
   '@veramo/cli': 4.2.0
   '@veramo/core': 4.2.0
   '@veramo/credential-w3c': 4.2.0
@@ -311,8 +313,8 @@ importers:
   packages/contact-manager:
     dependencies:
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -357,8 +359,8 @@ importers:
         specifier: workspace:*
         version: link:../ssi-sdk-core
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -493,8 +495,8 @@ importers:
         specifier: workspace:*
         version: link:../ssi-sdk-core
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -538,9 +540,6 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.mdl-mdoc':
-        specifier: workspace:*
-        version: link:../mdl-mdoc
       '@sphereon/ssi-sdk.sd-jwt':
         specifier: workspace:*
         version: link:../sd-jwt
@@ -556,6 +555,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.mdl-mdoc':
+        specifier: workspace:*
+        version: link:../mdl-mdoc
       ajv:
         specifier: ^8.17.1
         version: 8.17.1
@@ -733,8 +735,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -1720,8 +1722,8 @@ importers:
         specifier: workspace:*
         version: link:../agent-config
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -1777,8 +1779,8 @@ importers:
   packages/event-logger:
     dependencies:
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -1921,8 +1923,8 @@ importers:
         specifier: workspace:*
         version: link:../ssi-sdk-core
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -2426,6 +2428,15 @@ importers:
       '@vess-id/did-auth-siop-adapter':
         specifier: 0.20.0
         version: 0.20.0(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/mdl':
+        specifier: 0.0.11
+        version: 0.0.11
+      '@vess-id/ssi-sdk.mdl-mdoc':
+        specifier: 1.2.0
+        version: 1.2.0(encoding@0.1.13)(typescript@5.8.3)
+      cbor-x:
+        specifier: ^1.6.0
+        version: 1.6.0
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -2455,8 +2466,8 @@ importers:
         specifier: 0.20.0
         version: 0.20.0(encoding@0.1.13)
       '@sphereon/ssi-express-support':
-        specifier: workspace:*
-        version: link:../ssi-express-support
+        specifier: ^0.36.0
+        version: 0.36.0(@noble/hashes@1.6.1)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
       '@sphereon/ssi-sdk-ext.key-manager':
         specifier: workspace:*
         version: link:../key-manager
@@ -2464,11 +2475,11 @@ importers:
         specifier: workspace:*
         version: link:../kms-local
       '@sphereon/ssi-sdk.agent-config':
-        specifier: workspace:*
-        version: link:../agent-config
+        specifier: ^0.36.0
+        version: 0.36.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
       '@sphereon/ssi-sdk.public-key-hosting':
-        specifier: workspace:*
-        version: link:../public-key-hosting
+        specifier: ^0.36.0
+        version: 0.36.0(@noble/hashes@1.6.1)(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
       '@transmute/json-web-signature':
         specifier: 0.7.0-unstable.81
         version: 0.7.0-unstable.81
@@ -2697,9 +2708,6 @@ importers:
       '@sphereon/ssi-sdk.issuance-branding':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.mdl-mdoc':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(typescript@5.8.3)
       '@sphereon/ssi-sdk.oidf-client':
         specifier: workspace:*
         version: link:../oidf-client
@@ -2730,6 +2738,9 @@ importers:
       '@vess-id/oid4vci-common':
         specifier: 1.0.3
         version: 1.0.3(encoding@0.1.13)
+      '@vess-id/ssi-sdk.mdl-mdoc':
+        specifier: workspace:*
+        version: link:../mdl-mdoc
       '@vess-id/ssi-sdk.siopv2-oid4vp-common':
         specifier: workspace:*
         version: link:../siopv2-oid4vp-common
@@ -2810,17 +2821,14 @@ importers:
         specifier: workspace:*
         version: link:../ssi-sdk-core
       '@sphereon/ssi-sdk.data-store':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: ^0.36.0
         version: 0.36.0(typescript@5.8.3)
       '@sphereon/ssi-sdk.kv-store-temp':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.mdl-mdoc':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(typescript@5.8.3)
       '@sphereon/ssi-sdk.oid4vci-issuer-store':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
@@ -2855,8 +2863,11 @@ importers:
         specifier: 1.0.4
         version: 1.0.4(encoding@0.1.13)
       '@vess-id/oid4vci-issuer':
-        specifier: 1.0.4
-        version: 1.0.4(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
+        specifier: 1.0.7
+        version: 1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
+      '@vess-id/ssi-sdk.mdl-mdoc':
+        specifier: workspace:*
+        version: link:../mdl-mdoc
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -2986,8 +2997,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -3289,15 +3300,15 @@ importers:
       '@sphereon/pex-models':
         specifier: ^2.3.2
         version: 2.3.2
-      '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
       '@sphereon/ssi-sdk.data-store-types':
-        specifier: workspace:*
-        version: link:../data-store-types
+        specifier: ^0.36.0
+        version: 0.36.0(typescript@5.8.3)
       '@sphereon/ssi-types':
         specifier: workspace:*
         version: link:../ssi-types
+      '@vess-id/ssi-sdk.data-store':
+        specifier: ^1.0.0
+        version: 1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -3315,8 +3326,8 @@ importers:
         version: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
     devDependencies:
       '@sphereon/ssi-sdk.agent-config':
-        specifier: workspace:*
-        version: link:../agent-config
+        specifier: ^0.34.0
+        version: 0.34.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
       '@types/semver':
         specifier: ^7.5.8
         version: 7.7.1
@@ -3336,14 +3347,14 @@ importers:
         specifier: workspace:*
         version: link:../ssi-sdk-core
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
       '@sphereon/ssi-sdk.pd-manager':
-        specifier: workspace:*
-        version: link:../pd-manager
+        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
+        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-types':
         specifier: workspace:*
         version: link:../ssi-types
@@ -3478,8 +3489,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-store
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -3806,12 +3817,12 @@ importers:
       '@sphereon/ssi-sdk.agent-config':
         specifier: workspace:*
         version: link:../agent-config
-      '@sphereon/ssi-sdk.mdl-mdoc':
-        specifier: workspace:*
-        version: link:../mdl-mdoc
       '@sphereon/ssi-types':
         specifier: workspace:*
         version: link:../ssi-types
+      '@vess-id/ssi-sdk.mdl-mdoc':
+        specifier: workspace:*
+        version: link:../mdl-mdoc
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -3923,8 +3934,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
       '@sphereon/ssi-sdk.pd-manager':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
+        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.presentation-exchange':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
@@ -4052,12 +4063,9 @@ importers:
       '@sphereon/ssi-sdk.kv-store-temp':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.mdl-mdoc':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(typescript@5.8.3)
       '@sphereon/ssi-sdk.pd-manager':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
+        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.presentation-exchange':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
@@ -4077,17 +4085,23 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(patch_hash=abcc7e761d8ed40afd17fe27e40a5b8c3c8e00b1d25ebf8c8bf9a3500179f336)(encoding@0.1.13)
       '@vess-id/did-auth-siop':
-        specifier: 1.0.1
-        version: 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+        specifier: 1.0.7
+        version: 1.0.7(encoding@0.1.13)(typescript@5.8.3)
       '@vess-id/did-auth-siop-adapter':
         specifier: 1.0.1
         version: 1.0.1(encoding@0.1.13)(typescript@5.8.3)
       '@vess-id/oid4vc-common':
         specifier: 1.0.0
         version: 1.0.0
+      '@vess-id/ssi-sdk.mdl-mdoc':
+        specifier: ^1.0.0
+        version: 1.0.0(encoding@0.1.13)(typescript@5.8.3)
       '@vess-id/ssi-sdk.siopv2-oid4vp-common':
-        specifier: workspace:*
-        version: link:../siopv2-oid4vp-common
+        specifier: 1.1.0
+        version: 1.1.0(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth':
+        specifier: 1.3.3
+        version: 1.3.3(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -4135,8 +4149,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
       '@sphereon/ssi-sdk.pd-manager':
-        specifier: ^0.36.0
-        version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
+        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.presentation-exchange':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
@@ -4223,8 +4237,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4597,8 +4611,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4726,8 +4740,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4866,8 +4880,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4962,8 +4976,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-vcdm
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5017,8 +5031,8 @@ importers:
         specifier: workspace:*
         version: link:../ssi-sdk-core
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5308,8 +5322,8 @@ importers:
         specifier: workspace:*
         version: link:../kms-local
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5603,8 +5617,8 @@ importers:
         specifier: workspace:*
         version: link:../credential-store
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5741,8 +5755,8 @@ importers:
   packages/xstate-persistence:
     dependencies:
       '@sphereon/ssi-sdk.data-store':
-        specifier: workspace:*
-        version: link:../data-store
+        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
+        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -6645,6 +6659,36 @@ packages:
 
   '@casbin/expression-eval@5.3.0':
     resolution: {integrity: sha512-mMTHMYXcnBBv/zMvxMpcdVyt2bfw8Y0GnmRLbkFQ1CVJZb4XZp7xWjRh7ymOLuJdsu58rci9gmOOv/99DtJvPA==}
+
+  '@cbor-extract/cbor-extract-darwin-arm64@2.2.0':
+    resolution: {integrity: sha512-P7swiOAdF7aSi0H+tHtHtr6zrpF3aAq/W9FXx5HektRvLTM2O89xCyXF3pk7pLc7QpaY7AoaE8UowVf9QBdh3w==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@cbor-extract/cbor-extract-darwin-x64@2.2.0':
+    resolution: {integrity: sha512-1liF6fgowph0JxBbYnAS7ZlqNYLf000Qnj4KjqPNW4GViKrEql2MgZnAsExhY9LSy8dnvA4C0qHEBgPrll0z0w==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@cbor-extract/cbor-extract-linux-arm64@2.2.0':
+    resolution: {integrity: sha512-rQvhNmDuhjTVXSPFLolmQ47/ydGOFXtbR7+wgkSY0bdOxCFept1hvg59uiLPT2fVDuJFuEy16EImo5tE2x3RsQ==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@cbor-extract/cbor-extract-linux-arm@2.2.0':
+    resolution: {integrity: sha512-QeBcBXk964zOytiedMPQNZr7sg0TNavZeuUCD6ON4vEOU/25+pLhNN6EDIKJ9VLTKaZ7K7EaAriyYQ1NQ05s/Q==}
+    cpu: [arm]
+    os: [linux]
+
+  '@cbor-extract/cbor-extract-linux-x64@2.2.0':
+    resolution: {integrity: sha512-cWLAWtT3kNLHSvP4RKDzSTX9o0wvQEEAj4SKvhWuOVZxiDAeQazr9A+PSiRILK1VYMLeDml89ohxCnUNQNQNCw==}
+    cpu: [x64]
+    os: [linux]
+
+  '@cbor-extract/cbor-extract-win32-x64@2.2.0':
+    resolution: {integrity: sha512-l2M+Z8DO2vbvADOBNLbbh9y5ST1RY5sqkWOg/58GkUPBYou/cuNZ68SGQ644f1CvZ8kcOxyZtw06+dxWHIoN/w==}
+    cpu: [x64]
+    os: [win32]
 
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -7917,6 +7961,9 @@ packages:
     resolution: {integrity: sha512-iWAH7PeeI9YNZ9qQ5q9Nhz9ej4iJwZieEZbfVmPagWOuxRnpcu5umI5GYcGOB9oC+04SX1FMzwrC0U1mXKLngA==}
     hasBin: true
 
+  '@panva/hkdf@1.2.1':
+    resolution: {integrity: sha512-6oclG6Y3PiDFcoyk8srjLfVKyMfVCKJ27JwNPViuXziFpmdz+MZnZN/aKY0JGXgYuO/VghU0jcOAZgWXZ1Dmrw==}
+
   '@peculiar/asn1-cms@2.6.0':
     resolution: {integrity: sha512-2uZqP+ggSncESeUF/9Su8rWqGclEfEiz1SyU02WX5fUONFfkjzS2Z/F1Li0ofSmf4JqYXIOdCAZqIXAIBAT1OA==}
 
@@ -8463,11 +8510,9 @@ packages:
 
   '@sphereon/kmp-crypto-kms-azure@0.2.0-SNAPSHOT.12':
     resolution: {integrity: sha512-XDsLNHmFkHcPkwqmYLhxn1vVs2H6rAglrfjtpulOCmvPaqwROMnjS89lMD7F3fUpF5e5sYpk8IL6WlPZGvAP/A==}
-    bundledDependencies: []
 
   '@sphereon/kmp-mdoc-core@0.2.0-SNAPSHOT.26':
     resolution: {integrity: sha512-QXJ6R8ENiZV2rPMbn06cw5JKwqUYN1kzVRbYfONqE1PEXx1noQ4md7uxr2zSczi0ubKkNcbyYDNtIMTZIhGzmQ==}
-    bundledDependencies: []
 
   '@sphereon/lto-did-ts@0.1.8-unstable.0':
     resolution: {integrity: sha512-3jzwwuYX/VYuze+T9/yg4PcsJ5iNNwAfTp4WfS4aSfPFBErDAfKXqn6kOb0wFYGkhejr3Jz+rljPC2iKZiHiGA==}
@@ -8563,6 +8608,9 @@ packages:
   '@sphereon/ssi-sdk-ext.did-provider-lto@0.23.0':
     resolution: {integrity: sha512-PxG20HB72+VGdawqpO7Vl/uZIVLOEoNv+mngplSTMErhkF1S7V/X4TFaSfZciWg/dYoXRVkDqxZNRIj6Hq9sug==}
 
+  '@sphereon/ssi-sdk.agent-config@0.34.0':
+    resolution: {integrity: sha512-v5uJKjc5hEVQRHyaHfLJO1IMbZygfe3LQfm5Q/OLbLFaOvc6FVoKB/LlnUUT/eAg2GNLFgMVylbG4zkwnHznpQ==}
+
   '@sphereon/ssi-sdk.agent-config@0.36.0':
     resolution: {integrity: sha512-lyfsCn67Vr/bgJVJwU8yQcHfEK8uEV7pMBBZP8x8mwHcvzwf9Hp5tCrgKh3c4txBtVuo947uFHq8VchqmL3u1w==}
 
@@ -8581,9 +8629,6 @@ packages:
   '@sphereon/ssi-sdk.data-store-types@0.36.0':
     resolution: {integrity: sha512-3Ob9l5i3HEiouSkvpa+Y7aZ6zd79rtpQeGou7loLpOVCS7GQUPadRmQfXANEGiLperCFwWHKYHq45LSWBGJWRQ==}
 
-  '@sphereon/ssi-sdk.data-store@0.36.0':
-    resolution: {integrity: sha512-KU10vAjW8R5ypKwHSqPl4AvxIXvRR1F+4G+ey3hlRKtcMCwcWbPHU06/M+YXL/R1dmD9zO/kXdc7QFif80Vxvg==}
-
   '@sphereon/ssi-sdk.dev@0.33.0':
     resolution: {integrity: sha512-y+lbhkpW9nJKK4N8UuYyo0XJ5dUSFsVWOH4tW+6ryRyGjeaFlJj5xGW5gdf2VV5cmPUcCG2WUa1Gvl7Q4ZXKyQ==}
     hasBin: true
@@ -8600,11 +8645,11 @@ packages:
   '@sphereon/ssi-sdk.oid4vci-issuer-store@0.36.0':
     resolution: {integrity: sha512-30mTKkeRH6K0Lvsb3MkdSM08OHUElQmL3OS4CRiQJHCPR/H6ycaFM+iFD8c9v3eRYP73kADY25R86l2MHeYX/g==}
 
-  '@sphereon/ssi-sdk.pd-manager@0.36.0':
-    resolution: {integrity: sha512-jnwWP+b9k8gQtoIxBegdFJEYzN+DdZBlo/3C2BN7PFQOF+uUpifii3Nk3IdsczzR821aNNKDg/kixxbvi9kFpQ==}
-
   '@sphereon/ssi-sdk.presentation-exchange@0.36.0':
     resolution: {integrity: sha512-OyfXr0jUlWdD+pdqPi9hM+Ad8/yMvwIZg7a+PcKJhmmSCFcF5acgGTe9QShPf1K58iq+xMteqC/MIqirvdiTAw==}
+
+  '@sphereon/ssi-sdk.public-key-hosting@0.36.0':
+    resolution: {integrity: sha512-ldkvaVHrYLYgXsIBP+r7Ja/kIp0gRW7yxj7Y0YcjyLL03ZhI6x2ARJMzmDJ3rFIlqAzOfnwJy+2p1IOf1WD+6Q==}
 
   '@sphereon/ssi-sdk.sd-jwt@0.36.0':
     resolution: {integrity: sha512-dffxN6XCugrgfSicWp/BFjKuW9gmKM4XEq/w3L7KKdrRpXUi+bKqe9wFzXUwoIJnOQPZk024XiovkazMQHzEMw==}
@@ -9391,9 +9436,21 @@ packages:
     resolution: {integrity: sha512-3eoQznSzlFYJjhdIf4Y/Mm+wVXaPD6UZk7otyhoGmuHRg2GR1W+TTRQdFt32V7WmCAShviBrWtjcPoFOCyDvfA==}
     engines: {node: '>=20.6'}
 
+  '@vess-id/did-auth-siop@1.0.7':
+    resolution: {integrity: sha512-Fj61PqlGeLDgrCcQVxT/biRejp5FvPhc3gOf6Y69AUL9ijqLxxQu78NW7l7YCU7Oo1IN4TUOejhaOz4fvc4MbA==}
+    engines: {node: '>=20.6'}
+
   '@vess-id/jarm@1.0.1':
     resolution: {integrity: sha512-Gu+LXZKLyvcZFrwwOErJMRqJ+hScS8FnisT4l1SNZG/iGICAi4pGmeuyfgYynNA1S81MX91MaEdU/mz2hb+CNw==}
     engines: {node: '>=20'}
+
+  '@vess-id/mdl@0.0.11':
+    resolution: {integrity: sha512-en4XFQN1rlS+tHwapmrAkqih1TUu4prUJfshgR5+MVwWu2eVU/UACMBK+x/hISSrskkT8tqlvLeaT924OOxjbg==}
+    engines: {node: '>=16.0.0'}
+
+  '@vess-id/mdl@0.0.7':
+    resolution: {integrity: sha512-Qk/86X+FwAffkcUZkvg29hEqJthckXHkf/qqqyK0eIOGkh8aYHE8dHACzntPTMINNvCFrcG1eIiFFO9ZpCj/yQ==}
+    engines: {node: '>=16.0.0'}
 
   '@vess-id/oid4vc-common@1.0.0':
     resolution: {integrity: sha512-this4ogWULY0I1sft3joQ2XEHL7Xxp1t102kuerBJ0RKwinPSaqS5oL2CGkMZmoOA4AcqmW6+b0wJ1EJV4GM+g==}
@@ -9420,14 +9477,35 @@ packages:
       awesome-qr:
         optional: true
 
-  '@vess-id/oid4vci-issuer@1.0.4':
-    resolution: {integrity: sha512-cK4ksHoklKlbAKDiGKuzipB+Pff1DJd2VUD0KyOxbX2ZVADoPgSZ3dlb8LE7/34LmbqrutxpjoRB8n5EXe/YBQ==}
+  '@vess-id/oid4vci-issuer@1.0.7':
+    resolution: {integrity: sha512-cwuOq5UNSvLHelZueGh/zvEA7jKwaeXybV/z3+M+z5Fu4Ic3zEJL8xGO+o5pbgJRgzLaPpM8tHqcOQQZF+s9fQ==}
     engines: {node: '>=20'}
     peerDependencies:
       awesome-qr: ^2.1.5-rc.0
     peerDependenciesMeta:
       awesome-qr:
         optional: true
+
+  '@vess-id/ssi-sdk.data-store@1.0.0':
+    resolution: {integrity: sha512-/CVTW3HNSHji5sMVKd7ggUleZXdphHX5fCCyNZuQnF6Fv/N9tw7mcrgf+0fNk2z+F5WlXIzLpSegjCCvxcV6Ng==}
+
+  '@vess-id/ssi-sdk.mdl-mdoc@1.0.0':
+    resolution: {integrity: sha512-lvq6n7ZbaNM8iTokJHO29aySjzU0SjGhyuePs8Ir0cBfy6rywX9xL0ByqeG0ta647arg9cb1dsmj9adf9HV8iw==}
+
+  '@vess-id/ssi-sdk.mdl-mdoc@1.2.0':
+    resolution: {integrity: sha512-WlW7DpsyOmqbr5hk7nqvMsJscenr5z3pWNjkOeSlWIz0ei3/cBdgn9BmptY3hhWUa6et0OpAm0LQCA0SVyAllA==}
+
+  '@vess-id/ssi-sdk.pd-manager@1.0.2':
+    resolution: {integrity: sha512-14HFTHQtWQqih1TMhVpTqvLe1S/bmZfUlDGTRCVLdmUjAhzvfwtZyM6j4GtkDZGEH2OXEwI4YucAQ3UcLua+xA==}
+
+  '@vess-id/ssi-sdk.siopv2-oid4vp-common@1.1.0':
+    resolution: {integrity: sha512-FI35UGAK504zaqaAtvhcXS2T64bti8jDmAD/FNSNbJXtbvteiAAnFERpz+3BjIB90a+RZH3bdKVLX97GT3SAQw==}
+
+  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.2.7':
+    resolution: {integrity: sha512-k3BiYLPiiujUVHljcQaIbjBlqrwLiipSabLp0nORSsezbKX4b7Mswly24qDibNNMNx+/H1rBayRmJ6XLtIfYNA==}
+
+  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.3.3':
+    resolution: {integrity: sha512-qo5ZdFUj8KyIJ7VsG7pMEA9pRvDIeT7s/uyl4oEB/iC3fduszj2OVjkAAb+1Zm8uFZfG+/3OLaBzRlYlHNb/rg==}
 
   '@vitest/expect@3.2.4':
     resolution: {integrity: sha512-Io0yyORnB6sikFlt8QW5K7slY4OjqNX9jmJQ02QDda8lyM6B5oNgVWoSoKPac8/kgnCUzuHQKrSLtu/uOqqrig==}
@@ -10208,6 +10286,13 @@ packages:
   casbin@5.41.0:
     resolution: {integrity: sha512-+OJChZhRothDZ+UnnZ4QHvRfrZHQf3/QodN1lmMQ0jbE4rK6jZBuidKnzWez215xUvMeBIkkqXEnz5tZwePzhg==}
 
+  cbor-extract@2.2.0:
+    resolution: {integrity: sha512-Ig1zM66BjLfTXpNgKpvBePq271BPOvu8MR0Jl080yG7Jsl+wAZunfrwiwA+9ruzm/WEdIV5QF/bjDZTqyAIVHA==}
+    hasBin: true
+
+  cbor-x@1.6.0:
+    resolution: {integrity: sha512-0kareyRwHSkL6ws5VXHEf8uY1liitysCVJjlmhaLG+IXLqhSaOO+t63coaso7yjwEzWZzLy8fJo06gZDVQM9Qg==}
+
   chai@5.3.3:
     resolution: {integrity: sha512-4zNhdJD/iOjSH0A05ea+Ke6MU5mmpQcbQsSOkgdaUMJ9zTlDTD/GYlwohmIE2u0gaxHYiVHEn1Fw9mZ/ktJWgw==}
     engines: {node: '>=18'}
@@ -10445,6 +10530,9 @@ packages:
   compare-versions@3.6.0:
     resolution: {integrity: sha512-W6Af2Iw1z4CB7q4uU4hv646dW9GQuBM+YpC0UvUCWSD8w90SJjp+ujJuXaEMtAXBtSqGfMPuFOVn4/+FlaqfBA==}
 
+  compare-versions@6.1.1:
+    resolution: {integrity: sha512-4hm4VPpIecmlg59CHXnRDnqGplJFrbLG4aFEl5vl6cK1u76ws3LLvX7ikFnTDl5vo39sjWD6AaDPYodJp/NNHg==}
+
   compress-brotli@1.3.13:
     resolution: {integrity: sha512-JglkVZRcnIeqLB9dfe0XbjEmhKgUKBUyA9ViphTjTH0lK6JG2LlpBCn9TAe5b7PlEfU23xuYXcTCDgxzmpPUPA==}
     engines: {node: '>= 12'}
@@ -10583,6 +10671,9 @@ packages:
   cors@2.8.5:
     resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
     engines: {node: '>= 0.10'}
+
+  cose-kit@1.7.1:
+    resolution: {integrity: sha512-bfpEIporciHSdT1Y0q9S8XxuNySQApJJBZzpdAsJMelZVGNXuL+aL6/Dthq9QS8p+FId9Wj3T6QkUo15PyYe9Q==}
 
   cosmiconfig@5.2.1:
     resolution: {integrity: sha512-H65gsXo1SKjf8zmrJ67eJk8aIRKV5ff2D4uKZIBZShbhGSpEmsQOPW/SKMKYhSTrqR7ufy6RP69rPogdaPh/kA==}
@@ -13639,6 +13730,10 @@ packages:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
 
+  node-gyp-build-optional-packages@5.1.1:
+    resolution: {integrity: sha512-+P72GAjVAbTxjjwUmwjVrqrdZROD4nf8KgpBoDxqXXTiYZZt/ud60dE5yvCSr9lRO8e8yv6kgJIC0K0PfZFVQw==}
+    hasBin: true
+
   node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
@@ -15858,6 +15953,9 @@ packages:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
 
+  uncrypto@0.1.3:
+    resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
+
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
@@ -17655,6 +17753,24 @@ snapshots:
   '@casbin/expression-eval@5.3.0':
     dependencies:
       jsep: 0.3.5
+
+  '@cbor-extract/cbor-extract-darwin-arm64@2.2.0':
+    optional: true
+
+  '@cbor-extract/cbor-extract-darwin-x64@2.2.0':
+    optional: true
+
+  '@cbor-extract/cbor-extract-linux-arm64@2.2.0':
+    optional: true
+
+  '@cbor-extract/cbor-extract-linux-arm@2.2.0':
+    optional: true
+
+  '@cbor-extract/cbor-extract-linux-x64@2.2.0':
+    optional: true
+
+  '@cbor-extract/cbor-extract-win32-x64@2.2.0':
+    optional: true
 
   '@colors/colors@1.5.0':
     optional: true
@@ -19553,6 +19669,8 @@ snapshots:
       jose: 4.15.9
       yargs: 17.7.2
 
+  '@panva/hkdf@1.2.1': {}
+
   '@peculiar/asn1-cms@2.6.0':
     dependencies:
       '@peculiar/asn1-schema': 2.6.0
@@ -20658,6 +20776,35 @@ snapshots:
       - supports-color
       - typescript
 
+  '@sphereon/ssi-sdk.agent-config@0.34.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))':
+    dependencies:
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      debug: 4.4.3
+      jsonpointer: 5.0.1
+      reflect-metadata: 0.2.2
+      typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
+      url-parse: 1.5.10
+      yaml: 2.8.1
+    transitivePeerDependencies:
+      - '@google-cloud/spanner'
+      - '@sap/hana-client'
+      - better-sqlite3
+      - hdb-pool
+      - ioredis
+      - mongodb
+      - mssql
+      - mysql2
+      - oracledb
+      - pg
+      - pg-native
+      - pg-query-stream
+      - redis
+      - sql.js
+      - sqlite3
+      - supports-color
+      - ts-node
+      - typeorm-aurora-data-api-driver
+
   '@sphereon/ssi-sdk.agent-config@0.36.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))':
     dependencies:
       '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
@@ -20689,7 +20836,7 @@ snapshots:
 
   '@sphereon/ssi-sdk.contact-manager@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       '@sphereon/ssi-types': link:packages/ssi-types
       cross-fetch: 4.1.0(encoding@0.1.13)
@@ -20722,7 +20869,7 @@ snapshots:
       '@sphereon/pex': 5.0.0-unstable.28
       '@sphereon/pex-models': 2.3.2
       '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       cross-fetch: 4.1.0(encoding@0.1.13)
       debug: 4.4.3
@@ -20833,45 +20980,6 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@sphereon/ssi-sdk.data-store@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
-      '@sphereon/ssi-sdk.agent-config': 0.36.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
-      '@veramo/utils': 4.2.0(encoding@0.1.13)
-      blakejs: 1.2.1
-      class-validator: 0.14.1
-      dcql: 1.0.1(typescript@5.8.3)
-      debug: 4.4.3
-      typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-    transitivePeerDependencies:
-      - '@google-cloud/spanner'
-      - '@sap/hana-client'
-      - better-sqlite3
-      - encoding
-      - hdb-pool
-      - ioredis
-      - mongodb
-      - mssql
-      - mysql2
-      - oracledb
-      - pg
-      - pg-native
-      - pg-query-stream
-      - redis
-      - sql.js
-      - sqlite3
-      - supports-color
-      - ts-node
-      - typeorm-aurora-data-api-driver
-      - typescript
-
   '@sphereon/ssi-sdk.dev@0.33.0(@types/node@20.19.25)':
     dependencies:
       '@microsoft/api-extractor': 7.55.0(@types/node@20.19.25)
@@ -20894,7 +21002,7 @@ snapshots:
   '@sphereon/ssi-sdk.issuance-branding@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
       '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       debug: 4.4.3
       typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
@@ -21007,40 +21115,6 @@ snapshots:
       - ts-node
       - typeorm-aurora-data-api-driver
 
-  '@sphereon/ssi-sdk.pd-manager@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/pex-models': 2.3.2
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
-      '@sphereon/ssi-types': link:packages/ssi-types
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      dcql: 1.0.1(typescript@5.8.3)
-      debug: 4.4.3
-      semver: 7.7.3
-      typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-    transitivePeerDependencies:
-      - '@google-cloud/spanner'
-      - '@sap/hana-client'
-      - better-sqlite3
-      - encoding
-      - hdb-pool
-      - ioredis
-      - mongodb
-      - mssql
-      - mysql2
-      - oracledb
-      - pg
-      - pg-native
-      - pg-query-stream
-      - redis
-      - sql.js
-      - sqlite3
-      - supports-color
-      - ts-node
-      - typeorm-aurora-data-api-driver
-      - typescript
-
   '@sphereon/ssi-sdk.presentation-exchange@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
       '@sphereon/pex': 5.0.0-unstable.28
@@ -21048,7 +21122,7 @@ snapshots:
       '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
       '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
       '@sphereon/ssi-sdk.credential-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       '@sphereon/ssi-sdk.sd-jwt': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
       '@sphereon/ssi-types': link:packages/ssi-types
@@ -21074,6 +21148,35 @@ snapshots:
       - ts-node
       - typeorm-aurora-data-api-driver
       - typescript
+
+  '@sphereon/ssi-sdk.public-key-hosting@0.36.0(@noble/hashes@1.6.1)(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
+    dependencies:
+      '@sphereon/ssi-express-support': 0.36.0(@noble/hashes@1.6.1)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
+      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
+      '@sphereon/ssi-sdk-ext.key-manager': link:packages/key-manager
+      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
+      '@sphereon/ssi-sdk-ext.kms-local': link:packages/kms-local
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@veramo/key-manager': 4.2.0
+      '@veramo/kms-local': 4.2.0
+      body-parser: 1.20.3
+      casbin: 5.41.0
+      cookie-parser: 1.4.7
+      cors: 2.8.5
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      debug: 4.4.3
+      dotenv-flow: 3.3.0
+      express: 4.21.2
+      short-uuid: 4.2.2
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - '@noble/hashes'
+      - encoding
+      - passport-azure-ad
+      - passport-http-bearer
+      - supports-color
 
   '@sphereon/ssi-sdk.sd-jwt@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
@@ -21122,7 +21225,7 @@ snapshots:
       '@sphereon/ssi-sdk.agent-config': 0.36.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
       '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
       '@sphereon/ssi-sdk.credential-vcdm': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       '@sphereon/ssi-sdk.vc-status-list': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
       '@sphereon/ssi-types': link:packages/ssi-types
@@ -21211,7 +21314,7 @@ snapshots:
       '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
       '@sphereon/ssi-sdk-ext.jwt-service': link:packages/jwt-service
       '@sphereon/ssi-sdk.credential-vcdm': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       '@sphereon/ssi-types': link:packages/ssi-types
       '@sphereon/vc-status-list': 7.0.0-next.0
@@ -21248,7 +21351,7 @@ snapshots:
 
   '@sphereon/ssi-sdk.xstate-machine-persistence@0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
-      '@sphereon/ssi-sdk.data-store': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.data-store': '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
       '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
       debug: 4.4.3
@@ -22637,12 +22740,66 @@ snapshots:
       - supports-color
       - typescript
 
+  '@vess-id/did-auth-siop@1.0.7(encoding@0.1.13)(typescript@5.8.3)':
+    dependencies:
+      '@astronautlabs/jsonpath': 1.1.2
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@vess-id/jarm': 1.0.1(typescript@5.8.3)
+      '@vess-id/oid4vc-common': 1.0.0
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      dcql: 1.0.1(typescript@5.8.3)
+      debug: 4.4.3
+      events: 3.3.0
+      jwt-decode: 4.0.0
+      language-tags: 1.0.9
+      multiformats: 12.1.3
+      qs: 6.14.0
+      uint8arrays: 3.1.1
+      zod: 4.1.12
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+      - typescript
+
   '@vess-id/jarm@1.0.1(typescript@5.8.3)':
     dependencies:
       '@vess-id/oid4vc-common': 1.0.0
       valibot: 0.42.1(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
+
+  '@vess-id/mdl@0.0.11':
+    dependencies:
+      '@noble/curves': 1.7.0
+      '@panva/hkdf': 1.2.1
+      '@peculiar/x509': 1.14.2
+      buffer: 6.0.3
+      cbor-x: 1.6.0
+      compare-versions: 6.1.1
+      cose-kit: 1.7.1
+      debug: 4.4.3
+      jose: 4.15.9
+      pkijs: 3.3.3
+      uncrypto: 0.1.3
+    transitivePeerDependencies:
+      - supports-color
+
+  '@vess-id/mdl@0.0.7':
+    dependencies:
+      '@noble/curves': 1.7.0
+      '@panva/hkdf': 1.2.1
+      '@peculiar/x509': 1.14.2
+      buffer: 6.0.3
+      cbor-x: 1.6.0
+      compare-versions: 6.1.1
+      cose-kit: 1.7.1
+      debug: 4.4.3
+      jose: 4.15.9
+      pkijs: 3.3.3
+      uncrypto: 0.1.3
+    transitivePeerDependencies:
+      - supports-color
 
   '@vess-id/oid4vc-common@1.0.0':
     dependencies:
@@ -22705,7 +22862,7 @@ snapshots:
       - passport-http-bearer
       - supports-color
 
-  '@vess-id/oid4vci-issuer@1.0.4(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
+  '@vess-id/oid4vci-issuer@1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
     dependencies:
       '@sphereon/ssi-express-support': 0.34.1-next.3(@noble/hashes@1.6.1)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
       '@sphereon/ssi-types': link:packages/ssi-types
@@ -22721,6 +22878,237 @@ snapshots:
       - passport-azure-ad
       - passport-http-bearer
       - supports-color
+
+  '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
+      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
+      '@sphereon/ssi-sdk.agent-config': 0.36.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@veramo/utils': 4.2.0(encoding@0.1.13)
+      blakejs: 1.2.1
+      class-validator: 0.14.1
+      dcql: 1.0.1(typescript@5.8.3)
+      debug: 4.4.3
+      typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
+    transitivePeerDependencies:
+      - '@google-cloud/spanner'
+      - '@sap/hana-client'
+      - better-sqlite3
+      - encoding
+      - hdb-pool
+      - ioredis
+      - mongodb
+      - mssql
+      - mysql2
+      - oracledb
+      - pg
+      - pg-native
+      - pg-query-stream
+      - redis
+      - sql.js
+      - sqlite3
+      - supports-color
+      - ts-node
+      - typeorm-aurora-data-api-driver
+      - typescript
+
+  '@vess-id/ssi-sdk.mdl-mdoc@1.0.0(encoding@0.1.13)(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/pex-models': 2.3.2
+      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
+      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
+      '@sphereon/ssi-sdk-ext.x509-utils': link:packages/x509-utils
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@veramo/did-manager': 4.2.0
+      '@veramo/utils': 4.2.0(encoding@0.1.13)
+      '@vess-id/did-auth-siop-adapter': 0.20.0(encoding@0.1.13)(typescript@5.8.3)
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      debug: 4.4.3
+      did-resolver: 4.1.0
+      multiformats: 9.9.0
+      pkijs: 3.3.3
+      uint8arrays: 3.1.1
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+      - typescript
+
+  '@vess-id/ssi-sdk.mdl-mdoc@1.2.0(encoding@0.1.13)(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/pex-models': 2.3.2
+      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
+      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
+      '@sphereon/ssi-sdk-ext.x509-utils': link:packages/x509-utils
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@veramo/did-manager': 4.2.0
+      '@veramo/utils': 4.2.0(encoding@0.1.13)
+      '@vess-id/did-auth-siop-adapter': 0.20.0(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/mdl': 0.0.7
+      cbor-x: 1.6.0
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      debug: 4.4.3
+      did-resolver: 4.1.0
+      multiformats: 9.9.0
+      pkijs: 3.3.3
+      uint8arrays: 3.1.1
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+      - typescript
+
+  '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/pex-models': 2.3.2
+      '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@vess-id/ssi-sdk.data-store': 1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      dcql: 1.0.1(typescript@5.8.3)
+      debug: 4.4.3
+      semver: 7.7.3
+      typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
+    transitivePeerDependencies:
+      - '@google-cloud/spanner'
+      - '@sap/hana-client'
+      - better-sqlite3
+      - encoding
+      - hdb-pool
+      - ioredis
+      - mongodb
+      - mssql
+      - mysql2
+      - oracledb
+      - pg
+      - pg-native
+      - pg-query-stream
+      - redis
+      - sql.js
+      - sqlite3
+      - supports-color
+      - ts-node
+      - typeorm-aurora-data-api-driver
+      - typescript
+
+  '@vess-id/ssi-sdk.siopv2-oid4vp-common@1.1.0(encoding@0.1.13)(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@vess-id/did-auth-siop': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+      uint8arrays: 3.1.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+      - typescript
+
+  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.2.7(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
+      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
+      '@sphereon/ssi-sdk-ext.jwt-service': link:packages/jwt-service
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-sdk.credential-validation': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.kv-store-temp': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
+      '@sphereon/ssi-sdk.pd-manager': '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
+      '@sphereon/ssi-sdk.presentation-exchange': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.sd-jwt': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@sphereon/wellknown-dids-client': 0.1.3(encoding@0.1.13)
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@veramo/credential-w3c': 4.2.0(patch_hash=abcc7e761d8ed40afd17fe27e40a5b8c3c8e00b1d25ebf8c8bf9a3500179f336)(encoding@0.1.13)
+      '@vess-id/did-auth-siop': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/did-auth-siop-adapter': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/oid4vc-common': 1.0.0
+      '@vess-id/ssi-sdk.mdl-mdoc': 1.0.0(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/ssi-sdk.siopv2-oid4vp-common': 1.1.0(encoding@0.1.13)(typescript@5.8.3)
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      dcql: 1.0.1(typescript@5.8.3)
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - '@google-cloud/spanner'
+      - '@sap/hana-client'
+      - better-sqlite3
+      - encoding
+      - hdb-pool
+      - ioredis
+      - mongodb
+      - mssql
+      - mysql2
+      - oracledb
+      - pg
+      - pg-native
+      - pg-query-stream
+      - redis
+      - sql.js
+      - sqlite3
+      - supports-color
+      - ts-node
+      - typeorm-aurora-data-api-driver
+      - typescript
+
+  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.3.3(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
+    dependencies:
+      '@sphereon/pex': 5.0.0-unstable.28
+      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
+      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
+      '@sphereon/ssi-sdk-ext.jwt-service': link:packages/jwt-service
+      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
+      '@sphereon/ssi-sdk.credential-validation': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.kv-store-temp': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
+      '@sphereon/ssi-sdk.pd-manager': '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
+      '@sphereon/ssi-sdk.presentation-exchange': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-sdk.sd-jwt': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@sphereon/wellknown-dids-client': 0.1.3(encoding@0.1.13)
+      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@veramo/credential-w3c': 4.2.0(patch_hash=abcc7e761d8ed40afd17fe27e40a5b8c3c8e00b1d25ebf8c8bf9a3500179f336)(encoding@0.1.13)
+      '@vess-id/did-auth-siop': 1.0.7(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/did-auth-siop-adapter': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/oid4vc-common': 1.0.0
+      '@vess-id/ssi-sdk.mdl-mdoc': 1.0.0(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/ssi-sdk.siopv2-oid4vp-common': 1.1.0(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth': 1.2.7(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+      cross-fetch: 4.1.0(encoding@0.1.13)
+      dcql: 1.0.1(typescript@5.8.3)
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - '@google-cloud/spanner'
+      - '@sap/hana-client'
+      - better-sqlite3
+      - encoding
+      - hdb-pool
+      - ioredis
+      - mongodb
+      - mssql
+      - mysql2
+      - oracledb
+      - pg
+      - pg-native
+      - pg-query-stream
+      - redis
+      - sql.js
+      - sqlite3
+      - supports-color
+      - ts-node
+      - typeorm-aurora-data-api-driver
+      - typescript
 
   '@vitest/expect@3.2.4':
     dependencies:
@@ -23666,6 +24054,22 @@ snapshots:
       csv-parse: 5.6.0
       minimatch: 7.4.6
 
+  cbor-extract@2.2.0:
+    dependencies:
+      node-gyp-build-optional-packages: 5.1.1
+    optionalDependencies:
+      '@cbor-extract/cbor-extract-darwin-arm64': 2.2.0
+      '@cbor-extract/cbor-extract-darwin-x64': 2.2.0
+      '@cbor-extract/cbor-extract-linux-arm': 2.2.0
+      '@cbor-extract/cbor-extract-linux-arm64': 2.2.0
+      '@cbor-extract/cbor-extract-linux-x64': 2.2.0
+      '@cbor-extract/cbor-extract-win32-x64': 2.2.0
+    optional: true
+
+  cbor-x@1.6.0:
+    optionalDependencies:
+      cbor-extract: 2.2.0
+
   chai@5.3.3:
     dependencies:
       assertion-error: 2.0.1
@@ -23916,6 +24320,8 @@ snapshots:
   compare-versions@3.6.0:
     optional: true
 
+  compare-versions@6.1.1: {}
+
   compress-brotli@1.3.13:
     dependencies:
       '@types/json-buffer': 3.0.2
@@ -24110,6 +24516,13 @@ snapshots:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
+
+  cose-kit@1.7.1:
+    dependencies:
+      '@peculiar/webcrypto': 1.5.0
+      cbor-x: 1.6.0
+      jose: 4.15.9
+      pkijs: 3.3.3
 
   cosmiconfig@5.2.1:
     dependencies:
@@ -28405,6 +28818,11 @@ snapshots:
 
   node-forge@1.3.1: {}
 
+  node-gyp-build-optional-packages@5.1.1:
+    dependencies:
+      detect-libc: 2.1.2
+    optional: true
+
   node-gyp-build@4.8.4: {}
 
   node-gyp@10.3.1:
@@ -30832,6 +31250,8 @@ snapshots:
       has-bigints: 1.1.0
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
+
+  uncrypto@0.1.3: {}
 
   undici-types@6.21.0: {}
 

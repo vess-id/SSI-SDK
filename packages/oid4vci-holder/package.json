@@ -40,7 +40,7 @@
     "@sphereon/ssi-sdk.credential-validation": "^0.36.0",
     "@sphereon/ssi-sdk.data-store-types": "^0.36.0",
     "@sphereon/ssi-sdk.issuance-branding": "^0.36.0",
-    "@sphereon/ssi-sdk.mdl-mdoc": "^0.36.0",
+    "@vess-id/ssi-sdk.mdl-mdoc": "workspace:*",
     "@sphereon/ssi-sdk.oidf-client": "^0.36.0",
     "@sphereon/ssi-sdk.sd-jwt": "^0.36.0",
     "@vess-id/ssi-sdk.siopv2-oid4vp-common": "workspace:*",

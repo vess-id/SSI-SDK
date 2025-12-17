@@ -1,6 +1,6 @@
 {
   "name": "@vess-id/ssi-sdk.pd-manager",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -29,7 +29,7 @@
   "dependencies": {
     "@sphereon/pex": "5.0.0-unstable.28",
     "@sphereon/pex-models": "^2.3.2",
-    "@sphereon/ssi-sdk.data-store": "^0.36.0",
+    "@vess-id/ssi-sdk.data-store": "^1.0.0",
     "@sphereon/ssi-sdk.data-store-types": "^0.36.0",
     "@sphereon/ssi-types": "^0.34.0",
     "cross-fetch": "^4.1.0",
