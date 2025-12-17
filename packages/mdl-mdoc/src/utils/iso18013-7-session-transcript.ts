@@ -147,6 +147,7 @@ export class ISO18013_7_SessionTranscriptUtils {
       const encoded = cborEncode(sessionTranscript)
       return new Uint8Array(encoded)
     } catch (error) {
+      console.error('Failed to create SessionTranscript for OID4VP:', error)
       throw new Error(`SessionTranscript creation failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }

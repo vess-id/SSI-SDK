@@ -1,6 +1,6 @@
 {
   "name": "@vess-id/ssi-sdk.mdl-mdoc",
-  "version": "1.2.10",
+  "version": "1.2.12",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -38,7 +38,7 @@
     "@veramo/did-manager": "4.2.0",
     "@veramo/utils": "4.2.0",
     "@vess-id/did-auth-siop-adapter": "0.20.0",
-    "@vess-id/mdl": "0.0.14",
+    "@vess-id/mdl": "0.0.16",
     "@vess-id/ssi-sdk.mdl-mdoc": "1.2.0",
     "cbor-x": "^1.6.0",
     "cross-fetch": "^4.1.0",
