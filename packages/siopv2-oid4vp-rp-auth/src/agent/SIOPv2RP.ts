@@ -146,66 +146,64 @@ export class SIOPv2RP implements IAgentPlugin {
       const vpToken = responseState.response.payload.vp_token && JSON.parse(responseState.response.payload.vp_token as EncodedDcqlPresentationVpToken)
       const claims = []
       for (const [credentialQueryId, presentationValue] of Object.entries(vpToken)) {
-        let singleVP: OriginalVerifiablePresentation
-        if (Array.isArray(presentationValue)) {
-          if (presentationValue.length === 0) {
-            throw Error(`DCQL query '${credentialQueryId}' has empty array of presentations`)
-          }
-          if (presentationValue.length > 1) {
-            throw Error(`DCQL query '${credentialQueryId}' has multiple presentations (${presentationValue.length}), but only one is supported atm`)
-          }
-          singleVP = presentationValue[0] as OriginalVerifiablePresentation
-        } else {
-          singleVP = presentationValue as OriginalVerifiablePresentation
-        }
+        // Support multiple VPs per credential query (DCQL multiple: true)
+        const presentations: OriginalVerifiablePresentation[] = Array.isArray(presentationValue)
+          ? presentationValue.length === 0
+            ? (() => {
+                throw Error(`DCQL query '${credentialQueryId}' has empty array of presentations`)
+              })()
+            : (presentationValue as OriginalVerifiablePresentation[])
+          : [presentationValue as OriginalVerifiablePresentation]
 
-        // todo this should also include mdl-mdoc
-        const presentationDecoded = CredentialMapper.decodeVerifiablePresentation(
-          singleVP as OriginalVerifiablePresentation,
-          //todo: later we want to conditionally pass in options for mdl-mdoc here
-          hasher,
-        )
-        console.log(`presentationDecoded: ${JSON.stringify(presentationDecoded)}`)
+        for (const singleVP of presentations) {
+          // todo this should also include mdl-mdoc
+          const presentationDecoded = CredentialMapper.decodeVerifiablePresentation(
+            singleVP as OriginalVerifiablePresentation,
+            //todo: later we want to conditionally pass in options for mdl-mdoc here
+            hasher,
+          )
+          console.log(`presentationDecoded: ${JSON.stringify(presentationDecoded)}`)
 
-        const allClaims: AdditionalClaims = {}
-        const presentationOrClaims = this.presentationOrClaimsFrom(presentationDecoded)
-        if ('verifiableCredential' in presentationOrClaims) {
-          for (const credential of presentationOrClaims.verifiableCredential) {
-            const vc = credential as IVerifiableCredential
-            const schemaValidationResult = await context.agent.cvVerifySchema({
-              credential,
-              hasher,
-              validationPolicy: rpInstance.rpOptions.verificationPolicies?.schemaValidation,
-            })
-            if (!schemaValidationResult.result) {
-              responseState.status = AuthorizationResponseStateStatus.ERROR
-              responseState.error = new Error(schemaValidationResult.error)
-              return responseState
-            }
-
-            const credentialSubject = vc.credentialSubject as ICredentialSubject & AdditionalClaims
-            if (!('id' in allClaims)) {
-              allClaims['id'] = credentialSubject.id
-            }
-
-            Object.entries(credentialSubject).forEach(([key, value]) => {
-              if (!(key in allClaims)) {
-                allClaims[key] = value
+          const allClaims: AdditionalClaims = {}
+          const presentationOrClaims = this.presentationOrClaimsFrom(presentationDecoded)
+          if ('verifiableCredential' in presentationOrClaims) {
+            for (const credential of presentationOrClaims.verifiableCredential) {
+              const vc = credential as IVerifiableCredential
+              const schemaValidationResult = await context.agent.cvVerifySchema({
+                credential,
+                hasher,
+                validationPolicy: rpInstance.rpOptions.verificationPolicies?.schemaValidation,
+              })
+              if (!schemaValidationResult.result) {
+                responseState.status = AuthorizationResponseStateStatus.ERROR
+                responseState.error = new Error(schemaValidationResult.error)
+                return responseState
               }
-            })
 
+              const credentialSubject = vc.credentialSubject as ICredentialSubject & AdditionalClaims
+              if (!('id' in allClaims)) {
+                allClaims['id'] = credentialSubject.id
+              }
+
+              Object.entries(credentialSubject).forEach(([key, value]) => {
+                if (!(key in allClaims)) {
+                  allClaims[key] = value
+                }
+              })
+
+              claims.push({
+                id: credentialQueryId,
+                type: vc.type[0],
+                claims: allClaims,
+              })
+            }
+          } else {
             claims.push({
               id: credentialQueryId,
-              type: vc.type[0],
-              claims: allClaims,
+              type: (presentationDecoded as SdJwtDecodedVerifiableCredential).decodedPayload.vct,
+              claims: presentationOrClaims,
             })
           }
-        } else {
-          claims.push({
-            id: credentialQueryId,
-            type: (presentationDecoded as SdJwtDecodedVerifiableCredential).decodedPayload.vct,
-            claims: presentationOrClaims,
-          })
         }
       }
 
