@@ -1,7 +1,7 @@
 name: Build and Test PR
 on:
-  workflow_dispatch: # Temporarily disabled - only manual execution allowed
-  # pull_request:
+  workflow_dispatch:
+  pull_request:
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
     services:
       postgres:
-        image: postgres:10.10
+        image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: test123
@@ -32,7 +32,6 @@ jobs:
         run: |
           echo "link-workspace-packages=deep" >> .npmrc
           echo "prefer-workspace-packages=true" >> .npmrc
-      - run: git diff -u
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - name: run CI tests
