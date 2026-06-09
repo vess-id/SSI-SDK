@@ -7,6 +7,7 @@ import { concat as concatArrays } from 'uint8arrays/concat'
 import { fromString } from 'uint8arrays/from-string'
 import { SphereonLdSignature } from '../ld-suites'
 import { IVcdmIssuerAgentContext } from '@sphereon/ssi-sdk.credential-vcdm'
+import { bytesToBase64 } from '@sphereon/ssi-sdk.core'
 
 const { EcdsaSecp256k1RecoveryMethod2020, EcdsaSecp256k1RecoverySignature2020 } = ldsEcdsa
 
@@ -38,7 +39,7 @@ export class SphereonEcdsaSecp256k1RecoverySignature2020 extends SphereonLdSigna
         const signature = await context.agent.keyManagerSign({
           keyRef: key.kid,
           algorithm: 'ES256K-R',
-          data: messageBuffer,
+          data: bytesToBase64(messageBuffer),
           encoding: 'base64',
         })
         return `${headerString}..${signature}`
