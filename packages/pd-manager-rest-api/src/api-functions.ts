@@ -1,7 +1,7 @@
 import { checkAuth, ISingleEndpointOpts, sendErrorResponse } from '@sphereon/ssi-express-support'
 import { Request, Response, Router } from 'express'
 import { IRequiredContext } from './types'
-import { PersistDcqlQueryArgs } from '@sphereon/ssi-sdk.pd-manager'
+import { PersistDcqlQueryArgs } from '@vess-id/ssi-sdk.pd-manager'
 import { DeleteDefinitionArgs } from '@sphereon/ssi-sdk.data-store-types'
 
 const operation = '/presentation-definitions'

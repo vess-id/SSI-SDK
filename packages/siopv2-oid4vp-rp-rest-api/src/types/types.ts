@@ -1,6 +1,6 @@
 import { CreateAuthorizationRequestPayload, CreateAuthorizationResponsePayload } from '@vess-id/did-auth-siop'
 import { GenericAuthArgs, ISingleEndpointOpts } from '@sphereon/ssi-express-support'
-import { IPDManager } from '@sphereon/ssi-sdk.pd-manager'
+import { IPDManager } from '@vess-id/ssi-sdk.pd-manager'
 import { AuthorizationRequestStateStatus, AuthorizationResponseStateStatus } from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
 import { ISIOPv2RP } from '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth'
 import { IAgentContext, ICredentialVerifier } from '@veramo/core'

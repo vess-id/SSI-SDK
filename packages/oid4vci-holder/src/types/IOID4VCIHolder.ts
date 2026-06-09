@@ -37,8 +37,8 @@ import {
   Party,
 } from '@sphereon/ssi-sdk.data-store-types'
 import { IIssuanceBranding } from '@sphereon/ssi-sdk.issuance-branding'
-import { ImDLMdoc } from '@sphereon/ssi-sdk.mdl-mdoc'
-import { ISDJwtPlugin } from '@sphereon/ssi-sdk.sd-jwt'
+import { ImDLMdoc } from '@vess-id/ssi-sdk.mdl-mdoc'
+import { ISDJwtPlugin } from '@vess-id/ssi-sdk.sd-jwt'
 import { IDidAuthSiopOpAuthenticator } from '@vess-id/ssi-sdk.siopv2-oid4vp-op-auth'
 import {
   HasherSync,

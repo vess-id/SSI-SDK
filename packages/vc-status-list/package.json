@@ -32,7 +32,7 @@
     "@sphereon/ssi-sdk-ext.identifier-resolution": "workspace:*",
     "@sphereon/ssi-sdk-ext.jwt-service": "workspace:*",
     "@sphereon/ssi-sdk.credential-vcdm": "workspace:*",
-    "@sphereon/ssi-sdk.data-store": "workspace:*",
+    "@vess-id/ssi-sdk.data-store": "workspace:*",
     "@sphereon/ssi-sdk.data-store-types": "workspace:*",
     "@sphereon/ssi-types": "workspace:*",
     "@sphereon/vc-status-list": "7.0.0-next.0",

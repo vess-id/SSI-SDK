@@ -1,5 +1,5 @@
 import mdocPkg from '@sphereon/kmp-mdoc-core'
-import { IVerifySdJwtVcResult } from '@sphereon/ssi-sdk.sd-jwt'
+import { IVerifySdJwtVcResult } from '@vess-id/ssi-sdk.sd-jwt'
 import {
   CredentialMapper,
   ICoseKeyJson,

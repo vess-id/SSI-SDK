@@ -9,7 +9,7 @@ import { IdentifierResolution, IIdentifierResolution } from '@sphereon/ssi-sdk-e
 import { IJwtService, JwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { MemoryKeyStore, MemoryPrivateKeyStore, SphereonKeyManager } from '@sphereon/ssi-sdk-ext.key-manager'
 import { SphereonKeyManagementSystem } from '@sphereon/ssi-sdk-ext.kms-local'
-import { ImDLMdoc, MDLMdoc } from '@sphereon/ssi-sdk.mdl-mdoc'
+import { ImDLMdoc, MDLMdoc } from '@vess-id/ssi-sdk.mdl-mdoc'
 import { createAgent, IDIDManager, IKeyManager, IResolver, TAgent } from '@veramo/core'
 import { DIDManager, MemoryDIDStore } from '@veramo/did-manager'
 import { DIDResolverPlugin } from '@veramo/did-resolver'

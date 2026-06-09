@@ -7,7 +7,7 @@ import {
   IBitstringStatusListEntryEntity,
   IStatusListEntryEntity,
   StatusListEntity,
-} from '@sphereon/ssi-sdk.data-store'
+} from '@vess-id/ssi-sdk.data-store'
 
 import { checkStatus } from '@sphereon/vc-status-list'
 
