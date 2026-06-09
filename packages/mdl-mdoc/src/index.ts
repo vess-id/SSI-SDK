@@ -6,3 +6,4 @@ export { schema }
 export { MDLMdoc, mdocSupportMethods } from './agent/mDLMdoc'
 export * from './types/ImDLMdoc'
 export * from './functions'
+export * from './utils/iso18013-7-session-transcript'

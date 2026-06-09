@@ -1,5 +1,5 @@
-import { DynamicRegistrationClientMetadata } from '@sphereon/oid4vc-common'
-import { OpenID4VCIClientState, OpenID4VCIClientV1_0_15 } from '@sphereon/oid4vci-client'
+import { DynamicRegistrationClientMetadata } from '@vess-id/oid4vc-common'
+import { OpenID4VCIClientState, OpenID4VCIClientV1_0_15 } from '@vess-id/oid4vci-client'
 import {
   AuthorizationRequestOpts,
   AuthorizationResponse,
@@ -15,7 +15,7 @@ import {
   IssuerCredentialSubject,
   MetadataDisplay,
   NotificationRequest,
-} from '@sphereon/oid4vci-common'
+} from '@vess-id/oid4vci-common'
 import { CreateOrGetIdentifierOpts, IdentifierProviderOpts, SupportedDidMethodEnum } from '@sphereon/ssi-sdk-ext.did-utils'
 import {
   IIdentifierResolution,
@@ -39,7 +39,7 @@ import {
 import { IIssuanceBranding } from '@sphereon/ssi-sdk.issuance-branding'
 import { ImDLMdoc } from '@sphereon/ssi-sdk.mdl-mdoc'
 import { ISDJwtPlugin } from '@sphereon/ssi-sdk.sd-jwt'
-import { IDidAuthSiopOpAuthenticator } from '@sphereon/ssi-sdk.siopv2-oid4vp-op-auth'
+import { IDidAuthSiopOpAuthenticator } from '@vess-id/ssi-sdk.siopv2-oid4vp-op-auth'
 import {
   HasherSync,
   IVerifiableCredential,

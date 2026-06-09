@@ -1,4 +1,4 @@
-import { decodeUriAsJson } from '@sphereon/did-auth-siop'
+import { decodeUriAsJson } from '@vess-id/did-auth-siop'
 import { getIssuerName } from '@sphereon/oid4vci-common'
 import {
   ConnectionType,

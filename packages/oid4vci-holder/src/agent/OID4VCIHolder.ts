@@ -1,4 +1,4 @@
-import { CredentialOfferClient, MetadataClient, OpenID4VCIClient, OpenID4VCIClientV1_0_15 } from '@sphereon/oid4vci-client'
+import { CredentialOfferClient, MetadataClient, OpenID4VCIClient, OpenID4VCIClientV1_0_15 } from '@vess-id/oid4vci-client'
 import {
   AuthorizationDetailsV1_0_15,
   AuthorizationRequestOpts,
@@ -13,7 +13,7 @@ import {
   Jwt,
   NotificationRequest,
   ProofOfPossessionCallbacks,
-} from '@sphereon/oid4vci-common'
+} from '@vess-id/oid4vci-common'
 import { SupportedDidMethodEnum } from '@sphereon/ssi-sdk-ext.did-utils'
 import {
   IIdentifierResolution,

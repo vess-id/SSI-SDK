@@ -1,4 +1,4 @@
-import { CredentialDataSupplier, VcIssuer } from '@sphereon/oid4vci-issuer'
+import { CredentialDataSupplier, VcIssuer } from '@vess-id/oid4vci-issuer'
 import { getBasePath, OID4VCIServer } from '@sphereon/oid4vci-issuer-server'
 import { IOID4VCIServerOpts } from '@sphereon/oid4vci-issuer-server'
 import { ExpressSupport } from '@sphereon/ssi-express-support'
@@ -8,7 +8,7 @@ import {
   IIssuerInstanceArgs,
   IssuerInstance,
   createVerifyAuthResponseCallback,
-} from '@sphereon/ssi-sdk.oid4vci-issuer'
+} from '@vess-id/ssi-sdk.oid4vci-issuer'
 import express, { Express, Request, Response, Router } from 'express'
 import { IRequiredContext } from './types'
 import swaggerUi from 'swagger-ui-express'

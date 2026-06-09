@@ -8,9 +8,9 @@ import {
   URI,
   Verification,
   VerifiedAuthorizationRequest,
-} from '@sphereon/did-auth-siop'
-import { ResolveOpts } from '@sphereon/did-auth-siop-adapter'
-import { JwtIssuer } from '@sphereon/oid4vc-common'
+} from '@vess-id/did-auth-siop'
+import { ResolveOpts } from '@vess-id/did-auth-siop-adapter'
+import { JwtIssuer } from '@vess-id/oid4vc-common'
 import { getAgentDIDMethods, getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'
 import { JweAlg, JweEnc } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { encodeBase64url } from '@sphereon/ssi-sdk.core'

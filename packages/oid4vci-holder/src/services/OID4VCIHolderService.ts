@@ -1,4 +1,4 @@
-import { LOG } from '@sphereon/oid4vci-client'
+import { LOG } from '@vess-id/oid4vci-client'
 import {
   AuthorizationChallengeCodeResponse,
   CredentialConfigurationSupported,
@@ -10,7 +10,7 @@ import {
   getTypesFromCredentialSupported,
   getTypesFromObject,
   MetadataDisplay,
-} from '@sphereon/oid4vci-common'
+} from '@vess-id/oid4vci-common'
 import { KeyUse } from '@sphereon/ssi-sdk-ext.did-resolver-jwk'
 import { getOrCreatePrimaryIdentifier, SupportedDidMethodEnum } from '@sphereon/ssi-sdk-ext.did-utils'
 import {

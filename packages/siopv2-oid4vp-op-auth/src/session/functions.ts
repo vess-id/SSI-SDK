@@ -1,5 +1,5 @@
-import { OP, OPBuilder, PassBy, PresentationSignCallback, ResponseMode, SupportedVersion, VerifyJwtCallback } from '@sphereon/did-auth-siop'
-import { CreateJwtCallback, JwtHeader, JwtIssuer, SigningAlgo } from '@sphereon/oid4vc-common'
+import { OP, OPBuilder, PassBy, PresentationSignCallback, ResponseMode, SupportedVersion, VerifyJwtCallback } from '@vess-id/did-auth-siop'
+import { CreateJwtCallback, JwtHeader, JwtIssuer, SigningAlgo } from '@vess-id/oid4vc-common'
 import { Format } from '@sphereon/pex-models'
 import { isManagedIdentifierDidOpts, isManagedIdentifierX5cOpts, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { JwsHeader, JwsPayload, JwtCompactResult } from '@sphereon/ssi-sdk-ext.jwt-service'

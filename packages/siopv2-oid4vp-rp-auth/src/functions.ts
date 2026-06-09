@@ -16,8 +16,8 @@ import {
   SubjectType,
   SupportedVersion,
   VerifyJwtCallback,
-} from '@sphereon/did-auth-siop'
-import { CreateJwtCallback, JwtHeader, JwtIssuer, JwtPayload, SigningAlgo } from '@sphereon/oid4vc-common'
+} from '@vess-id/did-auth-siop'
+import { CreateJwtCallback, JwtHeader, JwtIssuer, JwtPayload, SigningAlgo } from '@vess-id/oid4vc-common'
 import { IPresentationDefinition } from '@sphereon/pex'
 import { getAgentDIDMethods, getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'
 import {
@@ -61,21 +61,29 @@ function getWellKnownDIDVerifyCallback(siopIdentifierOpts: ISIOPIdentifierOption
 
 export function getDcqlQueryLookupCallback(context: IRequiredContext): DcqlQueryLookupCallback {
   async function dcqlQueryLookup(queryId: string, version?: string, tenantId?: string): Promise<DcqlQuery> {
+    console.log('[DCQL LOOKUP] Starting lookup for queryId:', queryId, 'version:', version, 'tenantId:', tenantId)
     // TODO Add caching?
+    const filter = [
+      {
+        queryId,
+        ...(tenantId && { tenantId }),
+        ...(version && { version }),
+      },
+      ...(isValidUUID(queryId) ? [{ id: queryId }] : []),
+    ]
+    console.log('[DCQL LOOKUP] Filter:', JSON.stringify(filter, null, 2))
+
     const result = await context.agent.pdmGetDefinitions({
-      filter: [
-        {
-          queryId,
-          ...(tenantId && { tenantId }),
-          ...(version && { version }),
-        },
-        ...(isValidUUID(queryId) ? [{ id: queryId }] : []),
-      ],
+      filter,
     })
+    console.log('[DCQL LOOKUP] Result count:', result?.length, 'results:', JSON.stringify(result, null, 2))
+
     if (result && result.length > 0) {
+      console.log('[DCQL LOOKUP] Found DCQL query:', JSON.stringify(result[0].query, null, 2))
       return result[0].query
     }
 
+    console.error('[DCQL LOOKUP] No dcql query found for queryId:', queryId)
     return Promise.reject(Error(`No dcql query found for queryId ${queryId}`))
   }
 
@@ -103,14 +111,13 @@ export function getPresentationVerificationCallback(
       if (context.agent.mdocOid4vpRPVerify === undefined) {
         return Promise.reject('ImDLMdoc agent plugin must be enabled to support MsoMdoc types')
       }
-      if (presentationSubmission !== undefined && presentationSubmission !== null) {
-        const verifyResult = await context.agent.mdocOid4vpRPVerify({
-          vp_token: args,
-          presentation_submission: presentationSubmission,
-        })
-        return { verified: !verifyResult.error }
+      // OID4VP 1.0 DCQL: presentation_submission is optional
+      const mdocArgs: any = { vp_token: args }
+      if (presentationSubmission) {
+        mdocArgs.presentation_submission = presentationSubmission
       }
-      throw Error(`mdocOid4vpRPVerify(...) method requires a presentation submission`)
+      const verifyResult = await context.agent.mdocOid4vpRPVerify(mdocArgs)
+      return { verified: !verifyResult.error }
     }
 
     const result = await context.agent.verifyPresentation({
@@ -198,12 +205,44 @@ export async function createRPBuilder(args: {
     builder.withEntityId(oidfOpts.identifier, PropertyTarget.REQUEST_OBJECT)
   } else {
     const resolution = await context.agent.identifierManagedGet(identifierOpts.idOpts)
-    const clientId: string =
-      rpOpts.clientMetadataOpts?.client_id ??
-      resolution.issuer ??
-      (isManagedIdentifierDidResult(resolution) ? resolution.did : resolution.jwkThumbprint)
-    const clientIdPrefixed = prefixClientId(clientId)
-    builder.withClientId(clientIdPrefixed, PropertyTarget.REQUEST_OBJECT)
+
+    // OID4VP 1.0: Determine client_id based on clientIdScheme
+    // The scheme is now embedded as a prefix in the client_id
+    let clientId: string | undefined
+    let preferredPrefix: ClientIdentifierPrefix | undefined
+
+    if (rpOpts.clientIdScheme === 'x509_san_dns') {
+      // X.509 certificate DNS SAN scheme
+      if (!rpOpts.x509Opts) {
+        throw new Error('x509Opts is required when clientIdScheme is x509_san_dns')
+      }
+
+      // Use DNS domain from x509Opts as client_id
+      clientId = rpOpts.x509Opts.domain
+      preferredPrefix = ClientIdentifierPrefix.X509_SAN_DNS
+
+      console.log(`[createRPBuilder] Using x509_san_dns scheme with domain: ${clientId}`)
+    } else if (rpOpts.clientIdScheme === 'redirect_uri') {
+      // Use response_uri as client_id when redirect_uri scheme is specified
+      if (!rpOpts.responseUri) {
+        console.log('[createRPBuilder] clientIdScheme=redirect_uri without responseUri - skipping client_id setup')
+      } else {
+        clientId = rpOpts.responseUri
+        preferredPrefix = ClientIdentifierPrefix.REDIRECT_URI
+      }
+    } else {
+      // Default to DID-based client_id (backward compatible)
+      clientId =
+        rpOpts.clientMetadataOpts?.client_id ??
+        resolution.issuer ??
+        (isManagedIdentifierDidResult(resolution) ? resolution.did : resolution.jwkThumbprint)
+      preferredPrefix = ClientIdentifierPrefix.DECENTRALIZED_IDENTIFIER
+    }
+
+    if (clientId) {
+      const clientIdPrefixed = prefixClientId(clientId, preferredPrefix)
+      builder.withClientId(clientIdPrefixed, PropertyTarget.REQUEST_OBJECT)
+    }
   }
 
   if (hasher) {
@@ -221,6 +260,18 @@ export async function createRPBuilder(args: {
     builder.withResponseRedirectUri(rpOpts.responseRedirectUri)
   }
 
+  // OID4VP 1.0: Configure request object PassBy based on clientMetadata.passBy
+  // - PassBy.VALUE: Request object passed by value (inline in URL)
+  // - PassBy.REFERENCE: Request object passed by reference (request_uri)
+  // - PassBy.NONE: No request object (plain URL parameters)
+  console.log(`[createRPBuilder] Using clientIdScheme: ${rpOpts.clientIdScheme}, passBy: ${rpOpts.clientMetadataOpts?.passBy}`)
+
+  // For PassBy.REFERENCE, we need to set the reference URI template
+  if (rpOpts.clientMetadataOpts?.passBy === PassBy.REFERENCE && rpOpts.requestByReferenceURI) {
+    console.log(`[createRPBuilder] Setting reference URI template: ${rpOpts.requestByReferenceURI}`)
+    builder.withRequestByReference(rpOpts.requestByReferenceURI)
+  }
+
   //const key = resolution.key
   //fixme: this has been removed in the new version of did-auth-siop
   //builder.withSuppliedSignature(SuppliedSigner(key, context, getSigningAlgo(key.type) as unknown as KeyAlgo), did, kid, getSigningAlgo(key.type))
@@ -234,8 +285,9 @@ export async function createRPBuilder(args: {
       getSigningAlgo(key.type),
     )
   }*/
-  //fixme: signcallback and it's return type are not totally compatible with our CreateJwtCallbackBase
-  const createJwtCallback = signCallback(rpOpts.identifierOpts.idOpts, context)
+  // Configure JWT signing callback
+  // Use provided callback if available, otherwise create default signCallback
+  const createJwtCallback = rpOpts.createJwtCallback ?? signCallback(rpOpts.identifierOpts.idOpts, context, rpOpts.x509Opts)
   builder.withCreateJwtCallback(createJwtCallback satisfies CreateJwtCallback<any>)
   return builder
 }
@@ -243,22 +295,61 @@ export async function createRPBuilder(args: {
 export function signCallback(
   idOpts: ManagedIdentifierOptsOrResult,
   context: IRequiredContext,
+  x509Opts?: IRPOptions['x509Opts'],
 ): (jwtIssuer: JwtIssuer, jwt: { header: JwtHeader; payload: JwtPayload }, kid?: string) => Promise<string> {
   return async (jwtIssuer: JwtIssuer, jwt: { header: JwtHeader; payload: JwtPayload }, kid?: string) => {
     if (!(isManagedIdentifierDidOpts(idOpts) || isManagedIdentifierX5cOpts(idOpts))) {
       return Promise.reject(Error(`JWT issuer method ${jwtIssuer.method} not yet supported`))
     }
+
+    // Prepare JWT header
+    let header = jwt.header
+
+    // If x509Opts provided, add x5c header
+    if (x509Opts) {
+      // Convert PEM certificates to base64 (remove headers/footers)
+      const certBase64 = pemToBase64(x509Opts.certificate)
+      const chainBase64 = (x509Opts.certificateChain || []).map(pemToBase64)
+
+      // x5c header: [leaf cert, intermediate cert(s), root cert]
+      const x5c = [certBase64, ...chainBase64]
+
+      header = {
+        ...header,
+        typ: 'oauth-authz-req+jwt',
+        alg: x509Opts.alg || 'ES256',
+        x5c,
+      }
+
+      console.log('[signCallback] Added x5c header with certificate chain')
+    }
+
     const result: JwtCompactResult = await context.agent.jwtCreateJwsCompactSignature({
       // FIXME fix cose-key inference
       // @ts-ignore
-      issuer: { identifier: idOpts.identifier, kmsKeyRef: idOpts.kmsKeyRef, noIdentifierInHeader: false },
+      issuer: {
+        identifier: idOpts.identifier,
+        kmsKeyRef: x509Opts?.keyRef || idOpts.kmsKeyRef,
+        noIdentifierInHeader: !!x509Opts, // Don't include kid in header for x509
+      },
       // FIXME fix JWK key_ops
       // @ts-ignore
-      protectedHeader: jwt.header,
+      protectedHeader: header,
       payload: jwt.payload,
     })
     return result.jwt
   }
+}
+
+/**
+ * Convert PEM format to base64 (strip headers and newlines)
+ */
+function pemToBase64(pem: string): string {
+  return pem
+    .replace(/-----BEGIN CERTIFICATE-----/g, '')
+    .replace(/-----END CERTIFICATE-----/g, '')
+    .replace(/\n/g, '')
+    .trim()
 }
 
 function getVerifyJwtCallback(
@@ -298,11 +389,36 @@ export function getSigningAlgo(type: TKeyType): SigningAlgo {
   }
 }
 
-export function prefixClientId(clientId: string): string {
-  // FIXME SSISDK-60
+/**
+ * Add appropriate client_id prefix for OID4VP 1.0
+ * @param clientId - The client identifier (DID, URL, etc.)
+ * @param preferredPrefix - Optional preferred prefix to use
+ * @returns Client ID with appropriate prefix
+ */
+export function prefixClientId(clientId: string, preferredPrefix?: ClientIdentifierPrefix): string {
+  // Check if clientId already has a known prefix
+  const knownPrefixes = Object.values(ClientIdentifierPrefix)
+  for (const prefix of knownPrefixes) {
+    if (clientId.startsWith(`${prefix}:`)) {
+      // Already has a prefix, return as is
+      return clientId
+    }
+  }
+
+  // Apply preferred prefix if specified
+  if (preferredPrefix) {
+    return `${preferredPrefix}:${clientId}`
+  }
+
+  // Auto-detect and apply appropriate prefix based on format
   if (clientId.startsWith('did:')) {
     return `${ClientIdentifierPrefix.DECENTRALIZED_IDENTIFIER}:${clientId}`
   }
 
+  if (clientId.startsWith('http://') || clientId.startsWith('https://')) {
+    return `${ClientIdentifierPrefix.REDIRECT_URI}:${clientId}`
+  }
+
+  // Return as is if no prefix can be determined
   return clientId
 }

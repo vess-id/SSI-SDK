@@ -1,16 +1,20 @@
-import { AuthorizationResponseStateStatus } from '@sphereon/did-auth-siop'
+import { AuthorizationResponseStateStatus } from '@vess-id/did-auth-siop'
 import {
   AuthorizationServerMetadata,
+  CNonceState,
+  CredentialOfferSession,
   CredentialRequestV1_0_15,
   IssuerMetadata,
+  IStateManager,
   Jwt,
   JWTHeader,
   JWTPayload,
   JwtVerifyResult,
   type OID4VCICredentialFormat,
   StatusListOpts,
-} from '@sphereon/oid4vci-common'
-import { CredentialDataSupplier, CredentialIssuanceInput, CredentialSignerCallback, VcIssuer, VcIssuerBuilder } from '@sphereon/oid4vci-issuer'
+  URIState,
+} from '@vess-id/oid4vci-common'
+import { CredentialDataSupplier, CredentialIssuanceInput, CredentialSignerCallback, VcIssuer, VcIssuerBuilder } from '@vess-id/oid4vci-issuer'
 import { getAgentResolver, IDIDOptions } from '@sphereon/ssi-sdk-ext.did-utils'
 import { legacyKeyRefsToIdentifierOpts, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { contextHasPlugin } from '@sphereon/ssi-sdk.agent-config'
@@ -302,6 +306,10 @@ export async function createVciIssuerBuilder(
     authorizationServerMetadata: AuthorizationServerMetadata
     resolver?: Resolvable
     credentialDataSupplier?: CredentialDataSupplier
+    // OID4VCI 1.0: External state managers can be provided to enable distributed session management (e.g., Redis)
+    cNonceStateManager?: IStateManager<CNonceState>
+    credentialOfferStateManager?: IStateManager<CredentialOfferSession>
+    credentialOfferURIStateManager?: IStateManager<URIState>
   },
   context: IRequiredContext,
 ): Promise<VcIssuerBuilder> {
@@ -347,9 +355,27 @@ export async function createVciIssuerBuilder(
   if (args.credentialDataSupplier) {
     builder.withCredentialDataSupplier(args.credentialDataSupplier)
   }
-  builder.withInMemoryCNonceState()
-  builder.withInMemoryCredentialOfferState()
-  builder.withInMemoryCredentialOfferURIState()
+
+  // OID4VCI 1.0: State managers configuration
+  // Use external state managers if provided (e.g., Redis for distributed systems)
+  // Otherwise, fall back to in-memory state managers
+  if (args.cNonceStateManager) {
+    builder.withCNonceStateManager(args.cNonceStateManager)
+  } else {
+    builder.withInMemoryCNonceState()
+  }
+
+  if (args.credentialOfferStateManager) {
+    builder.withCredentialOfferStateManager(args.credentialOfferStateManager)
+  } else {
+    builder.withInMemoryCredentialOfferState()
+  }
+
+  if (args.credentialOfferURIStateManager) {
+    builder.withCredentialOfferURIStateManager(args.credentialOfferURIStateManager)
+  } else {
+    builder.withInMemoryCredentialOfferURIState()
+  }
 
   return builder
 }

@@ -1,5 +1,5 @@
-import { CredentialOfferClient } from '@sphereon/oid4vci-client'
-import { AuthorizationRequestOpts, AuthorizationServerClientOpts, AuthzFlowType, convertURIToJsonObject } from '@sphereon/oid4vci-common'
+import { CredentialOfferClient } from '@vess-id/oid4vci-client'
+import { AuthorizationRequestOpts, AuthorizationServerClientOpts, AuthzFlowType, convertURIToJsonObject } from '@vess-id/oid4vci-common'
 import { DefaultLinkPriorities, LinkHandlerAdapter } from '@sphereon/ssi-sdk.core'
 import { IMachineStatePersistence, interpreterStartOrResume, SerializableState } from '@sphereon/ssi-sdk.xstate-machine-persistence'
 import { IAgentContext } from '@veramo/core'

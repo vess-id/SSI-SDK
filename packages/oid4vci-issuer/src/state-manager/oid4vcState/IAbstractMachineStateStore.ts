@@ -1,4 +1,4 @@
-import { StateType } from '@sphereon/oid4vci-common'
+import { StateType } from '@vess-id/oid4vci-common'
 import { Oid4vcStateEntity } from '@sphereon/ssi-sdk.data-store'
 
 export interface IOid4vcStateStore<StateType> {

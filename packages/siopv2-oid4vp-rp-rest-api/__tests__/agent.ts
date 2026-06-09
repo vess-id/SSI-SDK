@@ -19,7 +19,7 @@ import {
   SphereonEd25519Signature2020,
 } from '@sphereon/ssi-sdk.credential-vcdm-jsonld-provider'
 import { SchemaValidation } from '@sphereon/ssi-sdk.credential-validation'
-import { CheckLinkedDomain } from '@sphereon/did-auth-siop-adapter'
+import { CheckLinkedDomain } from '@vess-id/did-auth-siop-adapter'
 import { defaultHasher } from '@sphereon/ssi-types'
 import { ISIOPv2RP, SIOPv2RP } from '@sphereon/ssi-sdk.siopv2-oid4vp-rp-auth'
 import { IPresentationExchange, PresentationExchange } from '@sphereon/ssi-sdk.presentation-exchange'

@@ -1,4 +1,4 @@
-import { AuthStatusResponse, type CreateAuthorizationRequest, type CreateAuthorizationResponse } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
+import { AuthStatusResponse, type CreateAuthorizationRequest, type CreateAuthorizationResponse } from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
 import { BearerTokenArg } from '@sphereon/ssi-types'
 import { IAgentContext, IPluginMethodMap } from '@veramo/core'
 

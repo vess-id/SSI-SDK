@@ -1,15 +1,15 @@
 name: Build, Test and Publish
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - 'main'
-      - 'develop'
-      - 'findynet'
-      - 'feature/**'
-      - 'feat/**'
-      - 'fix/**'
-      - 'fixes/**'
+  workflow_dispatch: # Temporarily disabled - only manual execution allowed
+  # push:
+  #   branches:
+  #     - 'main'
+  #     - 'develop'
+  #     - 'findynet'
+  #     - 'feature/**'
+  #     - 'feat/**'
+  #     - 'fix/**'
+  #     - 'fixes/**'
 
 jobs:
   build-test-publish:

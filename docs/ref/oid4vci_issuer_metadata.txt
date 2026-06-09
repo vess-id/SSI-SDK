@@ -1,0 +1,945 @@
+11. Metadata
+11.1. Client Metadata
+This specification defines the following new Client Metadata parameter in addition to those defined by [RFC7591] for Wallets acting as OAuth 2.0 Client:
+
+credential_offer_endpoint: OPTIONAL. Credential Offer Endpoint of a Wallet.
+Additional Client metadata parameters MAY be defined and used, as described in [RFC7591]. The Wallet MUST ignore any unrecognized parameters.
+
+11.1.1. Client Metadata Retrieval
+How to obtain Client Metadata is out of scope of this specification. Profiles of this specification MAY also define static sets of Client Metadata values to be used.
+
+If the Credential Issuer is unable to perform discovery of the Wallet's Credential Offer Endpoint, the following custom URL scheme is used: openid-credential-offer://.
+
+11.2. Credential Issuer Metadata
+The Credential Issuer Metadata contains information on the Credential Issuer's technical capabilities, supported Credentials, and (internationalized) display information.
+
+11.2.1. Credential Issuer Identifier
+A Credential Issuer is identified by a case sensitive URL using the https scheme that contains scheme, host and, optionally, port number and path components, but no query or fragment components.
+
+11.2.2. Credential Issuer Metadata Retrieval
+The Credential Issuer's configuration can be retrieved using the Credential Issuer Identifier.
+
+Credential Issuers publishing metadata MUST make a JSON document available at the path formed by inserting the string /.well-known/openid-credential-issuer into the Credential Issuer Identifier between the host component and the path component, if any.
+
+For example, the metadata for the Credential Issuer Identifier https://issuer.example.com/tenant would be retrieved from https://issuer.example.com/.well-known/openid-credential-issuer/tenant. The metadata for the Credential Issuer Identifier https://tenant.issuer.example.com would be retrieved from https://tenant.issuer.example.com/.well-known/openid-credential-issuer.
+
+Communication with the Credential Issuer Metadata Endpoint MUST utilize TLS.
+
+To fetch the Credential Issuer Metadata, the Wallet MUST send an HTTP request using the GET method and the path formed following the steps above. The Wallet is RECOMMENDED to send an Accept header in the HTTP GET request to indicate the Content Type(s) it supports, and by doing so, signaling whether it supports signed metadata.
+
+The Credential Issuer MUST respond with HTTP Status Code 200 and return the Credential Issuer Metadata containing the parameters defined in Section 11.2.4 as either
+
+an unsigned JSON document using the media type application/json, or
+a signed JSON Web Token (JWT) containing the Credential Issuer Metadata in its payload using the media type application/jwt.
+The Credential Issuer MUST support returning metadata in an unsigned form 'application/json' and MAY support returning it in a signed form 'application/jwt'. In all cases the Credential Issuer MUST indicate the media type of the returned Metadata using the HTTP Content-Type header. It is RECOMMENDED for Credential Issuers to respond with a Content-Type matching to the Wallet's requested Accept header when the requested content type is supported.
+
+The Wallet is RECOMMENDED to send an Accept-Language header in the HTTP GET request to indicate the language(s) preferred for display. It is up to the Credential Issuer whether to:
+
+send a subset the metadata containing internationalized display data for one or all of the requested languages and indicate returned languages using the HTTP Content-Language Header, or
+ignore the Accept-Language Header and send all supported languages or any chosen subset.
+The language(s) in HTTP Accept-Language and Content-Language Headers MUST use the values defined in [RFC3066].
+
+Below is a non-normative example of a Credential Issuer Metadata request:
+
+GET /.well-known/openid-credential-issuer HTTP/1.1
+Host: server.example.com
+Accept-Language: fr-ch, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5
+11.2.3. Signed Metadata
+The signed metadata MUST be secured using a JSON Web Signature (JWS) [RFC7515] and contain the following elements:
+
+in the JOSE header,
+
+alg: REQUIRED. A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry [IANA.JOSE]. It MUST NOT be none or an identifier for a symmetric algorithm (MAC).
+typ: REQUIRED. MUST be openidvci-issuer-metadata+jwt, which explicitly types the key proof JWT as recommended in Section 3.11 of [RFC8725].
+in the JWS payload,
+
+iss: OPTIONAL. String denoting the party attesting to the claims in the signed metadata
+sub: REQUIRED. String matching the Credential Issuer Identifier
+iat: REQUIRED. Integer for the time at which the Credential Issuer Metadata was issued using the syntax defined in [RFC7519].
+exp: OPTIONAL. Integer for the time at which the Credential Issuer Metadata is expiring, using the syntax defined in [RFC7519].
+All metadata parameters used by the Credential Issuer MUST be added as top-level claims in the JWS payload.
+
+When requesting signed metadata, the Wallet MUST establish trust in the signer of the metadata. Otherwise, the Wallet MUST reject the signed metadata. When validating the signature, the Wallet obtains the keys to validate the signature before processing the metadata, e.g., using JOSE header parameters like x5c, kid or trust_chain to convey the public key. The concrete mechanisms for doing this are out of scope of this specification.
+
+See Appendix I.1 for a non-normative example of signed Credential Issuer Metadata.
+
+11.2.4. Credential Issuer Metadata Parameters
+This specification defines the following Credential Issuer Metadata parameters:
+
+credential_issuer: REQUIRED. The Credential Issuer's identifier, as defined in Section 11.2.1. The value MUST be identical to the Credential Issuer's identifier value into which the well-known URI string was inserted to create the URL used to retrieve the metadata. If these values are not identical (when compared using a simple string comparison with no normalization), the data contained in the response MUST NOT be used.
+authorization_servers: OPTIONAL. A non-empty array of strings, where each string is an identifier of the OAuth 2.0 Authorization Server (as defined in [RFC8414]) the Credential Issuer relies on for authorization. If this parameter is omitted, the entity providing the Credential Issuer is also acting as the Authorization Server, i.e., the Credential Issuer's identifier is used to obtain the Authorization Server metadata. The actual OAuth 2.0 Authorization Server metadata is obtained from the oauth-authorization-server well-known location as defined in Section 3 of [RFC8414]. When there are multiple entries in the array, the Wallet may be able to determine which Authorization Server to use by querying the metadata; for example, by examining the grant_types_supported values, the Wallet can filter the server to use based on the grant type it plans to use. When the Wallet is using authorization_server parameter in the Credential Offer as a hint to determine which Authorization Server to use out of multiple, the Wallet MUST NOT proceed with the flow if the authorization_server Credential Offer parameter value does not match any of the entries in the authorization_servers array.
+credential_endpoint: REQUIRED. URL of the Credential Issuer's Credential Endpoint, as defined in Section 8.2. This URL MUST use the https scheme and MAY contain port, path, and query parameter components.
+nonce_endpoint: OPTIONAL. URL of the Credential Issuer's Nonce Endpoint, as defined in Section 7. This URL MUST use the https scheme and MAY contain port, path, and query parameter components. If omitted, the Credential Issuer does not require the use of c_nonce.
+deferred_credential_endpoint: OPTIONAL. URL of the Credential Issuer's Deferred Credential Endpoint, as defined in Section 9. This URL MUST use the https scheme and MAY contain port, path, and query parameter components. If omitted, the Credential Issuer does not support the Deferred Credential Endpoint.
+notification_endpoint: OPTIONAL. URL of the Credential Issuer's Notification Endpoint, as defined in Section 10. This URL MUST use the https scheme and MAY contain port, path, and query parameter components. If omitted, the Credential Issuer does not support the Notification Endpoint.
+credential_request_encryption: OPTIONAL. Object containing information about whether the Credential Issuer supports encryption of the Credential Request on top of TLS.
+
+jwks: REQUIRED. A JSON Web Key Set, as defined in [RFC7591], that contains one or more public keys, to be used by the Wallet as an input to a key agreement for encryption of the Credential Request. Each JWK in the set MUST have a kid (Key ID) parameter that uniquely identifies the key.
+enc_values_supported: REQUIRED. A non-empty array containing a list of the JWE [RFC7516] encryption algorithms (enc values) [RFC7518] supported by the Credential Endpoint to decode the Credential Request from a JWT [RFC7519].
+zip_values_supported: OPTIONAL. A non-empty array containing a list of the JWE [RFC7516] compression algorithms (zip values) [RFC7518] supported by the Credential Endpoint to uncompress the Credential Request after decryption. If absent then no compression algorithms are supported. The Wallet may use any of the supported compression algorithm to compress the Credential Request prior to encryption.
+encryption_required: REQUIRED. Boolean value specifying whether the Credential Issuer requires the additional encryption on top of TLS for the Credential Requests. If the value is true, the Credential Issuer requires encryption for every Credential Request. If the value is false, the Wallet MAY choose whether it encrypts the request or not.
+credential_response_encryption: OPTIONAL. Object containing information about whether the Credential Issuer supports encryption of the Credential Response on top of TLS.
+
+alg_values_supported: REQUIRED. A non-empty array containing a list of the JWE [RFC7516] encryption algorithms (alg values) [RFC7518] supported by the Credential Endpoint to encode the Credential Response in a JWT [RFC7519].
+enc_values_supported: REQUIRED. A non-empty array containing a list of the JWE [RFC7516] encryption algorithms (enc values) [RFC7518] supported by the Credential Endpoint to encode the Credential Response in a JWT [RFC7519].
+zip_values_supported: OPTIONAL. A non-empty array containing a list of the JWE [RFC7516] compression algorithms (zip values) [RFC7518] supported by the Credential Endpoint to compress the Credential Response prior to encryption. If absent then compression is not supported.
+encryption_required: REQUIRED. Boolean value specifying whether the Credential Issuer requires the additional encryption on top of TLS for the Credential Response. If the value is true, the Credential Issuer requires encryption for every Credential Response and therefore the Wallet MUST provide encryption keys in the Credential Request. If the value is false, the Wallet MAY choose whether it provides encryption keys or not.
+batch_credential_issuance: OPTIONAL. Object containing information about the Credential Issuer's support for issuance of multiple Credentials in a batch in the Credential Endpoint. The presence of this parameter means that the issuer supports more than one key proof in the proofs parameter in the Credential Request so can issue more than one Verifiable Credential for the same Credential Dataset in a single request/response.
+
+batch_size: REQUIRED. Integer value specifying the maximum array size for the proofs parameter in a Credential Request. It MUST be 2 or greater.
+display: OPTIONAL. A non-empty array of objects, where each object contains display properties of a Credential Issuer for a certain language. Below is a non-exhaustive list of valid parameters that MAY be included:
+
+name: OPTIONAL. String value of a display name for the Credential Issuer.
+locale: OPTIONAL. String value that identifies the language of this object represented as a language tag taken from values defined in BCP47 [RFC5646]. There MUST be only one object for each language identifier.
+logo: OPTIONAL. Object with information about the logo of the Credential Issuer. Below is a non-exhaustive list of parameters that MAY be included:
+
+uri: REQUIRED. String value that contains a URI where the Wallet can obtain the logo of the Credential Issuer. The Wallet needs to determine the scheme, since the URI value could use the https: scheme, the data: scheme, etc.
+alt_text: OPTIONAL. String value of the alternative text for the logo image.
+credential_configurations_supported: REQUIRED. Object that describes specifics of the Credential that the Credential Issuer supports issuance of. This object contains a list of name/value pairs, where each name is a unique identifier of the supported Credential being described. This identifier is used in the Credential Offer as defined in Section 4.1.1 to communicate to the Wallet which Credential is being offered. The value is an object that contains metadata about a specific Credential and contains the following parameters defined by this specification:
+
+format: REQUIRED. A JSON string identifying the format of this Credential, i.e., jwt_vc_json or ldp_vc. Depending on the format value, the object contains further elements defining the type and (optionally) particular claims the Credential MAY contain and information about how to display the Credential. Appendix A contains Credential Format Profiles introduced by this specification.
+scope: OPTIONAL. A JSON string identifying the scope value that this Credential Issuer supports for this particular Credential. The value can be the same across multiple credential_configurations_supported objects. The Authorization Server MUST be able to uniquely identify the Credential Issuer based on the scope value. The Wallet can use this value in the Authorization Request as defined in Section 5.1.2. Scope values in this Credential Issuer metadata MAY duplicate those in the scopes_supported parameter of the Authorization Server. If scope is absent, the only way to request the Credential is using authorization_details [RFC9396] - in this case, the OAuth Authorization Server metadata for one of the Authorization Servers found from the Credential Issuer's Metadata must contain an authorization_details_types_supported that contains openid_credential.
+credential_signing_alg_values_supported: OPTIONAL. A non-empty array of algorithm identifiers that identify the algorithms that the Issuer uses to sign the issued Credential. Algorithm identifier types and values used are determined by the Credential Format and are defined in Appendix A.
+cryptographic_binding_methods_supported: OPTIONAL. A non-empty array of case sensitive strings that identify the representation of the cryptographic key material that the issued Credential is bound to, as defined in Section 8.1. It MUST be present when key binding is required for a credential, and omitted otherwise. If absent, key binding is not required for this credential. Support for keys in JWK format [RFC7517] is indicated by the value jwk. Support for keys expressed as a COSE Key object [RFC8152] (for example, used in [ISO.18013-5]) is indicated by the value cose_key. When the Cryptographic Key Binding method is a DID, valid values are a did: prefix followed by a method-name using a syntax as defined in Section 3.1 of [DID-Core], but without a : and method-specific-id. For example, support for the DID method with a method-name "example" would be represented by did:example.
+proof_types_supported: OPTIONAL. Object that describes specifics of the key proof(s) that the Credential Issuer supports. It MUST be present if cryptographic_binding_methods_supported is present, and omitted otherwise. If absent, the Wallet is not required to supply proofs when requesting this credential. This object contains a list of name/value pairs, where each name is a unique identifier of the supported proof type(s). Valid values are defined in Appendix F, other values MAY be used. The Wallet also uses this identifier in the Credential Request as defined in Section 8.2. The value in the name/value pair is an object that contains metadata about the key proof and contains the following parameters defined by this specification:
+
+proof_signing_alg_values_supported: REQUIRED. A non-empty array of algorithm identifiers that the Issuer supports for this proof type. The Wallet uses one of them to sign the proof. Algorithm identifier types and values used are determined by the proof type and are defined in Appendix F.
+key_attestations_required: OPTIONAL. Object that describes the requirement for key attestations as described in Appendix D, which the Credential Issuer expects the Wallet to send within the proof(s) of the Credential Request. If the Credential Issuer does not require a key attestation, this parameter MUST NOT be present in the metadata. If both key_storage and user_authentication parameters are absent, the key_attestations_required parameter may be empty, indicating a key attestation is needed without additional constraints.
+
+key_storage: OPTIONAL. A non-empty array defining values specified in Appendix D.2 accepted by the Credential Issuer.
+user_authentication: OPTIONAL. A non-empty array defining values specified in Appendix D.2 accepted by the Credential Issuer.
+credential_metadata: OPTIONAL. Object containing information relevant to the usage and display of issued Credentials. Credential Format-specific mechanisms can overwrite the information in this object to convey Credential metadata. Format-specific mechanisms, such as SD-JWT VC display metadata are always preferred by the Wallet over the information in this object, which serves as the default fallback. Below is a non-exhaustive list of parameters that MAY be included:
+
+display: OPTIONAL. A non-empty array of objects, where each object contains the display properties of the supported Credential for a certain language. Below is a non-exhaustive list of parameters that MAY be included.
+
+name: REQUIRED. String value of a display name for the Credential.
+locale: OPTIONAL. String value that identifies the language of this object represented as a language tag taken from values defined in BCP47 [RFC5646]. Multiple display objects MAY be included for separate languages. There MUST be only one object for each language identifier.
+logo: OPTIONAL. Object with information about the logo of the Credential. The following non-exhaustive set of parameters MAY be included:
+
+uri: REQUIRED. String value that contains a URI where the Wallet can obtain the logo of the Credential from the Credential Issuer. The Wallet needs to determine the scheme, since the URI value could use the https: scheme, the data: scheme, etc.
+alt_text: OPTIONAL. String value of the alternative text for the logo image.
+description: OPTIONAL. String value of a description of the Credential.
+background_color: OPTIONAL. String value of a background color of the Credential represented as numerical color values defined in CSS Color Module Level 37 [CSS-Color].
+background_image: OPTIONAL. Object with information about the background image of the Credential. At least the following parameter MUST be included:
+
+uri: REQUIRED. String value that contains a URI where the Wallet can obtain the background image of the Credential from the Credential Issuer. The Wallet needs to determine the scheme, since the URI value could use the https: scheme, the data: scheme, etc.
+text_color: OPTIONAL. String value of a text color of the Credential represented as numerical color values defined in CSS Color Module Level 37 [CSS-Color].
+claims: OPTIONAL. A non-empty array of claims description objects as defined in Appendix B.2.
+An Authorization Server that only supports the Pre-Authorized Code grant type MAY omit the response_types_supported parameter in its metadata despite [RFC8414] mandating it.
+
+Note: It can be challenging for a Credential Issuer that accepts tokens from multiple Authorization Servers to introspect an Access Token to check the validity and determine the permissions granted. Some ways to achieve this are relying on Authorization Servers that use [RFC9068] or by the Credential Issuer understanding the proprietary Access Token structures of the Authorization Servers.
+
+Depending on the Credential Format, additional parameters might be present in the credential_configurations_supported object values, such as information about claims in the Credential. For Credential Format-specific claims, see the "Credential Issuer Metadata" subsections in Appendix A.
+
+The Authorization Server MUST be able to determine from the Issuer metadata what claims are disclosed by the requested Credentials to be able to render meaningful End-User consent.
+
+Additional Credential Issuer metadata parameters MAY be defined and used. The Wallet MUST ignore any unrecognized parameters.
+
+The following is a non-normative example of Credential Issuer metadata of a Credential in the IETF SD-JWT VC [I-D.ietf-oauth-sd-jwt-vc] format:
+
+{
+  "credential_configurations_supported": {
+    "SD_JWT_VC_example_in_OpenID4VCI": {
+      "format": "dc+sd-jwt",
+      "scope": "SD_JWT_VC_example_in_OpenID4VCI",
+      "cryptographic_binding_methods_supported": [
+        "jwk"
+      ],
+      "credential_signing_alg_values_supported": [
+        "ES256"
+      ],
+      "proof_types_supported": {
+        "jwt": {
+          "proof_signing_alg_values_supported": [
+            "ES256"
+          ],
+          "key_attestations_required": {
+            "key_storage": [ "iso_18045_moderate" ],
+            "user_authentication": [ "iso_18045_moderate" ]
+          }
+        }
+      },
+      "vct": "SD_JWT_VC_example_in_OpenID4VCI",
+      "credential_metadata": {
+        "display": [
+          {
+            "name": "IdentityCredential",
+            "logo": {
+              "uri": "https://university.example.edu/public/logo.png",
+              "alt_text": "a square logo of a university"
+            },
+            "locale": "en-US",
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          }
+        ],
+        "claims": [
+          {
+            "path": ["given_name"],
+            "display": [
+              {
+                "name": "Given Name",
+                "locale": "en-US"
+              },
+              {
+                "name": "Vorname",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {
+            "path": ["family_name"],
+            "display": [
+              {
+                "name": "Surname",
+                "locale": "en-US"
+              },
+              {
+                "name": "Nachname",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {"path": ["email"]},
+          {"path": ["phone_number"]},
+          {
+            "path": ["address"],
+            "display": [
+              {
+                "name": "Place of residence",
+                "locale": "en-US"
+              },
+              {
+                "name": "Wohnsitz",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {"path": ["address", "street_address"]},
+          {"path": ["address", "locality"]},
+          {"path": ["address", "region"]},
+          {"path": ["address", "country"]},
+          {"path": ["birthdate"]},
+          {"path": ["is_over_18"]},
+          {"path": ["is_over_21"]},
+          {"path": ["is_over_65"]}
+        ]
+      }
+    }
+  }
+}
+Note: The Client MAY use other mechanisms to obtain information about the Verifiable Credentials that a Credential Issuer can issue.
+
+I.1. Credential Issuer Metadata
+This section contains additional examples for Credential issuer Metadata
+
+
+The following is a non-normative example of Credential Issuer metadata of a Credential in the IETF SD-JWT VC [I-D.ietf-oauth-sd-jwt-vc] format with optional parameters present:
+
+{
+  "credential_issuer": "https://credential-issuer.example.com",
+  "authorization_servers": [
+    "https://server.example.com"
+  ],
+  "credential_endpoint": "https://credential-issuer.example.com/credential",
+  "nonce_endpoint": "https://credential-issuer.example.com/nonce",
+  "deferred_credential_endpoint": "https://credential-issuer.example.com/deferred_credential",
+  "notification_endpoint": "https://credential-issuer.example.com/notification",
+  "credential_request_encryption": {
+    "jwks": [
+      {
+        "kty":"EC", "kid":"ac", "use":"enc", "crv":"P-256", "alg":"ECDH-ES",
+        "x":"YO4epjifD-KWeq1sL2tNmm36BhXnkJ0He-WqMYrp9Fk",
+        "y":"Hekpm0zfK7C-YccH5iBjcIXgf6YdUvNUac_0At55Okk"
+      }
+    ],
+    "enc_values_supported": ["A128GCM"],
+    "zip_values_supported": ["DEF"],
+    "encryption_required": true
+  },
+  "credential_response_encryption": {
+    "alg_values_supported": ["ECDH-ES"],
+    "enc_values_supported": ["A128GCM"],
+    "zip_values_supported": ["DEF"],
+    "encryption_required": true
+  },
+  "batch_credential_issuance": {
+    "batch_size": 10
+  },
+  "display": [
+    {
+      "name": "Example University",
+      "locale": "en-US",
+      "logo": {
+        "uri": "https://university.example.edu/public/logo.png",
+        "alt_text":"a square logo of a university"
+      }
+    },
+    {
+      "name": "Example Université",
+      "locale": "fr-FR",
+      "logo": {
+        "uri": "https://university.example.edu/public/logo.png",
+        "alt_text":"Un logo universitaire carré"
+      }
+    }
+  ],
+  "credential_configurations_supported": {
+    "SD_JWT_VC_example_in_OpenID4VCI": {
+      "format": "dc+sd-jwt",
+      "scope": "SD_JWT_VC_example_in_OpenID4VCI",
+      "credential_signing_alg_values_supported": ["ES256"],
+      "cryptographic_binding_methods_supported": ["jwk"],
+      "proof_types_supported": {
+        "jwt": {
+          "proof_signing_alg_values_supported": ["ES256"],
+          "key_attestations_required": {
+            "key_storage": ["iso_18045_moderate"],
+            "user_authentication": ["iso_18045_moderate"]
+          }
+        }
+      },
+      "vct": "SD_JWT_VC_example_in_OpenID4VCI",
+      "credential_metadata": {
+        "display": [
+          {
+            "name": "IdentityCredential",
+            "locale": "en-US",
+            "logo": {
+              "uri": "https://university.example.edu/public/logo_credential.png",
+              "alt_text": "a square logo of a university credential"
+            },
+            "description": "A credential that signals the membership of a university",
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          }
+        ],
+        "claims": [
+          {
+            "path": ["given_name"],
+            "display": [
+              {
+                "name": "Given Name",
+                "locale": "en-US"
+              },
+              {
+                "name": "Vorname",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {
+            "path": ["family_name"],
+            "display": [
+              {
+                "name": "Surname",
+                "locale": "en-US"
+              },
+              {
+                "name": "Nachname",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {"path": ["email"]},
+          {"path": ["phone_number"]},
+          {
+            "path": ["address"],
+            "display": [
+              {
+                "name": "Place of residence",
+                "locale": "en-US"
+              },
+              {
+                "name": "Wohnsitz",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {"path": ["address", "street_address"]},
+          {"path": ["address", "locality"]},
+          {"path": ["address", "region"]},
+          {"path": ["address", "country"]},
+          {"path": ["birthdate"]},
+          {"path": ["is_over_18"]},
+          {"path": ["is_over_21"]},
+          {"path": ["is_over_65"]}
+        ]
+      }
+    }
+  }
+}
+
+Appendix A. Credential Format Profiles
+This specification defines several extension points to accommodate the differences across Credential Formats. Sets of Credential Format-specific parameters or claims referred to as Credential Format Profiles are identified by the Credential Format Identifier and used at these extension points.
+
+This section defines Credential Format Profiles for a few of the commonly used Credential Formats. Other specifications or deployments can define their own Credential Format Profiles. It is RECOMMENDED that new Credential Format Profiles use the media type of the particular Credential Format for the Credential Format Identifier.
+
+A.1. W3C Verifiable Credentials
+Sections 6.1 and 6.2 of [VC_DATA] define how Verifiable Credentials MAY or MAY NOT use JSON-LD [JSON-LD]. As acknowledged in Section 4.1 of [VC_DATA], implementations can behave differently regarding processing of the @context property whether JSON-LD is used or not.
+
+This specification therefore differentiates between the following three Credential Formats for W3C Verifiable Credentials:
+
+VC signed as a JWT, not using JSON-LD (jwt_vc_json)
+VC signed as a JWT, using JSON-LD (jwt_vc_json-ld)
+VC secured using Data Integrity, using JSON-LD, with a proof suite requiring Linked Data canonicalization (ldp_vc)
+Note: VCs secured using Data Integrity MAY NOT necessarily use JSON-LD and MAY NOT necessarily use proof suites requiring Linked Data canonicalization. Credential Format Profiles for them may be defined in the future versions of this specification.
+
+Distinct Credential Format Identifiers, extension parameters/claims, and processing rules are defined for each of the above-mentioned Credential Formats.
+
+A.1.1. VC Signed as a JWT, Not Using JSON-LD
+A.1.1.1. Format Identifier
+The Credential Format Identifier is jwt_vc_json.
+
+When the format value is jwt_vc_json, the entire Credential Offer, Authorization Details, Credential Request and Credential Issuer metadata, including credential_definition object, MUST NOT be processed using JSON-LD rules.
+
+A.1.1.2. Credential Issuer Metadata
+Cryptographic algorithm identifiers used in the credential_signing_alg_values_supported parameter are case sensitive strings and SHOULD be one of those JWS Algorithm Names defined in [IANA.JOSE].
+
+The following additional Credential Issuer metadata parameters are defined for this Credential Format for use in the credential_configurations_supported parameter, in addition to those defined in Section 11.2.4.
+
+credential_definition: REQUIRED. Object containing the detailed description of the Credential type. It consists of the following parameter:
+
+type: REQUIRED. Array designating the types a certain Credential type supports, according to [VC_DATA], Section 4.3.
+The following is a non-normative example of an object containing the credential_configurations_supported parameter for Credential Format jwt_vc_json:
+
+{
+  "credential_configurations_supported": {
+    "UniversityDegreeCredential": {
+      "format": "jwt_vc_json",
+      "scope": "UniversityDegree",
+      "cryptographic_binding_methods_supported": [
+        "did:example"
+      ],
+      "credential_signing_alg_values_supported": [
+        "ES256"
+      ],
+      "credential_definition": {
+        "type": [
+          "VerifiableCredential",
+          "UniversityDegreeCredential"
+        ]
+      },
+      "proof_types_supported": {
+        "jwt": {
+          "proof_signing_alg_values_supported": [
+            "ES256"
+          ]
+        }
+      },
+      "credential_metadata": {
+        "claims": [
+          {
+            "path": ["credentialSubject", "given_name"],
+            "display": [
+              {
+                "name": "Given Name",
+                "locale": "en-US"
+              }
+            ]
+          },
+          {
+            "path": ["credentialSubject", "family_name"],
+            "display": [
+              {
+                "name": "Surname",
+                "locale": "en-US"
+              }
+            ]
+          },
+          {"path": ["credentialSubject", "degree"]},
+          {
+            "path": ["credentialSubject", "gpa"],
+            "mandatory": true,
+            "display": [
+              {
+                "name": "GPA"
+              }
+            ]
+          }
+        ],
+        "display": [
+          {
+            "name": "University Credential",
+            "locale": "en-US",
+            "logo": {
+              "uri": "https://university.example.edu/public/logo.png",
+              "alt_text": "a square logo of a university"
+            },
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          }
+        ]
+      }
+    }
+  }
+}
+A.1.1.3. Authorization Details
+The following is a non-normative example of an authorization details object with Credential Format jwt_vc_json:
+
+[
+  {
+    "type": "openid_credential",
+    "credential_configuration_id": "UniversityDegreeCredential",
+    "claims": [
+      {"path": ["credentialSubject", "given_name"]},
+      {"path": ["credentialSubject", "family_name"]},
+      {"path": ["credentialSubject", "degree"]}
+    ]
+  }
+]
+A.1.1.4. Credential Response
+The value of the credential claim in the Credential Response MUST be a JWT. Credentials of this format are already a sequence of base64url-encoded values separated by period characters and MUST NOT be re-encoded.
+
+The following is a non-normative example of a Credential Response with Credential Format jwt_vc_json (with line breaks within values for display purposes only):
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "credentials": [
+    {
+      "credential": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiIsImtpZCI6I
+      nVybjppZXRmOnBhcmFtczpvYXV0aDpqd2stdGh1bWJwcmludDpzaGEtMjU2O
+      m1sVXBvZzd2RWV3RkJlbTZVbDA5YzJkdFR3YzhkRnpWcElEWDNzcUdXVzAif
+      Q.eyJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC
+      9jcmVkZW50aWFscy92MSIsImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZW
+      RlbnRpYWxzL2V4YW1wbGVzL3YxIl0sImlkIjoiaHR0cHM6Ly9jcmVkZW50aW
+      FsLWlzc3Vlci5leGFtcGxlLmNvbS9jcmVkZW50aWFscy8zNzMyIiwidHlwZS
+      I6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCIsIlVuaXZlcnNpdHlEZWdyZWVDcm
+      VkZW50aWFsIl0sImlzc3VlciI6Imh0dHBzOi8vY3JlZGVudGlhbC1pc3N1ZX
+      IuZXhhbXBsZS5jb20iLCJpc3N1YW5jZURhdGUiOiIyMDI1LTAxLTAxVDAwOj
+      AwOjAwWiIsImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImlkIjoiZGlkOmp3azpleU
+      pyYVdRaU9pSjFjbTQ2YVdWMFpqcHdZWEpoYlhNNmIyRjFkR2c2YW5kckxYUm
+      9kVzFpY0hKcGJuUTZjMmhoTFRJMU5qcFdZa3BQVTNacWVGVTJURGhETjBkVl
+      R6UmtjMmhKV1ZZemVtSjJSbmRyV1VJME0xbEtOVXQwZERoRklpd2lhM1I1SW
+      pvaVJVTWlMQ0pqY25ZaU9pSlFMVEkxTmlJc0ltRnNaeUk2SWtWVE1qVTJJaX
+      dpZUNJNklrMWtReTFQUzNFMFFWRktabFpEV0RWNmNGRnZURGhxTkZaRlpuWl
+      FXRGs0ZEZVNWFIaGpUbGhIY204aUxDSjVJam9pYm5OWGJtWmlOazVYYzBzek
+      9VSklMV2hCWVZOclExTmxORUo1YldWT2MyTktSVjl6WVVRelJETmlUU0o5Ii
+      wiZGVncmVlIjp7InR5cGUiOiJCYWNoZWxvckRlZ3JlZSIsIm5hbWUiOiJCYW
+      NoZWxvciBvZiBTY2llbmNlIGFuZCBBcnRzIn19fSwiaXNzIjoiaHR0cHM6Ly
+      9jcmVkZW50aWFsLWlzc3Vlci5leGFtcGxlLmNvbSIsIm5iZiI6MTczNTY4OT
+      YwMCwianRpIjoiaHR0cHM6Ly9jcmVkZW50aWFsLWlzc3Vlci5leGFtcGxlLm
+      NvbS9jcmVkZW50aWFscy8zNzMyIiwic3ViIjoiZGlkOmp3azpleUpyYVdRaU
+      9pSjFjbTQ2YVdWMFpqcHdZWEpoYlhNNmIyRjFkR2c2YW5kckxYUm9kVzFpY0
+      hKcGJuUTZjMmhoTFRJMU5qcFdZa3BQVTNacWVGVTJURGhETjBkVlR6UmtjMm
+      hKV1ZZemVtSjJSbmRyV1VJME0xbEtOVXQwZERoRklpd2lhM1I1SWpvaVJVTW
+      lMQ0pqY25ZaU9pSlFMVEkxTmlJc0ltRnNaeUk2SWtWVE1qVTJJaXdpZUNJNk
+      lrMWtReTFQUzNFMFFWRktabFpEV0RWNmNGRnZURGhxTkZaRlpuWlFXRGs0ZE
+      ZVNWFIaGpUbGhIY204aUxDSjVJam9pYm5OWGJtWmlOazVYYzBzek9VSklMV2
+      hCWVZOclExTmxORUo1YldWT2MyTktSVjl6WVVRelJETmlUU0o5In0.k13xQC
+      nQIKAIuwQIbg37dwlNr8D6_2YUQtDTVQCq-ZsjcXxHagGC_VIZtd7RpR8OvB
+      zTBHVwrBRD-_RzoV2Ofg"
+    }
+  ]
+}
+The following is the dereferenced document for the Issuer HTTP URL identifier that matches the Credential in the above example (with line breaks within values for display purposes only):
+
+{
+  "jwks": [
+    {
+      "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:mlUpog7vEewFBem6Ul09
+       c2dtTwc8dFzVpIDX3sqGWW0",
+      "kty": "EC",
+      "crv": "P-256",
+      "alg": "ES256",
+      "x": "_LC1FTUl0MltKAOQzXNsofVMpWFV2obLGrNCat_CQ-g",
+      "y": "kBjoyjNuMVAOq--qVUgylDoLKuMdk4imS-Kk5ahuYIU"
+    }
+  ]
+}
+A.1.2. VC Secured using Data Integrity, using JSON-LD, with a Proof Suite Requiring Linked Data Canonicalization
+A.1.2.1. Format Identifier
+The Credential Format Identifier is ldp_vc.
+
+When the format value is ldp_vc, the entire Credential Offer, Authorization Details, Credential Request and Credential Issuer metadata, including credential_definition object, MUST NOT be processed using JSON-LD rules.
+
+The @context value in the credential_definition object can be used by the Wallet to check whether it supports a certain VC or not. If necessary, the Wallet could apply JSON-LD processing to the Credential issued by the Credential Issuer.
+
+Note: Data Integrity used to be called Linked Data Proofs, hence the "ldp" in the Credential Format Identifier.
+
+A.1.2.2. Credential Issuer Metadata
+Cryptographic algorithm identifiers used in the credential_signing_alg_values_supported parameter are case sensitive strings and SHOULD be one of those signature suite identifiers defined in [LD_Suite_Registry].
+
+The following additional Credential Issuer metadata parameters are defined for this Credential Format for use in the credential_configurations_supported parameter, in addition to those defined in Section 11.2.4:
+
+credential_definition: REQUIRED. Object containing the detailed description of the Credential type. It consists of the following parameters:
+
+@context: REQUIRED. Array as defined in [VC_DATA], Section 4.1.
+type: REQUIRED. Array designating the types a certain credential type supports, according to [VC_DATA], Section 4.3.
+The following is a non-normative example of an object containing the credential_configurations_supported parameter for Credential Format ldp_vc:
+
+{
+  "credential_configurations_supported": {
+    "UniversityDegree_LDP_VC": {
+      "format": "ldp_vc",
+      "cryptographic_binding_methods_supported": [
+        "did:example"
+      ],
+      "credential_signing_alg_values_supported": [
+        "Ed25519Signature2018"
+      ],
+      "credentials_definition": {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://www.w3.org/2018/credentials/examples/v1"
+        ],
+        "type": [
+          "VerifiableCredential",
+          "UniversityDegreeCredential"
+        ],
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://www.w3.org/2018/credentials/examples/v1"
+        ]
+      },
+      "credential_metadata": {
+        "claims": [
+          {
+            "path": ["credentialSubject", "given_name"],
+            "display": [
+              {
+                "name": "Given Name",
+                "locale": "en-US"
+              }
+            ]
+          },
+          {
+            "path": ["credentialSubject", "family_name"],
+            "display": [
+              {
+                "name": "Surname",
+                "locale": "en-US"
+              }
+            ]
+          },
+          {
+            "path": ["credentialSubject", "degree"]
+          },
+          {
+            "path": ["credentialSubject", "gpa"],
+            "mandatory": true,
+            "display": [
+              {
+                "name": "GPA"
+              }
+            ]
+          }
+        ],
+        "display": [
+          {
+            "name": "University Credential",
+            "locale": "en-US",
+            "logo": {
+              "uri": "https://university.example.edu/public/logo.png",
+              "alt_text": "a square logo of a university"
+            },
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          }
+        ]
+      }
+    }
+  }
+}
+A.1.2.3. Authorization Details
+The following is a non-normative example of an authorization details object with Credential Format ldp_vc:
+
+[
+  {
+    "type": "openid_credential",
+    "credential_configuration_id": "UniversityDegree_LDP_VC",
+    "claims": [
+      {"path": ["credentialSubject", "given_name"]},
+      {"path": ["credentialSubject", "family_name"]},
+      {"path": ["credentialSubject", "degree"]}
+    ]
+  }
+]
+A.1.2.4. Credential Response
+The value of the credential claim in the Credential Response MUST be a JSON object. Credentials of this format MUST NOT be re-encoded.
+
+The following is a non-normative example of a Credential Response with Credential Format ldp_vc:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "credentials": [
+    {
+      "credential": {
+        "@context": [
+          "https://www.w3.org/2018/credentials/v1",
+          "https://www.w3.org/2018/credentials/examples/v1"
+        ],
+        "id": "http://example.edu/credentials/3732",
+        "type": [
+          "VerifiableCredential",
+          "UniversityDegreeCredential"
+        ],
+        "issuer": "https://example.edu/issuers/565049",
+        "issuanceDate": "2010-01-01T00:00:00Z",
+        "credentialSubject": {
+          "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+          "degree": {
+            "type": "BachelorDegree",
+            "name": "Bachelor of Science and Arts"
+          }
+        },
+        "proof": {
+          "type": "Ed25519Signature2020",
+          "created": "2022-02-25T14:58:43Z",
+          "verificationMethod": "https://example.edu/issuers/565049#key-1",
+          "proofPurpose": "assertionMethod",
+          "proofValue": "zeEdUoM7m9cY8ZyTpey83yBKeBcmcvbyrEQzJ19rD2UXArU2U1
+                         jPGoEtrRvGYppdiK37GU4NBeoPakxpWhAvsVSt"
+        }
+      }
+    }
+  ]
+}
+A.1.3. VC signed as a JWT, Using JSON-LD
+A.1.3.1. Format Identifier
+The Credential Format Identifier is jwt_vc_json-ld.
+
+When the format value is jwt_vc_json-ld, the entire Credential Offer, Authorization Details, Credential Request and Credential Issuer metadata, including credential_definition object, MUST NOT be processed using JSON-LD rules.
+
+The @context value in the credential_definition parameter can be used by the Wallet to check whether it supports a certain VC or not. If necessary, the Wallet could apply JSON-LD processing to the Credential issued by the Credential Issuer.
+
+A.1.3.2. Credential Issuer Metadata
+The definitions in Appendix A.1.2.2 apply for metadata of Credentials of this type as well.
+
+A.1.3.3. Authorization Details
+The definitions in Appendix A.1.2.3 apply for Credentials of this type as well.
+
+A.1.3.4. Credential Response
+The definitions in Appendix A.1.1.4 apply for Credentials of this type as well.
+
+A.2. Mobile Documents or mdocs (ISO/IEC 18013)
+This section defines a Credential Format Profile for credentials that conform to the mobile document (mdoc) format specified in ISO/IEC 18013-5 [ISO.18013-5].
+
+ISO/IEC 18013-5:2021 [ISO.18013-5] defines the mdoc format in the context of mobile driving licences (mDLs). While the specification is focused on mDLs, the mdoc format itself is general-purpose and can be used for other types of Credentials.
+
+A.2.1. Format Identifier
+The Credential Format Identifier is mso_mdoc. This refers to the Mobile Security Object (MSO) which secures the mdoc data model encoded as CBOR.
+
+A.2.2. Credential Issuer Metadata
+Cryptographic algorithm identifiers used in the credential_signing_alg_values_supported parameter correspond to the numeric COSE algorithm identifiers used to secure the IssuerAuth COSE structure, as defined in [ISO.18013-5]. The values SHOULD be chosen from the following:
+
+The value exactly matches the alg value in the IssuerAuth COSE header;
+Or, the value is a fully specified algorithm, as defined in [I-D.ietf-jose-fully-specified-algorithms], and the combination of the alg value and the signing key's curve in the IssuerAuth COSE structure matches the combination specified by the fully specified algorithm.
+Consequently, depending on the approach taken by the Issuer as described above, the alg value in the IssuerAuth COSE header MAY differ from the identifier listed in the credential_signing_alg_values_supported metadata parameter. This metadata parameter is primarily informational for the Wallet.
+
+Example: If the IssuerAuth structure contains an alg header value of -7 (ECDSA with SHA-256, per [IANA.COSE]) and is signed using a P-256 key, it matches both -7 and -9 in credential_signing_alg_values_supported. The latter (-9) corresponds to ECDSA with P-256 and SHA-256, as defined in [I-D.ietf-jose-fully-specified-algorithms].
+
+The following additional Credential Issuer metadata parameters are defined for this Credential Format for use in the credential_configurations_supported parameter, in addition to those defined in Section 11.2.4.
+
+doctype: REQUIRED. String identifying the Credential type, as defined in [ISO.18013-5].
+The following is a non-normative example of an object containing the credential_configurations_supported parameter for Credential Format mso_mdoc:
+
+{
+  "credential_configurations_supported": {
+    "org.iso.18013.5.1.mDL": {
+      "format": "mso_mdoc",
+      "doctype": "org.iso.18013.5.1.mDL",
+      "cryptographic_binding_methods_supported": [
+        "cose_key"
+      ],
+      "credential_signing_alg_values_supported": [
+        -7, -9
+      ],
+      "credential_metadata": {
+        "display": [
+          {
+            "name": "Mobile Driving License",
+            "locale": "en-US",
+            "logo": {
+              "uri": "https://state.example.org/public/mdl.png",
+              "alt_text": "state mobile driving license"
+            },
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          },
+          {
+            "name": "モバイル運転免許証",
+            "locale": "ja-JP",
+            "logo": {
+              "uri": "https://state.example.org/public/mdl.png",
+              "alt_text": "米国州発行のモバイル運転免許証"
+            },
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          }
+        ],
+        "claims": [
+          {
+            "path": ["org.iso.18013.5.1", "given_name"],
+            "display": [
+              {
+                "name": "Given Name",
+                "locale": "en-US"
+              },
+              {
+                "name": "名前",
+                "locale": "ja-JP"
+              }
+            ]
+          },
+          {
+            "path": ["org.iso.18013.5.1", "family_name"],
+            "display": [
+              {
+                "name": "Surname",
+                "locale": "en-US"
+              }
+            ]
+          },
+          {
+            "path": ["org.iso.18013.5.1", "birth_date"],
+            "mandatory": true
+          },
+          {"path": ["org.iso.18013.5.1.aamva", "organ_donor"]}
+        ]
+      }
+    }
+  }
+}
+A.2.3. Authorization Details
+The following is a non-normative example of an authorization details object with Credential Format mso_mdoc:
+
+[
+  {
+    "type": "openid_credential",
+    "credential_configuration_id": "org.iso.18013.5.1.mDL",
+    "claims": [
+      {"path": ["org.iso.18013.5.1","given_name"]},
+      {"path": ["org.iso.18013.5.1","family_name"]},
+      {"path": ["org.iso.18013.5.1","birth_date"]},
+      {"path": ["org.iso.18013.5.1.aamva","organ_donor"]}
+    ]
+  }
+]
+A.2.4. Credential Response
+The value of the credential claim in the Credential Response MUST be a string that is the base64url-encoded representation of the CBOR-encoded IssuerSigned structure, as defined in [ISO.18013-5].
+
+The following is a non-normative example of a Credential Response containing a Credential of format mso_mdoc.
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "credentials": [
+    {
+      "credential": "omppc3N1ZXJBdXRohEOhASahG...ArQwggKwMIICVqADAgEC"
+    }
+  ]
+}
+A.3. IETF SD-JWT VC
+This section defines a Credential Format Profile for Credentials complying with [I-D.ietf-oauth-sd-jwt-vc].
+
+A.3.1. Format Identifier
+The Credential Format Identifier is dc+sd-jwt.
+
+A.3.2. Credential Issuer Metadata
+Cryptographic algorithm identifiers used in the credential_signing_alg_values_supported parameter are case sensitive strings and SHOULD be one of those JWS Algorithm Names defined in [IANA.JOSE].
+
+The following additional Credential Issuer metadata parameters are defined for this Credential Format for use in the credential_configurations_supported parameter, in addition to those defined in Section 11.2.4.
+
+vct: REQUIRED. String designating the type of the Credential, as defined in [I-D.ietf-oauth-sd-jwt-vc].
+The following is a non-normative example of an object comprising the credential_configurations_supported parameter for Credential Format dc+sd-jwt.
+
+{
+  "credential_configurations_supported": {
+    "SD_JWT_VC_example_in_OpenID4VCI": {
+      "format": "dc+sd-jwt",
+      "scope": "SD_JWT_VC_example_in_OpenID4VCI",
+      "cryptographic_binding_methods_supported": [
+        "jwk"
+      ],
+      "credential_signing_alg_values_supported": [
+        "ES256"
+      ],
+      "proof_types_supported": {
+        "jwt": {
+          "proof_signing_alg_values_supported": [
+            "ES256"
+          ],
+          "key_attestations_required": {
+            "key_storage": [ "iso_18045_moderate" ],
+            "user_authentication": [ "iso_18045_moderate" ]
+          }
+        }
+      },
+      "vct": "SD_JWT_VC_example_in_OpenID4VCI",
+      "credential_metadata": {
+        "display": [
+          {
+            "name": "IdentityCredential",
+            "logo": {
+              "uri": "https://university.example.edu/public/logo.png",
+              "alt_text": "a square logo of a university"
+            },
+            "locale": "en-US",
+            "background_color": "#12107c",
+            "text_color": "#FFFFFF"
+          }
+        ],
+        "claims": [
+          {
+            "path": ["given_name"],
+            "display": [
+              {
+                "name": "Given Name",
+                "locale": "en-US"
+              },
+              {
+                "name": "Vorname",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {
+            "path": ["family_name"],
+            "display": [
+              {
+                "name": "Surname",
+                "locale": "en-US"
+              },
+              {
+                "name": "Nachname",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {"path": ["email"]},
+          {"path": ["phone_number"]},
+          {
+            "path": ["address"],
+            "display": [
+              {
+                "name": "Place of residence",
+                "locale": "en-US"
+              },
+              {
+                "name": "Wohnsitz",
+                "locale": "de-DE"
+              }
+            ]
+          },
+          {"path": ["address", "street_address"]},
+          {"path": ["address", "locality"]},
+          {"path": ["address", "region"]},
+          {"path": ["address", "country"]},
+          {"path": ["birthdate"]},
+          {"path": ["is_over_18"]},
+          {"path": ["is_over_21"]},
+          {"path": ["is_over_65"]}
+        ]
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { agentContext } from '@sphereon/ssi-sdk.core'
 import { copyGlobalAuthToEndpoints, ExpressSupport } from '@sphereon/ssi-express-support'
-import { ISIOPv2RP } from '@sphereon/ssi-sdk.siopv2-oid4vp-rp-auth'
+import { ISIOPv2RP } from '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth'
 import { TAgent } from '@veramo/core'
 import express, { Express, Request, Response, Router } from 'express'
 import { getAuthRequestSIOPv2Endpoint, verifyAuthResponseSIOPv2Endpoint } from './siop-api-functions'
