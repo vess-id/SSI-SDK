@@ -1,3 +1,8 @@
 prefer-workspace-packages: false
 packages:
   - 'packages/**'
+  # Temporarily excluded: oid4vci-issuer-rest-api depends on @sphereon/oid4vci-issuer-server,
+  # which is not migrated to OID4VCI 1.0 (VcIssuer type incompatibility) and not published under
+  # @vess-id. The rest-api is unused (no internal dependents, not published). Re-include once the
+  # upstream issuer-server is migrated.
+  - '!packages/oid4vci-issuer-rest-api'
