@@ -36,6 +36,9 @@ export class SphereonEcdsaSecp256k1RecoverySignature2020 extends SphereonLdSigna
         }
         const headerString = encodeJoseBlob(header)
         const messageBuffer = concatArrays([fromString(`${headerString}.`, 'utf-8'), args.data])
+        // keyManagerSign expects `data` as a string; with encoding: 'base64' it decodes it back to bytes.
+        // Encode the message bytes as (standard, padded) base64 first, matching the sibling Ed25519
+        // suites (Ed25519Signature2018/2020) which use the same bytesToBase64 + encoding: 'base64' pattern.
         const signature = await context.agent.keyManagerSign({
           keyRef: key.kid,
           algorithm: 'ES256K-R',
