@@ -4,7 +4,9 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   // plugins: [tsconfigPaths()],
   test: {
-    workspace: ['packages/*'],
+    // oid4vci-issuer-rest-api is excluded: depends on un-migrated @sphereon/oid4vci-issuer-server
+    // and is unused. Keep in sync with the exclusion in pnpm-workspace.yaml.
+    workspace: ['packages/*', '!packages/oid4vci-issuer-rest-api'],
     server: {
       deps: {
         fallbackCJS: true,
