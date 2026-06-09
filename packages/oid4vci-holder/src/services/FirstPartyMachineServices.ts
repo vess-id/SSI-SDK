@@ -1,7 +1,7 @@
-import { OpenID4VCIClient } from '@sphereon/oid4vci-client'
-import { AuthorizationChallengeValidationResponse } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
-import { AuthorizationChallengeCodeResponse } from '@sphereon/oid4vci-common'
-import { CreateConfigResult } from '@sphereon/ssi-sdk.siopv2-oid4vp-op-auth'
+import { OpenID4VCIClient } from '@vess-id/oid4vci-client'
+import { AuthorizationChallengeValidationResponse } from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
+import { AuthorizationChallengeCodeResponse } from '@vess-id/oid4vci-common'
+import { CreateConfigResult } from '@vess-id/ssi-sdk.siopv2-oid4vp-op-auth'
 import { v4 as uuidv4 } from 'uuid'
 import { RequiredContext } from '../types/IOID4VCIHolder'
 import {

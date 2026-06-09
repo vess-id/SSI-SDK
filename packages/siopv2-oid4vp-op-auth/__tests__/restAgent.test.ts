@@ -14,7 +14,7 @@ import { getDidKeyResolver } from '@veramo/did-provider-key'
 import { DIDResolverPlugin } from '@veramo/did-resolver'
 import { getUniResolver } from '@sphereon/did-uni-client'
 import didAuthSiopOpAuthenticatorAgentLogic from './shared/didAuthSiopOpAuthenticatorAgentLogic'
-import { PresentationSignCallback } from '@sphereon/did-auth-siop'
+import { PresentationSignCallback } from '@vess-id/did-auth-siop'
 
 function getFile(path: string) {
   return fs.readFileSync(path, 'utf-8')

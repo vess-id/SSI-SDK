@@ -4,9 +4,9 @@ import {
   createAuthorizationRequestFromPayload,
   CreateAuthorizationRequestPayloadSchema,
   CreateAuthorizationResponsePayload,
-} from '@sphereon/did-auth-siop'
+} from '@vess-id/did-auth-siop'
 import { checkAuth, ISingleEndpointOpts, sendErrorResponse } from '@sphereon/ssi-express-support'
-import { uriWithBase } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
+import { uriWithBase } from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
 import { Request, Response, Router } from 'express'
 import uuid from 'short-uuid'
 import { validateData } from './middleware/validationMiddleware'

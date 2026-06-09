@@ -1,5 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
-import { AuthorizationResponsePayload } from '@sphereon/did-auth-siop'
+import { AuthorizationResponsePayload } from '@vess-id/did-auth-siop'
 import { AdditionalClaims } from '@sphereon/ssi-types'
 
 export interface ClaimPayloadCommonOpts {

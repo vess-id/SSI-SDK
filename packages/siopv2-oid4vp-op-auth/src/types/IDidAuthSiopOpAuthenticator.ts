@@ -6,8 +6,8 @@ import {
   URI,
   VerifiedAuthorizationRequest,
   VerifyJwtCallback,
-} from '@sphereon/did-auth-siop'
-import { CheckLinkedDomain, ResolveOpts } from '@sphereon/did-auth-siop-adapter'
+} from '@vess-id/did-auth-siop'
+import { CheckLinkedDomain, ResolveOpts } from '@vess-id/did-auth-siop-adapter'
 import { DIDDocument } from '@sphereon/did-uni-client'
 import { IIdentifierResolution, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'

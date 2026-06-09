@@ -4,7 +4,7 @@ import {
   createAuthorizationRequestToPayload,
   type CreateAuthorizationResponse,
   createAuthorizationResponseFromPayload,
-} from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
+} from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
 import { Loggers } from '@sphereon/ssi-types'
 import { IAgentPlugin } from '@veramo/core'
 import fetch from 'cross-fetch'

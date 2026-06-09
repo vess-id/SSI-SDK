@@ -11,7 +11,7 @@ import {
   SubjectIdentifierType,
   UrlEncodingFormat,
   VerifiedAuthorizationRequest,
-} from '@sphereon/did-auth-siop'
+} from '@vess-id/did-auth-siop'
 import { mapIdentifierKeysToDoc } from '@veramo/utils'
 import { CredentialMapper, WrappedW3CVerifiablePresentation } from '@sphereon/ssi-types'
 import { mapIdentifierKeysToDocWithJwkSupport } from '@sphereon/ssi-sdk-ext.did-utils'

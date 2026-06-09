@@ -107,6 +107,8 @@
   },
   "pnpm": {
     "overrides": {
+      "@sphereon/ssi-sdk.data-store": "npm:@vess-id/ssi-sdk.data-store@^1.0.0",
+      "@sphereon/ssi-sdk.pd-manager": "npm:@vess-id/ssi-sdk.pd-manager@^1.0.0",
       "@veramo/cli": "4.2.0",
       "@veramo/core": "4.2.0",
       "@veramo/credential-w3c": "4.2.0",

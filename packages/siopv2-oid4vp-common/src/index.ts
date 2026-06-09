@@ -39,4 +39,4 @@ export {
   ResponseType,
   ResponseMode,
   VPTokenLocation,
-} from '@sphereon/did-auth-siop'
+} from '@vess-id/did-auth-siop'

@@ -1,4 +1,4 @@
-import { AuthorizationChallengeCodeResponse, AuthzFlowType, toAuthorizationResponsePayload } from '@sphereon/oid4vci-common'
+import { AuthorizationChallengeCodeResponse, AuthzFlowType, toAuthorizationResponsePayload } from '@vess-id/oid4vci-common'
 import { IBasicIssuerLocaleBranding, Identity, IIssuerLocaleBranding, Party } from '@sphereon/ssi-sdk.data-store-types'
 import { assign, createMachine, DoneInvokeEvent, interpret } from 'xstate'
 import { translate } from '../localization/Localization'

@@ -1,4 +1,4 @@
-import { PresentationSignCallback, RPRegistrationMetadataPayload, VerifiedAuthorizationRequest } from '@sphereon/did-auth-siop'
+import { PresentationSignCallback, RPRegistrationMetadataPayload, VerifiedAuthorizationRequest } from '@vess-id/did-auth-siop'
 import { IIdentifierResolution, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IContactManager } from '@sphereon/ssi-sdk.contact-manager'
 import { ICredentialStore, UniqueDigitalCredential } from '@sphereon/ssi-sdk.credential-store'

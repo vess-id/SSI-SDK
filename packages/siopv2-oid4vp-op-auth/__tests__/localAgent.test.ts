@@ -2,7 +2,7 @@ import { describe } from 'vitest'
 import * as fs from 'fs'
 import { createObjects, getConfig } from '@sphereon/ssi-sdk.agent-config'
 import didAuthSiopOpAuthenticatorAgentLogic from './shared/didAuthSiopOpAuthenticatorAgentLogic'
-import { PresentationSignCallback } from '@sphereon/did-auth-siop'
+import { PresentationSignCallback } from '@vess-id/did-auth-siop'
 
 function getFile(path: string) {
   return fs.readFileSync(path, 'utf-8')

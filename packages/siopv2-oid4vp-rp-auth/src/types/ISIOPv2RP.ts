@@ -6,6 +6,7 @@ import {
   CallbackOpts,
   ClaimPayloadCommonOpts,
   ClientMetadataOpts,
+  CreateJwtCallback,
   IRPSessionManager,
   PresentationVerificationCallback,
   RequestObjectPayload,
@@ -14,20 +15,20 @@ import {
   SupportedVersion,
   VerifiedAuthorizationResponse,
   VerifyJwtCallback,
-} from '@sphereon/did-auth-siop'
-import { CheckLinkedDomain } from '@sphereon/did-auth-siop-adapter'
+} from '@vess-id/did-auth-siop'
+import { CheckLinkedDomain } from '@vess-id/did-auth-siop-adapter'
 import { DIDDocument } from '@sphereon/did-uni-client'
-import { JwtIssuer } from '@sphereon/oid4vc-common'
+import { JwtIssuer } from '@vess-id/oid4vc-common'
 import { IPresentationDefinition } from '@sphereon/pex'
 import { IDIDOptions } from '@sphereon/ssi-sdk-ext.did-utils'
 import { ExternalIdentifierOIDFEntityIdOpts, IIdentifierResolution, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { ICredentialValidation, SchemaValidation } from '@sphereon/ssi-sdk.credential-validation'
-import { ImDLMdoc } from '@sphereon/ssi-sdk.mdl-mdoc'
+import { ImDLMdoc } from '@vess-id/ssi-sdk.mdl-mdoc'
 import { ImportDcqlQueryItem, IPDManager, VersionControlMode } from '@sphereon/ssi-sdk.pd-manager'
 import { IPresentationExchange } from '@sphereon/ssi-sdk.presentation-exchange'
 import { ISDJwtPlugin } from '@sphereon/ssi-sdk.sd-jwt'
-import { AuthorizationRequestStateStatus } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
+import { AuthorizationRequestStateStatus } from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
 import { HasherSync } from '@sphereon/ssi-types'
 import { VerifyCallback } from '@sphereon/wellknown-dids-client'
 import { IAgentContext, ICredentialVerifier, IDIDManager, IKeyManager, IPluginMethodMap, IResolver } from '@veramo/core'
@@ -147,9 +148,65 @@ export interface IRPOptions {
   eventEmitter?: EventEmitter
   credentialOpts?: CredentialOpts
   verificationPolicies?: VerificationPolicies
+  requestByReferenceURI?: string // Template URI for request_uri when using PassBy.REFERENCE
   identifierOpts: ISIOPIdentifierOptions
   verifyJwtCallback?: VerifyJwtCallback
+  createJwtCallback?: CreateJwtCallback // JWT signing callback for request objects
   responseRedirectUri?: string
+  /**
+   * Client ID prefix to use for OID4VP 1.0
+   * Note: In OID4VP 1.0, client_id_scheme is replaced by prefix in client_id
+   *
+   * @default 'redirect_uri' - Use redirect_uri as client_id (OID4VP 1.0 recommended)
+   * - 'redirect_uri': Simple URL-based prefix (no signing required)
+   *   client_id = "redirect_uri:https://verifier.vess.id/callback"
+   *
+   * - 'did': DID-based prefix (backward compatible, signing required)
+   *   client_id = "decentralized_identifier:did:web:verifier.vess.id"
+   *
+   * - 'x509_san_dns': X.509 certificate DNS SAN prefix (signing required, enterprise)
+   *   client_id = "x509_san_dns:verifier.vess.id"
+   */
+  clientIdScheme?: 'redirect_uri' | 'did' | 'x509_san_dns'
+  /**
+   * Response URI to use when clientIdScheme is 'redirect_uri'
+   * This will be used as the client_id with redirect_uri prefix
+   * If not provided, the responseURI from ICreateAuthRequestArgs will be used
+   */
+  responseUri?: string
+  /**
+   * X.509 certificate options for x509_san_dns scheme
+   * Required when clientIdScheme is 'x509_san_dns'
+   */
+  x509Opts?: {
+    /**
+     * DNS domain for client_id (e.g., "verifier.vess.id")
+     * Must match certificate SAN DNS entry
+     */
+    domain: string
+
+    /**
+     * X.509 certificate in PEM format
+     */
+    certificate: string
+
+    /**
+     * Private key reference (kid/keyRef) for signing
+     * Note: Private key is managed by Veramo KMS
+     */
+    keyRef: string
+
+    /**
+     * Certificate chain (intermediate + root CA) in PEM format
+     * Used for x5c JWT header
+     */
+    certificateChain?: string[]
+
+    /**
+     * Signing algorithm (default: ES256 for ECDSA P-256)
+     */
+    alg?: 'RS256' | 'RS384' | 'RS512' | 'ES256' | 'ES384' | 'ES512'
+  }
 }
 
 export interface IPresentationOptions {

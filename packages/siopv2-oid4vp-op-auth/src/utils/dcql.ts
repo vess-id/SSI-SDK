@@ -7,7 +7,7 @@ import {
   type WrappedSdJwtVerifiableCredential,
   type WrappedW3CVerifiableCredential,
 } from '@sphereon/ssi-types'
-import { Dcql } from '@sphereon/did-auth-siop'
+import { Dcql } from '@vess-id/did-auth-siop'
 import { DcqlCredential } from 'dcql'
 import { isUniqueDigitalCredential } from './CredentialUtils'
 

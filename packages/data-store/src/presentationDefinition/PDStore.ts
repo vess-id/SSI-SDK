@@ -54,9 +54,19 @@ export class PDStore extends AbstractPDStore {
     const { filter } = args
     const pdRepository = (await this.dbConnection).getRepository(DcqlQueryItemEntity)
 
-    const resultCount: number = await pdRepository.count({
-      ...(filter && { where: cleanFilter(filter) }),
-    })
+    let resultCount: number
+    if (filter && filter.length > 0) {
+      const cleanedFilters = cleanFilter(filter)
+      if (cleanedFilters && cleanedFilters.length > 0) {
+        resultCount = await pdRepository.count({
+          where: cleanedFilters,
+        })
+      } else {
+        resultCount = 0
+      }
+    } else {
+      resultCount = await pdRepository.count()
+    }
     return resultCount > 0
   }
 
@@ -159,11 +169,18 @@ export class PDStore extends AbstractPDStore {
       return await pdRepository.find({
         where: { id: In(idFilters) },
       })
-    } else {
-      return await pdRepository.find({
-        ...(filter && { where: cleanFilter(filter) }), // TODO test how mixing filters work
-      })
+    } else if (filter && filter.length > 0) {
+      // Clean and pass filter array directly to TypeORM
+      // TypeORM treats array as OR condition: where: [{ queryId: 'A' }, { id: 'B' }]
+      const cleanedFilters = cleanFilter(filter)
+      if (cleanedFilters && cleanedFilters.length > 0) {
+        return await pdRepository.find({
+          where: cleanedFilters,
+        })
+      }
     }
+    // No filter provided, return all
+    return await pdRepository.find()
   }
 }
 

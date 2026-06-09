@@ -95,10 +95,56 @@ export type VerificationOptions = {
 }
 
 export type DocumentVerifyResult = { document: DocumentJson; validations: IVerifyResults<ICoseKeyCbor> }
-export type MdocOid4vpRPVerifyResult = { error: boolean; documents: Array<DocumentVerifyResult>; presentation_submission: PresentationSubmission }
+// OID4VP 1.0 DCQL: presentation_submission is optional
+export type MdocOid4vpRPVerifyResult = { error: boolean; documents: Array<DocumentVerifyResult>; presentation_submission?: PresentationSubmission }
+
+/**
+ * OID4VP 1.0 SessionTranscript検証パラメータ
+ * OID4VP 1.0 Final準拠
+ */
+export interface SessionTranscriptParams {
+  /** Verifier generated nonce (OID4VP 1.0では、このnonceのみを使用) */
+  nonce: string
+  /** Client ID (Verifier DID or URL) */
+  client_id: string
+  /** Response URI */
+  response_uri: string
+  /** State (optional) */
+  state?: string
+  /** Response type (default: "vp_token") */
+  response_type?: string
+  /** Response mode (default: "direct_post") */
+  response_mode?: string
+  /** DCQL query (ISO 18013-7 Annex B) */
+  dcql_query?: any
+  /** Presentation Definition (PE 2.0) - dcql_queryと排他的 */
+  presentation_definition?: PresentationDefinitionV2
+  /** Client metadata */
+  client_metadata?: any
+}
 
 export interface MdocOid4vpRPVerifyArgs {
   vp_token: string
-  presentation_submission: PresentationSubmission
+  // OID4VP 1.0 DCQL: presentation_submission is optional
+  presentation_submission?: PresentationSubmission
   trustAnchors?: string[]
+
+  /**
+   * SessionTranscript検証パラメータ (optional)
+   * OID4VP 1.0フローの場合に必須
+   * SessionTranscriptを構築してDeviceSignature検証を行う
+   */
+  sessionTranscriptParams?: SessionTranscriptParams
+
+  /**
+   * Skip certificate validation (default: false)
+   * テスト環境で自己署名証明書を使用する場合にtrueに設定
+   */
+  skipCertificateValidation?: boolean
+
+  /**
+   * Skip device signature verification (default: false)
+   * DeviceSignature検証をスキップする場合にtrueに設定
+   */
+  skipDeviceSignature?: boolean
 }

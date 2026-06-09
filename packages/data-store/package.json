@@ -1,6 +1,6 @@
 {
-  "name": "@sphereon/ssi-sdk.data-store",
-  "version": "0.36.0",
+  "name": "@vess-id/ssi-sdk.data-store",
+  "version": "1.0.0",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",
