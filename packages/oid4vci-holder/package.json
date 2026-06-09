@@ -42,7 +42,7 @@
     "@sphereon/ssi-sdk.issuance-branding": "^0.36.0",
     "@vess-id/ssi-sdk.mdl-mdoc": "workspace:*",
     "@sphereon/ssi-sdk.oidf-client": "^0.36.0",
-    "@sphereon/ssi-sdk.sd-jwt": "^0.36.0",
+    "@vess-id/ssi-sdk.sd-jwt": "^1.0.0",
     "@vess-id/ssi-sdk.siopv2-oid4vp-common": "workspace:*",
     "@vess-id/ssi-sdk.siopv2-oid4vp-op-auth": "workspace:*",
     "@sphereon/ssi-sdk.xstate-machine-persistence": "^0.36.0",
