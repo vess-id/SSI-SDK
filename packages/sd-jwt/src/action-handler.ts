@@ -11,6 +11,7 @@ import { defaultGenerateDigest, defaultGenerateSalt, defaultVerifySignature } fr
 import { funkeTestCA, sphereonCA } from './trustAnchors'
 import {
   assertValidTypeMetadata,
+  fetchJsonFromIssuerUrl,
   fetchUrlWithErrorHandling,
   getIssuerFromSdJwt,
   isSdjwtVcPayload,
@@ -335,7 +336,7 @@ export class SDJwtPlugin implements IAgentPlugin {
         throw new Error('invalid_issuer: issuer did not resolve to a did document')
       }
       //TODO SDK-20: This should be checking for an assertionMethod and not just an verificationMethod with an id
-      const didDocumentKey = didDoc.didDocument?.verificationMethod?.find((key) => key.id)
+      const didDocumentKey = didDoc.didDocument?.verificationMethod?.find((key: any) => key.id)
       if (!didDocumentKey) {
         throw new Error('invalid_issuer: issuer did document does not include referenced key')
       }
@@ -351,13 +352,42 @@ export class SDJwtPlugin implements IAgentPlugin {
         throw new Error('invalid_issuer: issuer did not resolve to a did document')
       }
       //TODO SDK-20: This should be checking for an assertionMethod and not just an verificationMethod with an id
-      const didDocumentKey = didDoc.didDocument?.verificationMethod?.find((key) => key.id)
+      const didDocumentKey = didDoc.didDocument?.verificationMethod?.find((key: any) => key.id)
       if (!didDocumentKey) {
         throw new Error('invalid_issuer: issuer did document does not include referenced key')
       }
       //FIXME SDK-21: in case it's another did method, the value of the key can be also encoded as a base64url
       // needs more checks. some DID methods do not expose the keys as publicKeyJwk
       jwk = didDocumentKey.publicKeyJwk as JsonWebKey
+    }
+
+    // OID4VCI 1.0: URL-based issuer - fetch JWK from JWKS endpoint.
+    // Only https issuers are accepted, and the fetch is SSRF-guarded
+    // (internal/loopback/private hosts blocked, redirects re-validated). Note
+    // we still trust the issuer URL from `iss` itself — callers that require
+    // issuer allow-listing should enforce it before reaching this path.
+    if (!jwk && issuer.startsWith('https://')) {
+      try {
+        const jwksUrl = new URL('/.well-known/jwks.json', issuer).toString()
+        const jwks = await fetchJsonFromIssuerUrl<{ keys?: JsonWebKey[] }>(jwksUrl)
+
+        // Find JWK by kid (JWK thumbprint)
+        if (header.kid && jwks.keys) {
+          jwk = jwks.keys.find((key: JsonWebKey) => key.kid === header.kid)
+          if (!jwk) {
+            throw new Error(`No JWK found with kid: ${header.kid} in JWKS`)
+          }
+        } else if (jwks.keys && jwks.keys.length === 1) {
+          // If only one key in JWKS, use it
+          jwk = jwks.keys[0]
+        } else {
+          throw new Error(`JWKS contains multiple keys but no kid specified in JWT header`)
+        }
+      } catch (error) {
+        // Do not surface the raw upstream/network error to avoid leaking internal details.
+        debug(`Failed to fetch JWK from issuer URL: ${error instanceof Error ? error.message : String(error)}`)
+        throw new Error('invalid_issuer: failed to resolve a JWK from the issuer JWKS endpoint')
+      }
     }
 
     if (!jwk) {
