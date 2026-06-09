@@ -53,7 +53,7 @@ import {
   IBitstringStatusListEntryEntity,
   IStatusListEntryEntity,
   StatusListEntity,
-} from '@sphereon/ssi-sdk.data-store'
+} from '@vess-id/ssi-sdk.data-store'
 import { IVcdmCredentialPlugin } from '@sphereon/ssi-sdk.credential-vcdm'
 
 export const DEFAULT_LIST_LENGTH = 131072 // W3C spec minimum

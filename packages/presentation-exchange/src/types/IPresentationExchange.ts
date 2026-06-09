@@ -14,7 +14,7 @@ import { IPresentationDefinition, PEVersion, SelectResults } from '@sphereon/pex
 import { Format, InputDescriptorV1, InputDescriptorV2 } from '@sphereon/pex-models'
 import { FindDigitalCredentialArgs } from '@sphereon/ssi-sdk.data-store-types'
 import { CredentialRole } from '@sphereon/ssi-types'
-import { ISDJwtPlugin } from '@sphereon/ssi-sdk.sd-jwt'
+import { ISDJwtPlugin } from '@vess-id/ssi-sdk.sd-jwt'
 
 export interface IPresentationExchange extends IPluginMethodMap {
   pexValidateDefinition(args: IDefinitionValidateArgs): Promise<boolean>

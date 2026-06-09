@@ -8,7 +8,7 @@ import {
   PartyType as ContactType,
   PhysicalAddress,
 } from '@sphereon/ssi-sdk.data-store-types'
-import { BaseContactEntity, isNaturalPerson, isOrganization } from '@sphereon/ssi-sdk.data-store'
+import { BaseContactEntity, isNaturalPerson, isOrganization } from '@vess-id/ssi-sdk.data-store'
 
 import { IAgentPlugin } from '@veramo/core'
 import { schema } from '../index'

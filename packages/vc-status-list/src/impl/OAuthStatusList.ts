@@ -19,7 +19,7 @@ import type { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import type { IIdentifierResolution } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { createSignedJwt, decodeStatusListJWT } from './encoding/jwt'
 import { createSignedCbor, decodeStatusListCWT } from './encoding/cbor'
-import { IBitstringStatusListEntryEntity, IStatusListEntryEntity, OAuthStatusListEntity, StatusListEntity } from '@sphereon/ssi-sdk.data-store'
+import { IBitstringStatusListEntryEntity, IStatusListEntryEntity, OAuthStatusListEntity, StatusListEntity } from '@vess-id/ssi-sdk.data-store'
 import { IVcdmCredentialPlugin } from '@sphereon/ssi-sdk.credential-vcdm'
 
 type IRequiredContext = IAgentContext<IVcdmCredentialPlugin & IJwtService & IIdentifierResolution & IKeyManager>

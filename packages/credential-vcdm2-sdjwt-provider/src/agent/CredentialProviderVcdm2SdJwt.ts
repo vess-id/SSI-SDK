@@ -45,7 +45,7 @@ import { normalizeCredential, normalizePresentation, verifyPresentation as verif
 import { type Resolvable } from 'did-resolver'
 
 import { SELF_ISSUED_V0_1, SELF_ISSUED_V2, SELF_ISSUED_V2_VC_INTEROP } from '../did-jwt/JWT'
-import { getIssuerFromSdJwt, ISDJwtPlugin } from '@sphereon/ssi-sdk.sd-jwt'
+import { getIssuerFromSdJwt, ISDJwtPlugin } from '@vess-id/ssi-sdk.sd-jwt'
 // import {validateCredentialPayload} from "did-jwt-vc/src";
 
 const debug = Debug('sphereon:ssi-sdk:credential-vcdm2-sdjwt')
@@ -93,7 +93,7 @@ export class CredentialProviderVcdm2SdJwt implements IVcdmCredentialProvider {
       return Promise.reject(new Error('invalid_argument: credential must be a VCDM2 credential. Context: ' + credential['@context']))
     } else if (!contextHasPlugin<ISDJwtPlugin>(context, 'createSdJwtVc')) {
       return Promise.reject(
-        new Error('invalid_argument: SD-JWT plugin not available. Please install @sphereon/ssi-sdk.sd-jwt and configure agent for VCDM2 SD-JWT'),
+        new Error('invalid_argument: SD-JWT plugin not available. Please install @vess-id/ssi-sdk.sd-jwt and configure agent for VCDM2 SD-JWT'),
       )
     }
     let identifier: IIdentifier
@@ -134,7 +134,7 @@ export class CredentialProviderVcdm2SdJwt implements IVcdmCredentialProvider {
       return Promise.reject(new Error('invalid_argument: credential must be a VCDM2 credential. Context: ' + uniform['@context']))
     } else if (!contextHasPlugin<ISDJwtPlugin>(context, 'createSdJwtVc')) {
       return Promise.reject(
-        new Error('invalid_argument: SD-JWT plugin not available. Please install @sphereon/ssi-sdk.sd-jwt and configure agent for VCDM2 SD-JWT'),
+        new Error('invalid_argument: SD-JWT plugin not available. Please install @vess-id/ssi-sdk.sd-jwt and configure agent for VCDM2 SD-JWT'),
       )
     }
     let verificationResult: IVerifyResult = { verified: false }

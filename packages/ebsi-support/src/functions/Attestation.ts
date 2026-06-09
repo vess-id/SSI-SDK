@@ -21,14 +21,14 @@ import {
   OID4VCIMachineStates,
   PrepareStartArgs,
   signCallback,
-} from '@sphereon/ssi-sdk.oid4vci-holder'
+} from '@vess-id/ssi-sdk.oid4vci-holder'
 import {
   OID4VPCallbackStateListener,
   Siopv2MachineInterpreter,
   Siopv2MachineState,
   Siopv2MachineStates,
   Siopv2OID4VPLinkHandler,
-} from '@sphereon/ssi-sdk.siopv2-oid4vp-op-auth'
+} from '@vess-id/ssi-sdk.siopv2-oid4vp-op-auth'
 import { _ExtendedIKey } from '@veramo/utils'
 import { waitFor } from 'xstate/lib/waitFor.js'
 import { logger } from '../index'

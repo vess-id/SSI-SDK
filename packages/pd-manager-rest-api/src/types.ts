@@ -1,5 +1,5 @@
 import { GenericAuthArgs, ISingleEndpointOpts } from '@sphereon/ssi-express-support'
-import { IPDManager } from '@sphereon/ssi-sdk.pd-manager'
+import { IPDManager } from '@vess-id/ssi-sdk.pd-manager'
 import { IAgentContext } from '@veramo/core'
 
 export type PDManagerMRestApiFeatures = 'pd_read' | 'pd_write' | 'pd_delete'

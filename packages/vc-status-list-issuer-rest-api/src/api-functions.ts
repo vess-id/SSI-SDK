@@ -18,7 +18,7 @@ import {
   UpdateW3cCredentialStatusRequest,
 } from './types'
 import { StatusListCredential, StatusListType } from '@sphereon/ssi-types'
-import { IBitstringStatusListEntryEntity, IStatusListEntryEntity } from '@sphereon/ssi-sdk.data-store'
+import { IBitstringStatusListEntryEntity, IStatusListEntryEntity } from '@vess-id/ssi-sdk.data-store'
 
 const debug = Debug('sphereon:ssi-sdk:status-list')
 

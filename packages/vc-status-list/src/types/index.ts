@@ -21,7 +21,7 @@ import type { StatusListOpts } from '@sphereon/oid4vci-common'
 import { BitstringStatusPurpose } from '@4sure-tech/vc-bitstring-status-lists'
 import { IVcdmCredentialPlugin } from '@sphereon/ssi-sdk.credential-vcdm'
 import { IExtractedCredentialDetails } from '../impl/IStatusList'
-import { BitstringStatusListArgs, IStatusListEntity } from '@sphereon/ssi-sdk.data-store'
+import { BitstringStatusListArgs, IStatusListEntity } from '@vess-id/ssi-sdk.data-store'
 
 export enum StatusOAuth {
   Valid = 0,

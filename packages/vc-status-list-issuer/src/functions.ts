@@ -1,4 +1,4 @@
-import { IAddStatusListEntryArgs, IStatusListEntryEntity } from '@sphereon/ssi-sdk.data-store'
+import { IAddStatusListEntryArgs, IStatusListEntryEntity } from '@vess-id/ssi-sdk.data-store'
 import {
   CreateNewStatusListArgs,
   CredentialWithStatusSupport,

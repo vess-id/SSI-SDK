@@ -36,7 +36,7 @@
     "@sphereon/ssi-sdk-ext.key-utils": "^0.29.0",
     "@sphereon/ssi-sdk-ext.x509-utils": "^0.29.0",
     "@sphereon/ssi-sdk.agent-config": "^0.34.0",
-    "@vess-id/ssi-sdk.mdl-mdoc": "^1.2.12",
+    "@vess-id/ssi-sdk.mdl-mdoc": "workspace:*",
     "@sphereon/ssi-types": "^0.36.0",
     "debug": "^4.3.5",
     "uint8arrays": "^3.1.1",
