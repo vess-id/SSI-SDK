@@ -1,7 +1,7 @@
 name: Build and Test PR
 on:
-  workflow_dispatch: # Temporarily disabled - only manual execution allowed
-  # pull_request:
+  workflow_dispatch:
+  pull_request:
 jobs:
   build-test:
     runs-on: ubuntu-latest
