@@ -13,8 +13,8 @@ import { IIdentifierResolution, ManagedIdentifierOptsOrResult } from '@sphereon/
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { ICredentialStore } from '@sphereon/ssi-sdk.credential-store'
 import { Party } from '@sphereon/ssi-sdk.data-store-types'
-import { IPDManager } from '@sphereon/ssi-sdk.pd-manager'
-import { ISDJwtPlugin } from '@sphereon/ssi-sdk.sd-jwt'
+import { IPDManager } from '@vess-id/ssi-sdk.pd-manager'
+import { ISDJwtPlugin } from '@vess-id/ssi-sdk.sd-jwt'
 import { HasherSync, PresentationSubmission, W3CVerifiablePresentation } from '@sphereon/ssi-types'
 import { VerifyCallback } from '@sphereon/wellknown-dids-client'
 import {

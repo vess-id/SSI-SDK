@@ -2,7 +2,7 @@ import type { PartialSdJwtKbJwt } from '@sphereon/pex/dist/main/lib/index.js'
 import { calculateSdHash } from '@sphereon/pex/dist/main/lib/utils/index.js'
 import { isManagedIdentifierDidResult, ManagedIdentifierOptsOrResult } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { UniqueDigitalCredential } from '@sphereon/ssi-sdk.credential-store'
-import { defaultGenerateDigest } from '@sphereon/ssi-sdk.sd-jwt'
+import { defaultGenerateDigest } from '@vess-id/ssi-sdk.sd-jwt'
 import {
   CredentialMapper,
   DocumentFormat,

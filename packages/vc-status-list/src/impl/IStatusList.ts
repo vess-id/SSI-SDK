@@ -28,7 +28,7 @@ import {
   IBitstringStatusListEntryEntity,
   IStatusListEntryEntity,
   StatusListEntity,
-} from '@sphereon/ssi-sdk.data-store'
+} from '@vess-id/ssi-sdk.data-store'
 import { IVcdmCredentialPlugin } from '@sphereon/ssi-sdk.credential-vcdm'
 import { DecodedStatusListPayload } from './encoding/common'
 

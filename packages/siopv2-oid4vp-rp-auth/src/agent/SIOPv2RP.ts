@@ -11,7 +11,7 @@ import {
 import { getAgentResolver } from '@sphereon/ssi-sdk-ext.did-utils'
 import { shaHasher as defaultHasher } from '@sphereon/ssi-sdk.core'
 import { validate as isValidUUID } from 'uuid'
-import type { ImportDcqlQueryItem } from '@sphereon/ssi-sdk.pd-manager'
+import type { ImportDcqlQueryItem } from '@vess-id/ssi-sdk.pd-manager'
 import {
   AdditionalClaims,
   CredentialMapper,

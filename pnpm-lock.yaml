@@ -312,15 +312,15 @@ importers:
 
   packages/contact-manager:
     dependencies:
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
       '@sphereon/ssi-types':
         specifier: workspace:*
         version: link:../ssi-types
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -358,9 +358,6 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -373,6 +370,9 @@ importers:
       '@veramo/core':
         specifier: 4.2.0
         version: 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       body-parser:
         specifier: ^1.20.2
         version: 1.20.3
@@ -494,12 +494,12 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -556,8 +556,8 @@ importers:
         specifier: workspace:*
         version: link:../mdl-mdoc
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
       ajv:
         specifier: ^8.17.1
         version: 8.17.1
@@ -734,9 +734,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm':
         specifier: workspace:*
         version: link:../credential-vcdm
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -755,6 +752,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       credentials-context:
         specifier: ^2.0.0
         version: 2.0.0
@@ -1092,8 +1092,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
       canonicalize:
         specifier: ^2.0.0
         version: 2.1.0
@@ -1721,9 +1721,6 @@ importers:
       '@sphereon/ssi-sdk.agent-config':
         specifier: workspace:*
         version: link:../agent-config
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -1763,6 +1760,9 @@ importers:
       '@veramo/remote-server':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)(express@4.21.2)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -1778,15 +1778,15 @@ importers:
 
   packages/event-logger:
     dependencies:
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
       '@sphereon/ssi-types':
         specifier: workspace:*
         version: link:../ssi-types
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -1922,12 +1922,12 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -2431,9 +2431,6 @@ importers:
       '@vess-id/mdl':
         specifier: 0.0.16
         version: 0.0.16
-      '@vess-id/ssi-sdk.mdl-mdoc':
-        specifier: 1.2.0
-        version: 1.2.0(encoding@0.1.13)(typescript@5.8.3)
       cbor-x:
         specifier: ^1.6.0
         version: 1.6.0
@@ -2739,8 +2736,8 @@ importers:
         specifier: workspace:*
         version: link:../mdl-mdoc
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
       '@vess-id/ssi-sdk.siopv2-oid4vp-common':
         specifier: workspace:*
         version: link:../siopv2-oid4vp-common
@@ -2820,9 +2817,6 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: ^0.36.0
         version: 0.36.0(typescript@5.8.3)
@@ -2862,12 +2856,15 @@ importers:
       '@vess-id/oid4vci-issuer':
         specifier: 1.0.7
         version: 1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       '@vess-id/ssi-sdk.mdl-mdoc':
         specifier: workspace:*
         version: link:../mdl-mdoc
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -2933,8 +2930,8 @@ importers:
         specifier: 1.0.3
         version: 1.0.3(encoding@0.1.13)
       '@vess-id/oid4vci-issuer':
-        specifier: 1.0.3
-        version: 1.0.3(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
+        specifier: 1.0.7
+        version: 1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
       '@vess-id/ssi-sdk.oid4vci-issuer':
         specifier: workspace:*
         version: link:../oid4vci-issuer
@@ -2996,9 +2993,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm-jsonld-provider':
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -3062,6 +3056,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -3307,8 +3304,8 @@ importers:
         specifier: workspace:*
         version: link:../ssi-types
       '@vess-id/ssi-sdk.data-store':
-        specifier: ^1.0.0
-        version: 1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../data-store
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -3346,21 +3343,21 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
-      '@sphereon/ssi-sdk.pd-manager':
-        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
-        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-types':
         specifier: workspace:*
         version: link:../ssi-types
       '@veramo/core':
         specifier: 4.2.0
         version: 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
+      '@vess-id/ssi-sdk.pd-manager':
+        specifier: workspace:*
+        version: link:../pd-manager
       body-parser:
         specifier: ^1.20.2
         version: 1.20.3
@@ -3488,9 +3485,6 @@ importers:
       '@sphereon/ssi-sdk.credential-store':
         specifier: workspace:*
         version: link:../credential-store
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -3500,9 +3494,12 @@ importers:
       '@veramo/core':
         specifier: 4.2.0
         version: 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
     devDependencies:
       '@sphereon/did-uni-client':
         specifier: ^0.6.3
@@ -3821,8 +3818,8 @@ importers:
         specifier: workspace:*
         version: link:../ssi-types
       '@vess-id/ssi-sdk.mdl-mdoc':
-        specifier: ^1.2.12
-        version: 1.2.12(encoding@0.1.13)(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../mdl-mdoc
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -3933,9 +3930,6 @@ importers:
       '@sphereon/ssi-sdk.issuance-branding':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.pd-manager':
-        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
-        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.presentation-exchange':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
@@ -3963,9 +3957,12 @@ importers:
       '@vess-id/oid4vc-common':
         specifier: 1.0.0
         version: 1.0.0
+      '@vess-id/ssi-sdk.pd-manager':
+        specifier: workspace:*
+        version: link:../pd-manager
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
       '@vess-id/ssi-sdk.siopv2-oid4vp-common':
         specifier: workspace:*
         version: link:../siopv2-oid4vp-common
@@ -4063,9 +4060,6 @@ importers:
       '@sphereon/ssi-sdk.kv-store-temp':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.pd-manager':
-        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
-        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.presentation-exchange':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
@@ -4091,17 +4085,17 @@ importers:
         specifier: 1.0.0
         version: 1.0.0
       '@vess-id/ssi-sdk.mdl-mdoc':
-        specifier: ^1.0.0
-        version: 1.0.0(encoding@0.1.13)(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../mdl-mdoc
+      '@vess-id/ssi-sdk.pd-manager':
+        specifier: workspace:*
+        version: link:../pd-manager
       '@vess-id/ssi-sdk.sd-jwt':
-        specifier: ^1.0.0
-        version: 1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../sd-jwt
       '@vess-id/ssi-sdk.siopv2-oid4vp-common':
-        specifier: 1.1.0
-        version: 1.1.0(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth':
-        specifier: 1.3.3
-        version: 1.3.3(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: workspace:*
+        version: link:../siopv2-oid4vp-common
       cross-fetch:
         specifier: ^4.1.0
         version: 4.1.0(encoding@0.1.13)
@@ -4148,9 +4142,6 @@ importers:
       '@sphereon/ssi-sdk.kv-store-temp':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.pd-manager':
-        specifier: npm:@vess-id/ssi-sdk.pd-manager@^1.0.0
-        version: '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.presentation-exchange':
         specifier: ^0.36.0
         version: 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
@@ -4166,6 +4157,9 @@ importers:
       '@vess-id/did-auth-siop':
         specifier: 1.0.1
         version: 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/ssi-sdk.pd-manager':
+        specifier: workspace:*
+        version: link:../pd-manager
       '@vess-id/ssi-sdk.siopv2-oid4vp-common':
         specifier: workspace:*
         version: link:../siopv2-oid4vp-common
@@ -4236,9 +4230,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm-jsonld-provider':
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4314,6 +4305,9 @@ importers:
       '@vess-id/did-auth-siop-adapter':
         specifier: 1.0.1
         version: 1.0.1(encoding@0.1.13)(typescript@5.8.3)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -4610,9 +4604,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm-jsonld-provider':
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4682,6 +4673,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       did-resolver:
         specifier: ^4.1.0
         version: 4.1.0
@@ -4739,9 +4733,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm':
         specifier: workspace:*
         version: link:../credential-vcdm
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4757,6 +4748,9 @@ importers:
       '@veramo/credential-status':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       base64url:
         specifier: ^3.0.1
         version: 3.0.1
@@ -4879,9 +4873,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm-jsonld-provider':
         specifier: workspace:*
         version: link:../credential-vcdm-jsonld-provider
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4945,6 +4936,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       did-resolver:
         specifier: ^4.1.0
         version: 4.1.0
@@ -4975,9 +4969,6 @@ importers:
       '@sphereon/ssi-sdk.credential-vcdm':
         specifier: workspace:*
         version: link:../credential-vcdm
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -4993,6 +4984,9 @@ importers:
       '@veramo/core':
         specifier: 4.2.0
         version: 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -5030,9 +5024,6 @@ importers:
       '@sphereon/ssi-sdk.core':
         specifier: workspace:*
         version: link:../ssi-sdk-core
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5051,6 +5042,9 @@ importers:
       '@veramo/core':
         specifier: 4.2.0
         version: 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -5321,9 +5315,6 @@ importers:
       '@sphereon/ssi-sdk-ext.kms-local':
         specifier: workspace:*
         version: link:../kms-local
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5393,6 +5384,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       did-resolver:
         specifier: ^4.1.0
         version: 4.1.0
@@ -5616,9 +5610,6 @@ importers:
       '@sphereon/ssi-sdk.credential-store':
         specifier: workspace:*
         version: link:../credential-store
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
@@ -5634,6 +5625,9 @@ importers:
       '@veramo/utils':
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       class-validator:
         specifier: 0.14.1
         version: 0.14.1
@@ -5754,15 +5748,15 @@ importers:
 
   packages/xstate-persistence:
     dependencies:
-      '@sphereon/ssi-sdk.data-store':
-        specifier: npm:@vess-id/ssi-sdk.data-store@^1.0.0
-        version: '@vess-id/ssi-sdk.data-store@1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
       '@sphereon/ssi-sdk.data-store-types':
         specifier: workspace:*
         version: link:../data-store-types
       '@veramo/core':
         specifier: 4.2.0
         version: 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
+      '@vess-id/ssi-sdk.data-store':
+        specifier: workspace:*
+        version: link:../data-store
       debug:
         specifier: ^4.3.5
         version: 4.4.3
@@ -7608,6 +7602,7 @@ packages:
   '@lerna/create@8.2.4':
     resolution: {integrity: sha512-A8AlzetnS2WIuhijdAzKUyFpR5YbLLfV3luQ4lzBgIBgRfuoBDZeF+RSZPhra+7A6/zTUlrbhKZIOi/MNhqgvQ==}
     engines: {node: '>=18.0.0'}
+    deprecated: This package is an implementation detail of Lerna and is no longer published separately.
 
   '@lto-network/lto-crypto@1.1.1':
     resolution: {integrity: sha512-YA6ATCP+RfWN/0Tvb6CZKs2meUAUAf3cvEVa5tpNNkJjhozxloAONxPP/9DxhUjkmiqWU6fy8xPD2eCYv3lvmQ==}
@@ -8510,11 +8505,9 @@ packages:
 
   '@sphereon/kmp-crypto-kms-azure@0.2.0-SNAPSHOT.12':
     resolution: {integrity: sha512-XDsLNHmFkHcPkwqmYLhxn1vVs2H6rAglrfjtpulOCmvPaqwROMnjS89lMD7F3fUpF5e5sYpk8IL6WlPZGvAP/A==}
-    bundledDependencies: []
 
   '@sphereon/kmp-mdoc-core@0.2.0-SNAPSHOT.26':
     resolution: {integrity: sha512-QXJ6R8ENiZV2rPMbn06cw5JKwqUYN1kzVRbYfONqE1PEXx1noQ4md7uxr2zSczi0ubKkNcbyYDNtIMTZIhGzmQ==}
-    bundledDependencies: []
 
   '@sphereon/lto-did-ts@0.1.8-unstable.0':
     resolution: {integrity: sha512-3jzwwuYX/VYuze+T9/yg4PcsJ5iNNwAfTp4WfS4aSfPFBErDAfKXqn6kOb0wFYGkhejr3Jz+rljPC2iKZiHiGA==}
@@ -9324,6 +9317,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unimodules/core@7.1.2':
     resolution: {integrity: sha512-lY+e2TAFuebD3vshHMIRqru3X4+k7Xkba4Wa7QsDBd+ex4c4N2dHAO61E2SrGD9+TRBD8w/o7mzK6ljbqRnbyg==}
@@ -9450,10 +9444,6 @@ packages:
     resolution: {integrity: sha512-7cGUFTIYc/axRRlB7248DMfiZyjcvBcshV1iUow+OLfhSCbXWzkNttbZqawptrsJ+/M+q8LeoSUoSyJV+Fe+xQ==}
     engines: {node: '>=16.0.0'}
 
-  '@vess-id/mdl@0.0.7':
-    resolution: {integrity: sha512-Qk/86X+FwAffkcUZkvg29hEqJthckXHkf/qqqyK0eIOGkh8aYHE8dHACzntPTMINNvCFrcG1eIiFFO9ZpCj/yQ==}
-    engines: {node: '>=16.0.0'}
-
   '@vess-id/oid4vc-common@1.0.0':
     resolution: {integrity: sha512-this4ogWULY0I1sft3joQ2XEHL7Xxp1t102kuerBJ0RKwinPSaqS5oL2CGkMZmoOA4AcqmW6+b0wJ1EJV4GM+g==}
     engines: {node: '>=20'}
@@ -9470,15 +9460,6 @@ packages:
     resolution: {integrity: sha512-Zh2vUiuqJMJaWpXSDRK+B808m6ClFsS0hZ2GInoZ1ArdEJZlHHhfxiIfOoCZyeoukzvaOk0F5APC+sMBy8u9dw==}
     engines: {node: '>=20'}
 
-  '@vess-id/oid4vci-issuer@1.0.3':
-    resolution: {integrity: sha512-yJNVsmHFMX76wUJ7V0AE7B2tqPRp7WFC9sE6OPBsxpMlm1bksBruF5rdEMpt4Jcv4qVylmXl/DoCrc2YggQtgQ==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      awesome-qr: ^2.1.5-rc.0
-    peerDependenciesMeta:
-      awesome-qr:
-        optional: true
-
   '@vess-id/oid4vci-issuer@1.0.7':
     resolution: {integrity: sha512-cwuOq5UNSvLHelZueGh/zvEA7jKwaeXybV/z3+M+z5Fu4Ic3zEJL8xGO+o5pbgJRgzLaPpM8tHqcOQQZF+s9fQ==}
     engines: {node: '>=20'}
@@ -9490,30 +9471,6 @@ packages:
 
   '@vess-id/ssi-sdk.data-store@1.0.0':
     resolution: {integrity: sha512-/CVTW3HNSHji5sMVKd7ggUleZXdphHX5fCCyNZuQnF6Fv/N9tw7mcrgf+0fNk2z+F5WlXIzLpSegjCCvxcV6Ng==}
-
-  '@vess-id/ssi-sdk.mdl-mdoc@1.0.0':
-    resolution: {integrity: sha512-lvq6n7ZbaNM8iTokJHO29aySjzU0SjGhyuePs8Ir0cBfy6rywX9xL0ByqeG0ta647arg9cb1dsmj9adf9HV8iw==}
-
-  '@vess-id/ssi-sdk.mdl-mdoc@1.2.0':
-    resolution: {integrity: sha512-WlW7DpsyOmqbr5hk7nqvMsJscenr5z3pWNjkOeSlWIz0ei3/cBdgn9BmptY3hhWUa6et0OpAm0LQCA0SVyAllA==}
-
-  '@vess-id/ssi-sdk.mdl-mdoc@1.2.12':
-    resolution: {integrity: sha512-uHkiHyH3gFLxA0QxK77z3pDH+uQlq8ITAny3/YrADssT5ZdPASKDJOL0CG1sN+r8l8XaMCxAGlT5xqaaEZVdkA==}
-
-  '@vess-id/ssi-sdk.pd-manager@1.0.2':
-    resolution: {integrity: sha512-14HFTHQtWQqih1TMhVpTqvLe1S/bmZfUlDGTRCVLdmUjAhzvfwtZyM6j4GtkDZGEH2OXEwI4YucAQ3UcLua+xA==}
-
-  '@vess-id/ssi-sdk.sd-jwt@1.0.2':
-    resolution: {integrity: sha512-u7XwtPiNeTYscQf2wKhJRlyJm00QQf1+PTAyO61/futRRJCRYHIedr2KrSew5M8kkzGNwrUqH2oKvhPwc/ErnQ==}
-
-  '@vess-id/ssi-sdk.siopv2-oid4vp-common@1.1.0':
-    resolution: {integrity: sha512-FI35UGAK504zaqaAtvhcXS2T64bti8jDmAD/FNSNbJXtbvteiAAnFERpz+3BjIB90a+RZH3bdKVLX97GT3SAQw==}
-
-  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.2.7':
-    resolution: {integrity: sha512-k3BiYLPiiujUVHljcQaIbjBlqrwLiipSabLp0nORSsezbKX4b7Mswly24qDibNNMNx+/H1rBayRmJ6XLtIfYNA==}
-
-  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.3.3':
-    resolution: {integrity: sha512-qo5ZdFUj8KyIJ7VsG7pMEA9pRvDIeT7s/uyl4oEB/iC3fduszj2OVjkAAb+1Zm8uFZfG+/3OLaBzRlYlHNb/rg==}
 
   '@vitest/expect@3.2.4':
     resolution: {integrity: sha512-Io0yyORnB6sikFlt8QW5K7slY4OjqNX9jmJQ02QDda8lyM6B5oNgVWoSoKPac8/kgnCUzuHQKrSLtu/uOqqrig==}
@@ -9564,6 +9521,7 @@ packages:
   '@xmldom/xmldom@0.8.11':
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
@@ -11814,6 +11772,7 @@ packages:
   git-raw-commits@3.0.0:
     resolution: {integrity: sha512-b5OHmZ3vAgGrDn/X0kS+9qCfNKWe4K/jFnhwzVWWg0/k5eLa3060tZShrRg8Dja5kPc+YjS0Gc6y7cRr44Lpjw==}
     engines: {node: '>=14'}
+    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-remote-origin-url@2.0.0:
@@ -11823,6 +11782,7 @@ packages:
   git-semver-tags@5.0.1:
     resolution: {integrity: sha512-hIvOeZwRbQ+7YEUmCkHqo8FOLQZCEn18yevLHADlFPZY02KJGsu5FZt9YW/lybfK2uhWFI7Qg/07LekJiTv7iA==}
     engines: {node: '>=14'}
+    deprecated: This package is no longer maintained. For the JavaScript API, please use @conventional-changelog/git-client instead.
     hasBin: true
 
   git-up@7.0.0:
@@ -11847,29 +11807,32 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@11.1.0:
     resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
     engines: {node: 20 || >=22}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@6.0.4:
     resolution: {integrity: sha512-MKZeRNyYZAVVVG1oZeLaWie1uweH40m9AZwIwxyPbTSX4hHrVYSzLg0Ro5Z5R7XKkIX+Cc6oD1rqeDJnwsB8/A==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   glob@9.3.5:
     resolution: {integrity: sha512-e1LleDykUz2Iu+MTYdkSsuWX8lvAjAcs0Xef0lNIu0S2wOAzuTxCJtcd9S3cijlwYF18EsU3rzb8jPVobxDh9Q==}
     engines: {node: '>=16 || 14 >=14.17'}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   global-dirs@0.1.1:
     resolution: {integrity: sha512-NknMLn7F2J7aflwFOlGdNIuCDpN3VGoSoB+aap3KABFWbHVn1TCgFC+np23J8W2BiZbjfEw3BFBycSMv1AFblg==}
@@ -14453,6 +14416,7 @@ packages:
   prebuild-install@7.1.3:
     resolution: {integrity: sha512-8Mf2cbV7x1cXPUILADGI3wuhfqWvtiLA1iclTDbFRZkgRQS0NqsPZphna9V+HyTEadheuPmjaJMsbzKQFOzLug==}
     engines: {node: '>=10'}
+    deprecated: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
     hasBin: true
 
   prelude-ls@1.1.2:
@@ -15480,10 +15444,12 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   tar@7.5.2:
     resolution: {integrity: sha512-7NyxrTE4Anh8km8iEy7o0QYPs+0JKBTj5ZaqHg6B39erLg0qYXN3BijtShwbsNSvQ+LN75+KV+C4QR/f6Gwnpg==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   temp-dir@1.0.0:
     resolution: {integrity: sha512-xZFXEGbG7SNC3itwBzI3RYjq/cEhBkx2hJuKGIUOcEULmkQExXiHat2z/qkISYsuR+IKumhEfKKbV5qXmhICFQ==}
@@ -16078,18 +16044,22 @@ packages:
 
   uuid@10.0.0:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuid@7.0.3:
     resolution: {integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -16316,10 +16286,12 @@ packages:
 
   whatwg-encoding@1.0.5:
     resolution: {integrity: sha512-b5lim54JOPN9HtzvK9HFXvBma/rnfFeqsic0hSpjtDbVxR3dJKLc+KB4V6GgiGOvl7CY/KNh8rxSo9DKQrnUEw==}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-fetch@3.6.20:
     resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
@@ -22793,22 +22765,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vess-id/mdl@0.0.7':
-    dependencies:
-      '@noble/curves': 1.7.0
-      '@panva/hkdf': 1.2.1
-      '@peculiar/x509': 1.14.2
-      buffer: 6.0.3
-      cbor-x: 1.6.0
-      compare-versions: 6.1.1
-      cose-kit: 1.7.1
-      debug: 4.4.3
-      jose: 4.15.9
-      pkijs: 3.3.3
-      uncrypto: 0.1.3
-    transitivePeerDependencies:
-      - supports-color
-
   '@vess-id/oid4vc-common@1.0.0':
     dependencies:
       '@sphereon/ssi-types': link:packages/ssi-types
@@ -22853,23 +22809,6 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vess-id/oid4vci-issuer@1.0.3(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
-    dependencies:
-      '@sphereon/ssi-express-support': 0.34.1-next.3(@noble/hashes@1.6.1)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/oid4vc-common': 1.0.0
-      '@vess-id/oid4vci-common': 1.0.4(encoding@0.1.13)
-      short-uuid: 4.2.2
-      uuid: 9.0.1
-    optionalDependencies:
-      awesome-qr: 2.1.5-rc.0(encoding@0.1.13)
-    transitivePeerDependencies:
-      - '@noble/hashes'
-      - encoding
-      - passport-azure-ad
-      - passport-http-bearer
-      - supports-color
-
   '@vess-id/oid4vci-issuer@1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
     dependencies:
       '@sphereon/ssi-express-support': 0.34.1-next.3(@noble/hashes@1.6.1)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
@@ -22904,266 +22843,6 @@ snapshots:
       dcql: 1.0.1(typescript@5.8.3)
       debug: 4.4.3
       typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-    transitivePeerDependencies:
-      - '@google-cloud/spanner'
-      - '@sap/hana-client'
-      - better-sqlite3
-      - encoding
-      - hdb-pool
-      - ioredis
-      - mongodb
-      - mssql
-      - mysql2
-      - oracledb
-      - pg
-      - pg-native
-      - pg-query-stream
-      - redis
-      - sql.js
-      - sqlite3
-      - supports-color
-      - ts-node
-      - typeorm-aurora-data-api-driver
-      - typescript
-
-  '@vess-id/ssi-sdk.mdl-mdoc@1.0.0(encoding@0.1.13)(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/pex-models': 2.3.2
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
-      '@sphereon/ssi-sdk-ext.x509-utils': link:packages/x509-utils
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
-      '@veramo/did-manager': 4.2.0
-      '@veramo/utils': 4.2.0(encoding@0.1.13)
-      '@vess-id/did-auth-siop-adapter': 0.20.0(encoding@0.1.13)(typescript@5.8.3)
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      debug: 4.4.3
-      did-resolver: 4.1.0
-      multiformats: 9.9.0
-      pkijs: 3.3.3
-      uint8arrays: 3.1.1
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-      - typescript
-
-  '@vess-id/ssi-sdk.mdl-mdoc@1.2.0(encoding@0.1.13)(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/pex-models': 2.3.2
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
-      '@sphereon/ssi-sdk-ext.x509-utils': link:packages/x509-utils
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
-      '@veramo/did-manager': 4.2.0
-      '@veramo/utils': 4.2.0(encoding@0.1.13)
-      '@vess-id/did-auth-siop-adapter': 0.20.0(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/mdl': 0.0.7
-      cbor-x: 1.6.0
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      debug: 4.4.3
-      did-resolver: 4.1.0
-      multiformats: 9.9.0
-      pkijs: 3.3.3
-      uint8arrays: 3.1.1
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-      - typescript
-
-  '@vess-id/ssi-sdk.mdl-mdoc@1.2.12(encoding@0.1.13)(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/kmp-mdoc-core': 0.2.0-SNAPSHOT.26
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/pex-models': 2.3.2
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
-      '@sphereon/ssi-sdk-ext.x509-utils': link:packages/x509-utils
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
-      '@veramo/did-manager': 4.2.0
-      '@veramo/utils': 4.2.0(encoding@0.1.13)
-      '@vess-id/did-auth-siop-adapter': 0.20.0(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/mdl': 0.0.16
-      '@vess-id/ssi-sdk.mdl-mdoc': 1.2.0(encoding@0.1.13)(typescript@5.8.3)
-      cbor-x: 1.6.0
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      debug: 4.4.3
-      did-resolver: 4.1.0
-      multiformats: 9.9.0
-      pkijs: 3.3.3
-      uint8arrays: 3.1.1
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-      - typescript
-
-  '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/pex-models': 2.3.2
-      '@sphereon/ssi-sdk.data-store-types': 0.36.0(typescript@5.8.3)
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/ssi-sdk.data-store': 1.0.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      dcql: 1.0.1(typescript@5.8.3)
-      debug: 4.4.3
-      semver: 7.7.3
-      typeorm: 0.3.20(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-    transitivePeerDependencies:
-      - '@google-cloud/spanner'
-      - '@sap/hana-client'
-      - better-sqlite3
-      - encoding
-      - hdb-pool
-      - ioredis
-      - mongodb
-      - mssql
-      - mysql2
-      - oracledb
-      - pg
-      - pg-native
-      - pg-query-stream
-      - redis
-      - sql.js
-      - sqlite3
-      - supports-color
-      - ts-node
-      - typeorm-aurora-data-api-driver
-      - typescript
-
-  '@vess-id/ssi-sdk.sd-jwt@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
-    dependencies:
-      '@sd-jwt/core': 0.15.0
-      '@sd-jwt/decode': 0.15.0
-      '@sd-jwt/sd-jwt-vc': 0.15.1
-      '@sd-jwt/types': 0.15.0
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
-      '@sphereon/ssi-sdk-ext.jwt-service': link:packages/jwt-service
-      '@sphereon/ssi-sdk-ext.key-utils': link:packages/key-utils
-      '@sphereon/ssi-sdk-ext.x509-utils': link:packages/x509-utils
-      '@sphereon/ssi-sdk.agent-config': 0.34.0(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/ssi-sdk.mdl-mdoc': 1.2.12(encoding@0.1.13)(typescript@5.8.3)
-      debug: 4.4.3
-      uint8arrays: 3.1.1
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - '@google-cloud/spanner'
-      - '@sap/hana-client'
-      - better-sqlite3
-      - encoding
-      - hdb-pool
-      - ioredis
-      - mongodb
-      - mssql
-      - mysql2
-      - oracledb
-      - pg
-      - pg-native
-      - pg-query-stream
-      - redis
-      - sql.js
-      - sqlite3
-      - supports-color
-      - ts-node
-      - typeorm-aurora-data-api-driver
-      - typescript
-
-  '@vess-id/ssi-sdk.siopv2-oid4vp-common@1.1.0(encoding@0.1.13)(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/did-auth-siop': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
-      uint8arrays: 3.1.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-      - typescript
-
-  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.2.7(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
-      '@sphereon/ssi-sdk-ext.jwt-service': link:packages/jwt-service
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-sdk.credential-validation': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.kv-store-temp': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.pd-manager': '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
-      '@sphereon/ssi-sdk.presentation-exchange': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.sd-jwt': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@sphereon/wellknown-dids-client': 0.1.3(encoding@0.1.13)
-      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
-      '@veramo/credential-w3c': 4.2.0(patch_hash=abcc7e761d8ed40afd17fe27e40a5b8c3c8e00b1d25ebf8c8bf9a3500179f336)(encoding@0.1.13)
-      '@vess-id/did-auth-siop': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/did-auth-siop-adapter': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/oid4vc-common': 1.0.0
-      '@vess-id/ssi-sdk.mdl-mdoc': 1.2.12(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/ssi-sdk.siopv2-oid4vp-common': 1.1.0(encoding@0.1.13)(typescript@5.8.3)
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      dcql: 1.0.1(typescript@5.8.3)
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - '@google-cloud/spanner'
-      - '@sap/hana-client'
-      - better-sqlite3
-      - encoding
-      - hdb-pool
-      - ioredis
-      - mongodb
-      - mssql
-      - mysql2
-      - oracledb
-      - pg
-      - pg-native
-      - pg-query-stream
-      - redis
-      - sql.js
-      - sqlite3
-      - supports-color
-      - ts-node
-      - typeorm-aurora-data-api-driver
-      - typescript
-
-  '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth@1.3.3(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)':
-    dependencies:
-      '@sphereon/pex': 5.0.0-unstable.28
-      '@sphereon/ssi-sdk-ext.did-utils': link:packages/did-utils
-      '@sphereon/ssi-sdk-ext.identifier-resolution': link:packages/identifier-resolution
-      '@sphereon/ssi-sdk-ext.jwt-service': link:packages/jwt-service
-      '@sphereon/ssi-sdk.core': link:packages/ssi-sdk-core
-      '@sphereon/ssi-sdk.credential-validation': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.kv-store-temp': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))
-      '@sphereon/ssi-sdk.pd-manager': '@vess-id/ssi-sdk.pd-manager@1.0.2(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)'
-      '@sphereon/ssi-sdk.presentation-exchange': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-sdk.sd-jwt': 0.36.0(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@sphereon/wellknown-dids-client': 0.1.3(encoding@0.1.13)
-      '@veramo/core': 4.2.0(patch_hash=002e69343dc4b4eb8372715652188a9baf2969c8cbb6d43cf21855eb1b95027c)
-      '@veramo/credential-w3c': 4.2.0(patch_hash=abcc7e761d8ed40afd17fe27e40a5b8c3c8e00b1d25ebf8c8bf9a3500179f336)(encoding@0.1.13)
-      '@vess-id/did-auth-siop': 1.0.7(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/did-auth-siop-adapter': 1.0.1(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/oid4vc-common': 1.0.0
-      '@vess-id/ssi-sdk.mdl-mdoc': 1.2.12(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/ssi-sdk.siopv2-oid4vp-common': 1.1.0(encoding@0.1.13)(typescript@5.8.3)
-      '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth': 1.2.7(encoding@0.1.13)(pg@8.16.3)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.15.2(@swc/helpers@0.5.17))(@types/node@20.19.25)(typescript@5.8.3))(typescript@5.8.3)
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      dcql: 1.0.1(typescript@5.8.3)
-      uuid: 9.0.1
     transitivePeerDependencies:
       - '@google-cloud/spanner'
       - '@sap/hana-client'

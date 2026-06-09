@@ -11,7 +11,7 @@ import {
   schema,
 } from '../index'
 import { AbstractPDStore, NonPersistedDcqlQueryItem, DcqlQueryItem, AddDefinitionArgs } from '@sphereon/ssi-sdk.data-store-types'
-import { isPresentationDefinitionEqual } from '@sphereon/ssi-sdk.data-store'
+import { isPresentationDefinitionEqual } from '@vess-id/ssi-sdk.data-store'
 import semver from 'semver/preload.js'
 import { ReleaseType } from 'semver'
 

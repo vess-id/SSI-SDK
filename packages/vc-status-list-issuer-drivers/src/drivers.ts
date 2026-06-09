@@ -28,7 +28,7 @@ import {
   IStatusListEntryEntity,
   StatusListEntity,
   StatusListStore,
-} from '@sphereon/ssi-sdk.data-store'
+} from '@vess-id/ssi-sdk.data-store'
 import {
   createCredentialStatusFromStatusList,
   extractCredentialDetails,

@@ -6,7 +6,7 @@ import {
   IGetStatusListEntryByIndexArgs,
   IStatusListEntryEntity,
   StatusListStore,
-} from '@sphereon/ssi-sdk.data-store'
+} from '@vess-id/ssi-sdk.data-store'
 import {
   IStatusListPlugin,
   StatusList2021EntryCredentialStatus,

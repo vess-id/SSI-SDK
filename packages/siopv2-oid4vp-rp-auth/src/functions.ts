@@ -28,7 +28,7 @@ import {
   ManagedIdentifierOptsOrResult,
 } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { JwtCompactResult } from '@sphereon/ssi-sdk-ext.jwt-service'
-import { IVerifySdJwtPresentationResult } from '@sphereon/ssi-sdk.sd-jwt'
+import { IVerifySdJwtPresentationResult } from '@vess-id/ssi-sdk.sd-jwt'
 import { CredentialMapper, HasherSync, OriginalVerifiableCredential, PresentationSubmission } from '@sphereon/ssi-types'
 import { IVerifyCallbackArgs, IVerifyCredentialResult, VerifyCallback } from '@sphereon/wellknown-dids-client'
 import { TKeyType } from '@veramo/core'

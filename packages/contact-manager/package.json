@@ -26,7 +26,7 @@
     "build": "tsup --config ../../tsup.config.ts --tsconfig ../../tsconfig.tsup.json"
   },
   "dependencies": {
-    "@sphereon/ssi-sdk.data-store": "workspace:*",
+    "@vess-id/ssi-sdk.data-store": "workspace:*",
     "@sphereon/ssi-sdk.data-store-types": "workspace:*",
     "@sphereon/ssi-types": "workspace:*",
     "cross-fetch": "^4.1.0",

@@ -39,7 +39,6 @@
     "@veramo/utils": "4.2.0",
     "@vess-id/did-auth-siop-adapter": "0.20.0",
     "@vess-id/mdl": "0.0.16",
-    "@vess-id/ssi-sdk.mdl-mdoc": "1.2.0",
     "cbor-x": "^1.6.0",
     "cross-fetch": "^4.1.0",
     "debug": "^4.3.5",

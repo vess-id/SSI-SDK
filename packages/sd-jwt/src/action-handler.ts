@@ -43,7 +43,7 @@ import { SDJwtVcdm2Instance, SDJwtVcdmInstanceFactory } from './sdJwtVcdm2Instan
 // @ts-ignore
 import * as u8a from 'uint8arrays'
 
-const debug = Debug('@sphereon/ssi-sdk.sd-jwt')
+const debug = Debug('@vess-id/ssi-sdk.sd-jwt')
 
 /**
  * @beta

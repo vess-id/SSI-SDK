@@ -1,5 +1,5 @@
 import { StateType } from '@vess-id/oid4vci-common'
-import { Oid4vcStateEntity } from '@sphereon/ssi-sdk.data-store'
+import { Oid4vcStateEntity } from '@vess-id/ssi-sdk.data-store'
 
 export interface IOid4vcStateStore<StateType> {
   persistOid4vcState(args: Oid4vcStateStoreParams<StateType>): Promise<Oid4vcStatePersisted<StateType>>

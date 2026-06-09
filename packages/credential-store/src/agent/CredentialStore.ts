@@ -1,5 +1,5 @@
 import { shaHasher as defaultHasher } from '@sphereon/ssi-sdk.core'
-import { parseRawDocument } from '@sphereon/ssi-sdk.data-store'
+import { parseRawDocument } from '@vess-id/ssi-sdk.data-store'
 import {
   AbstractDigitalCredentialStore,
   type DigitalCredential,

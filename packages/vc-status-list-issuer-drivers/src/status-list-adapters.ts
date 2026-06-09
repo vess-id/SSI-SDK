@@ -1,5 +1,5 @@
 import { StatusListType } from '@sphereon/ssi-types'
-import { BitstringStatusListEntity, OAuthStatusListEntity, StatusList2021Entity } from '@sphereon/ssi-sdk.data-store'
+import { BitstringStatusListEntity, OAuthStatusListEntity, StatusList2021Entity } from '@vess-id/ssi-sdk.data-store'
 import { StatusListResult } from '@sphereon/ssi-sdk.vc-status-list'
 
 export function statusListResultToEntity(result: StatusListResult): StatusList2021Entity | OAuthStatusListEntity | BitstringStatusListEntity {
