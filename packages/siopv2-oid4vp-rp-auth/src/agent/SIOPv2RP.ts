@@ -148,94 +148,92 @@ export class SIOPv2RP implements IAgentPlugin {
       const vpToken = rawVpToken && (typeof rawVpToken === 'string' ? JSON.parse(rawVpToken as EncodedDcqlPresentationVpToken) : rawVpToken)
       const claims = []
       for (const [credentialQueryId, presentationValue] of Object.entries(vpToken)) {
-        let singleVP: OriginalVerifiablePresentation
-        if (Array.isArray(presentationValue)) {
-          if (presentationValue.length === 0) {
-            throw Error(`DCQL query '${credentialQueryId}' has empty array of presentations`)
-          }
-          if (presentationValue.length > 1) {
-            throw Error(`DCQL query '${credentialQueryId}' has multiple presentations (${presentationValue.length}), but only one is supported atm`)
-          }
-          singleVP = presentationValue[0] as OriginalVerifiablePresentation
-        } else {
-          singleVP = presentationValue as OriginalVerifiablePresentation
-        }
+        // Support multiple VPs per credential query (DCQL multiple: true)
+        const presentations: OriginalVerifiablePresentation[] = Array.isArray(presentationValue)
+          ? presentationValue.length === 0
+            ? (() => {
+                throw Error(`DCQL query '${credentialQueryId}' has empty array of presentations`)
+              })()
+            : (presentationValue as OriginalVerifiablePresentation[])
+          : [presentationValue as OriginalVerifiablePresentation]
 
-        // Check if this is an mdoc DeviceResponse (CBOR encoded)
-        const isMdocDeviceResponse = this.isMdocFormat(singleVP)
+        for (const singleVP of presentations) {
+          // Check if this is an mdoc DeviceResponse (CBOR encoded)
+          const isMdocDeviceResponse = this.isMdocFormat(singleVP)
 
-        let presentationDecoded: any
-        if (isMdocDeviceResponse) {
-          // mdoc DeviceResponse processing
-          // Convert to Uint8Array if needed
-          let deviceResponseBytes: Uint8Array
-          if (singleVP instanceof Uint8Array) {
-            deviceResponseBytes = singleVP
-          } else if (typeof Buffer !== 'undefined' && Buffer.isBuffer(singleVP)) {
-            deviceResponseBytes = new Uint8Array(singleVP)
-          } else if (typeof singleVP === 'string') {
-            deviceResponseBytes = new Uint8Array(Buffer.from(singleVP, 'base64url'))
+          let presentationDecoded: any
+          if (isMdocDeviceResponse) {
+            // mdoc DeviceResponse processing
+            // Convert to Uint8Array if needed
+            let deviceResponseBytes: Uint8Array
+            if (singleVP instanceof Uint8Array) {
+              deviceResponseBytes = singleVP
+            } else if (typeof Buffer !== 'undefined' && Buffer.isBuffer(singleVP)) {
+              deviceResponseBytes = new Uint8Array(singleVP)
+            } else if (typeof singleVP === 'string') {
+              deviceResponseBytes = new Uint8Array(Buffer.from(singleVP, 'base64url'))
+            } else {
+              throw new Error('Invalid mdoc DeviceResponse format')
+            }
+            presentationDecoded = await this.decodeMdocDeviceResponse(deviceResponseBytes, rpInstance, context)
           } else {
-            throw new Error('Invalid mdoc DeviceResponse format')
-          }
-          presentationDecoded = await this.decodeMdocDeviceResponse(deviceResponseBytes, rpInstance, context)
-        } else {
-          // W3C VC / SD-JWT processing
-          presentationDecoded = CredentialMapper.decodeVerifiablePresentation(
-            singleVP as OriginalVerifiablePresentation,
-            hasher,
-          )
-        }
-        console.log(`presentationDecoded: ${JSON.stringify(presentationDecoded)}`)
-
-        const allClaims: AdditionalClaims = {}
-        const presentationOrClaims = this.presentationOrClaimsFrom(presentationDecoded)
-
-        // Handle mdoc DeviceResponse claims
-        if (presentationOrClaims && typeof presentationOrClaims === 'object' && !('verifiableCredential' in presentationOrClaims) && !('vct' in presentationOrClaims)) {
-          // This is mdoc claims (AdditionalClaims)
-          claims.push({
-            id: credentialQueryId,
-            type: (presentationDecoded as any).docType || 'mdoc',
-            claims: presentationOrClaims,
-          })
-        } else if ('verifiableCredential' in presentationOrClaims) {
-          for (const credential of presentationOrClaims.verifiableCredential) {
-            const vc = credential as IVerifiableCredential
-            const schemaValidationResult = await context.agent.cvVerifySchema({
-              credential,
+            // W3C VC / SD-JWT processing
+            presentationDecoded = CredentialMapper.decodeVerifiablePresentation(
+              singleVP as OriginalVerifiablePresentation,
               hasher,
-              validationPolicy: rpInstance.rpOptions.verificationPolicies?.schemaValidation,
-            })
-            if (!schemaValidationResult.result) {
-              responseState.status = AuthorizationResponseStateStatus.ERROR
-              responseState.error = new Error(schemaValidationResult.error)
-              return responseState
-            }
+            )
+          }
+          console.log(`presentationDecoded: ${JSON.stringify(presentationDecoded)}`)
 
-            const credentialSubject = vc.credentialSubject as ICredentialSubject & AdditionalClaims
-            if (!('id' in allClaims)) {
-              allClaims['id'] = credentialSubject.id
-            }
+          const allClaims: AdditionalClaims = {}
+          const presentationOrClaims = this.presentationOrClaimsFrom(presentationDecoded)
 
-            Object.entries(credentialSubject).forEach(([key, value]) => {
-              if (!(key in allClaims)) {
-                allClaims[key] = value
-              }
-            })
-
+          // Handle mdoc DeviceResponse claims
+          if (presentationOrClaims && typeof presentationOrClaims === 'object' && !('verifiableCredential' in presentationOrClaims) && !('vct' in presentationOrClaims)) {
+            // This is mdoc claims (AdditionalClaims)
             claims.push({
               id: credentialQueryId,
-              type: vc.type[0],
-              claims: allClaims,
+              type: (presentationDecoded as any).docType || 'mdoc',
+              claims: presentationOrClaims,
+            })
+          } else if ('verifiableCredential' in presentationOrClaims) {
+            for (const credential of presentationOrClaims.verifiableCredential) {
+              const vc = credential as IVerifiableCredential
+              const schemaValidationResult = await context.agent.cvVerifySchema({
+                credential,
+                hasher,
+                validationPolicy: rpInstance.rpOptions.verificationPolicies?.schemaValidation,
+              })
+              if (!schemaValidationResult.result) {
+                responseState.status = AuthorizationResponseStateStatus.ERROR
+                responseState.error = new Error(schemaValidationResult.error)
+                return responseState
+              }
+
+              const credentialSubject = vc.credentialSubject as ICredentialSubject & AdditionalClaims
+              if (!('id' in allClaims)) {
+                allClaims['id'] = credentialSubject.id
+              }
+
+              Object.entries(credentialSubject).forEach(([key, value]) => {
+                if (!(key in allClaims)) {
+                  allClaims[key] = value
+                }
+              })
+
+              claims.push({
+                id: credentialQueryId,
+                type: vc.type[0],
+                claims: allClaims,
+              })
+            }
+          } else {
+            claims.push({
+              id: credentialQueryId,
+              type: (presentationDecoded as SdJwtDecodedVerifiableCredential).decodedPayload.vct,
+              claims: presentationOrClaims,
             })
           }
-        } else {
-          claims.push({
-            id: credentialQueryId,
-            type: (presentationDecoded as SdJwtDecodedVerifiableCredential).decodedPayload.vct,
-            claims: presentationOrClaims,
-          })
         }
       }
 
