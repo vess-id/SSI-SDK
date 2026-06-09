@@ -41,7 +41,7 @@
     "@sphereon/ssi-sdk.kv-store-temp": "^0.36.0",
     "@vess-id/ssi-sdk.mdl-mdoc": "workspace:*",
     "@sphereon/ssi-sdk.oid4vci-issuer-store": "^0.36.0",
-    "@sphereon/ssi-sdk.sd-jwt": "^0.36.0",
+    "@vess-id/ssi-sdk.sd-jwt": "^1.0.0",
     "@sphereon/ssi-sdk.vc-status-list": "^0.36.0",
     "@sphereon/ssi-sdk.vc-status-list-issuer": "^0.36.0",
     "@sphereon/ssi-types": "^0.36.0",
