@@ -1,5 +1,5 @@
 import { OpenID4VCIClient } from '@sphereon/oid4vci-client'
-import { Alg, AuthorizationDetails, CredentialResponse, Jwt } from '@vess-id/oid4vci-common'
+import { Alg, AuthorizationDetails, CredentialResponse, Jwt } from '@sphereon/oid4vci-common'
 import { IIdentifierResolution } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { toJwk } from '@sphereon/ssi-sdk-ext.key-utils'
