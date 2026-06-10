@@ -1,6 +1,6 @@
 import { createAgent, IResolver } from '@veramo/core'
 import { ISIOPv2OID4VPRPRestClient, SIOPv2OID4VPRPRestClient } from '../src'
-import { AuthStatusResponse, GenerateAuthRequestURIResponse } from '@sphereon/ssi-sdk.siopv2-oid4vp-common'
+import { AuthStatusResponse, GenerateAuthRequestURIResponse } from '@vess-id/ssi-sdk.siopv2-oid4vp-common'
 import { describe, expect, it } from 'vitest'
 
 const definitionId = '9449e2db-791f-407c-b086-c21cc677d2e0'

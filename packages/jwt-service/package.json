@@ -47,7 +47,7 @@
     "@sphereon/ssi-sdk-ext.did-provider-web": "workspace:*",
     "@sphereon/ssi-sdk-ext.did-resolver-jwk": "workspace:*",
     "@sphereon/ssi-sdk-ext.kms-local": "workspace:*",
-    "@sphereon/ssi-sdk.dev": "0.33.0",
+    "@sphereon/ssi-sdk.dev": "workspace:*",
     "@veramo/data-store": "4.2.0",
     "@veramo/did-manager": "4.2.0",
     "@veramo/did-resolver": "4.2.0",

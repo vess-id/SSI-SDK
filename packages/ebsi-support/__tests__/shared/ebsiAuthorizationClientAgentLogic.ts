@@ -3,7 +3,7 @@ import { Alg, AuthorizationDetails, CredentialResponse, Jwt } from '@sphereon/oi
 import { IIdentifierResolution } from '@sphereon/ssi-sdk-ext.identifier-resolution'
 import { IJwtService } from '@sphereon/ssi-sdk-ext.jwt-service'
 import { toJwk } from '@sphereon/ssi-sdk-ext.key-utils'
-import { IDidAuthSiopOpAuthenticator } from '@sphereon/ssi-sdk.siopv2-oid4vp-op-auth'
+import { IDidAuthSiopOpAuthenticator } from '@vess-id/ssi-sdk.siopv2-oid4vp-op-auth'
 import { IDIDManager, IIdentifier, IKeyManager, MinimalImportableKey, TAgent } from '@veramo/core'
 import fetch from 'cross-fetch'
 //@ts-ignore

@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@vess-id/ssi-sdk.siopv2-oid4vp-common": "workspace:*",
-    "@sphereon/ssi-types": "^0.36.0",
+    "@sphereon/ssi-types": "workspace:*",
     "@veramo/core": "4.2.0",
     "cross-fetch": "^4.1.0"
   },

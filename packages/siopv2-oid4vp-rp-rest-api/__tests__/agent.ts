@@ -10,8 +10,8 @@ import { KeyManager } from '@veramo/key-manager'
 import { KeyManagementSystem, SecretBox } from '@veramo/kms-local'
 import { IonPublicKeyPurpose } from '@decentralized-identity/ion-sdk'
 import { getUniResolver } from '@sphereon/did-uni-client'
-import { IPDManager, PDManager } from '@sphereon/ssi-sdk.pd-manager'
-import { PDStore } from '@sphereon/ssi-sdk.data-store'
+import { IPDManager, PDManager } from '@vess-id/ssi-sdk.pd-manager'
+import { PDStore } from '@vess-id/ssi-sdk.data-store'
 import {
   CredentialProviderJsonld,
   LdDefaultContexts,
@@ -21,7 +21,7 @@ import {
 import { SchemaValidation } from '@sphereon/ssi-sdk.credential-validation'
 import { CheckLinkedDomain } from '@vess-id/did-auth-siop-adapter'
 import { defaultHasher } from '@sphereon/ssi-types'
-import { ISIOPv2RP, SIOPv2RP } from '@sphereon/ssi-sdk.siopv2-oid4vp-rp-auth'
+import { ISIOPv2RP, SIOPv2RP } from '@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth'
 import { IPresentationExchange, PresentationExchange } from '@sphereon/ssi-sdk.presentation-exchange'
 import { type IVcdmCredentialPlugin, VcdmCredentialPlugin } from '@sphereon/ssi-sdk.credential-vcdm'
 import { IdentifierResolution, IIdentifierResolution } from '@sphereon/ssi-sdk-ext.identifier-resolution'
