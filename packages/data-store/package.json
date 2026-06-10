@@ -1,6 +1,6 @@
 {
   "name": "@vess-id/ssi-sdk.data-store",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",

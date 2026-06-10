@@ -1,6 +1,6 @@
 {
   "name": "@vess-id/ssi-sdk.sd-jwt",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",
