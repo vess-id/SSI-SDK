@@ -1,4 +1,4 @@
-import { CredentialRequestJwtVcJson } from '@sphereon/oid4vci-common'
+import { CredentialRequestJwtVcJson } from '@vess-id/oid4vci-common'
 import { CredentialDataSupplier, CredentialDataSupplierArgs, CredentialDataSupplierResult } from '@vess-id/oid4vci-issuer'
 import { ExpressBuilder } from '@sphereon/ssi-express-support'
 import { TAgent } from '@veramo/core'

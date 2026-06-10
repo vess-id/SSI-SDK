@@ -4,7 +4,7 @@ import {
   DataStoreMigrations,
   // DataStoreContactEntities,
   DataStoreEntities,
-} from '@sphereon/ssi-sdk.data-store'
+} from '@vess-id/ssi-sdk.data-store'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions'
 

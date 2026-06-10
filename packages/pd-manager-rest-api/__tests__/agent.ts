@@ -3,8 +3,8 @@ import { DataStore, DataStoreORM } from '@veramo/data-store'
 import { IRequiredPlugins } from '../src'
 import { DB_CONNECTION_NAME, sqliteConfig } from './database'
 import { DataSources } from '@sphereon/ssi-sdk.agent-config'
-import { PDManager } from '@sphereon/ssi-sdk.pd-manager'
-import { PDStore } from '@sphereon/ssi-sdk.data-store'
+import { PDManager } from '@vess-id/ssi-sdk.pd-manager'
+import { PDStore } from '@vess-id/ssi-sdk.data-store'
 
 const dbConnection = DataSources.singleInstance().addConfig(DB_CONNECTION_NAME, sqliteConfig).getDbConnection(DB_CONNECTION_NAME)
 

@@ -1,6 +1,6 @@
 import { TAgent } from '@veramo/core'
 import { IOID4VCIHolder } from '../../src'
-import { AccessTokenResponse, WellKnownEndpoints } from '@sphereon/oid4vci-common'
+import { AccessTokenResponse, WellKnownEndpoints } from '@vess-id/oid4vci-common'
 import {
   GET_CREDENTIAL_OFFER_AUTHORIZATION_CODE_HTTPS,
   GET_CREDENTIAL_OFFER_PRE_AUTHORIZED_CODE_HTTPS,

@@ -11,7 +11,7 @@ import { AgentRouter, RequestWithAgentRouter } from '@veramo/remote-server'
 import { createObjects, getConfig } from '../../agent-config/src'
 import authClientAgentLogic from './shared/ebsiAuthorizationClientAgentLogic'
 import { IEbsiSupport } from '../src'
-import { IDidAuthSiopOpAuthenticator } from '@sphereon/ssi-sdk.siopv2-oid4vp-op-auth'
+import { IDidAuthSiopOpAuthenticator } from '@vess-id/ssi-sdk.siopv2-oid4vp-op-auth'
 import { describe } from 'vitest'
 //jest.setTimeout(60000)
 
