@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@vess-id/did-auth-siop": "1.0.1",
-    "@sphereon/ssi-sdk.core": "^0.36.0",
-    "@sphereon/ssi-types": "^0.36.0",
+    "@sphereon/ssi-sdk.core": "workspace:*",
+    "@sphereon/ssi-types": "workspace:*",
     "uint8arrays": "^3.1.1"
   },
   "scripts": {
