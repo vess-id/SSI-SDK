@@ -232,6 +232,15 @@ export async function createRPBuilder(args: {
         throw new Error('x509Opts is required when clientIdScheme is x509_hash')
       }
 
+      // HAIP requires the authorization request to be sent as a signed request object so the
+      // verifier can validate the x509_hash client_id against the x5c chain. Only reject an
+      // explicitly unsigned request (PassBy.NONE); VALUE / REFERENCE / unset (default VALUE) are fine.
+      if (rpOpts.clientMetadataOpts?.passBy === PassBy.NONE) {
+        throw new Error(
+          'clientIdScheme x509_hash requires a signed request object; clientMetadataOpts.passBy must be PassBy.VALUE or PassBy.REFERENCE (not PassBy.NONE)',
+        )
+      }
+
       clientId = computeX509HashClientId(rpOpts.x509Opts.certificate)
       preferredPrefix = ClientIdentifierPrefix.X509_HASH
 
@@ -356,13 +365,20 @@ export function signCallback(
 }
 
 /**
- * Convert PEM format to base64 (strip headers and newlines)
+ * Convert PEM format to base64 (strip armor, CR and LF line endings).
+ *
+ * Both `\r` and `\n` must be removed: a real multi-line PEM with CRLF endings would
+ * otherwise leave embedded `\r` inside the base64 body (`.trim()` only removes leading/
+ * trailing whitespace). The resulting string is used verbatim as an x5c JWT header value,
+ * which must be clean base64.
+ *
+ * @internal exported only for unit testing.
  */
-function pemToBase64(pem: string): string {
+export function pemToBase64(pem: string): string {
   return pem
     .replace(/-----BEGIN CERTIFICATE-----/g, '')
     .replace(/-----END CERTIFICATE-----/g, '')
-    .replace(/\n/g, '')
+    .replace(/[\r\n]/g, '')
     .trim()
 }
 
