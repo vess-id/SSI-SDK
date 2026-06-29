@@ -31,23 +31,27 @@ describe('computeX509HashClientId', () => {
     expect(computeX509HashClientId(a)).not.toBe(computeX509HashClientId(b))
   })
 
-  it('tolerates a real multi-line PEM with CRLF line endings and surrounding whitespace', () => {
-    // Use enough bytes that the base64 body wraps onto multiple 64-char lines, so the
-    // CRLF line breaks land *inside* the base64 payload (not only at the armor boundaries).
-    const der = Buffer.from('multi-line-crlf-regression-test-payload'.repeat(8))
+  it('strips PEM armor and multi-line wrapping (does NOT guard CRLF — see pemToBase64 suite)', () => {
+    // NOTE: this only exercises armor/whitespace stripping. It is NOT a CRLF regression test:
+    // computeX509HashClientId hashes via Buffer.from(.., 'base64'), which silently discards
+    // stray `\r`, so the old `\n`-only pemToBase64 would also pass here. The load-bearing CRLF
+    // regression guard lives in the `pemToBase64` describe block below.
+    const der = Buffer.from('multi-line-armor-stripping-payload'.repeat(8))
     const expected = createHash('sha256').update(der).digest('base64url')
     const b64 = der.toString('base64')
-    const wrapped = (b64.match(/.{1,64}/g) ?? []).join('\r\n')
-    expect(wrapped).toContain('\r\n') // sanity: the payload really is multi-line
-    const pem = `  -----BEGIN CERTIFICATE-----\r\n${wrapped}\r\n-----END CERTIFICATE-----  `
+    const wrapped = (b64.match(/.{1,64}/g) ?? []).join('\n')
+    expect(wrapped).toContain('\n') // sanity: the payload really is multi-line
+    const pem = `  -----BEGIN CERTIFICATE-----\n${wrapped}\n-----END CERTIFICATE-----  `
     expect(computeX509HashClientId(pem)).toBe(expected)
   })
 })
 
 /**
- * The SHA-256 hash above is computed via Buffer.from(.., 'base64'), which silently ignores
- * stray `\r`, so it cannot catch the CRLF stripping bug. The actual damage is in the x5c JWT
- * header, which is the raw pemToBase64 output. These assert that output is clean base64.
+ * This is the documented home of the CRLF regression test. The SHA-256 hash in the suite above
+ * is computed via Buffer.from(.., 'base64'), which silently ignores stray `\r`, so it cannot
+ * catch the CRLF stripping bug. The actual damage is in the x5c JWT header, which is the raw
+ * pemToBase64 output. These assert that output is clean base64 (and would fail on the old
+ * `\n`-only implementation).
  */
 describe('pemToBase64', () => {
   it('strips both CR and LF from a multi-line CRLF PEM (x5c must be clean base64)', () => {

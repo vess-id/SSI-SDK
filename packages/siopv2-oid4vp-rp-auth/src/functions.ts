@@ -220,6 +220,9 @@ export async function createRPBuilder(args: {
       if (!rpOpts.x509Opts.domain) {
         throw new Error('x509Opts.domain is required when clientIdScheme is x509_san_dns')
       }
+      if (!rpOpts.x509Opts.certificate?.trim()) {
+        throw new Error('x509Opts.certificate must be a non-empty PEM string when clientIdScheme is x509_san_dns')
+      }
 
       // Use DNS domain from x509Opts as client_id
       clientId = rpOpts.x509Opts.domain
@@ -230,6 +233,11 @@ export async function createRPBuilder(args: {
       // X.509 certificate hash scheme (HAIP): client_id = base64url(SHA-256(DER(leaf)))
       if (!rpOpts.x509Opts) {
         throw new Error('x509Opts is required when clientIdScheme is x509_hash')
+      }
+      if (!rpOpts.x509Opts.certificate?.trim()) {
+        // An empty certificate would hash to a fixed, meaningless value (SHA-256 of empty DER)
+        // and silently register every misconfigured RP under the same client_id.
+        throw new Error('x509Opts.certificate must be a non-empty PEM string when clientIdScheme is x509_hash')
       }
 
       // HAIP requires the authorization request to be sent as a signed request object so the
