@@ -39,6 +39,7 @@ import { validate as isValidUUID } from 'uuid'
 import { IRequiredContext, IRPOptions, ISIOPIdentifierOptions } from './types/ISIOPv2RP'
 import { DcqlQuery } from 'dcql'
 import { defaultHasher } from '@sphereon/ssi-sdk.core'
+import { createHash } from 'crypto'
 
 export function getRequestVersion(rpOptions: IRPOptions): SupportedVersion {
   if (Array.isArray(rpOptions.supportedVersions) && rpOptions.supportedVersions.length > 0) {
@@ -216,12 +217,25 @@ export async function createRPBuilder(args: {
       if (!rpOpts.x509Opts) {
         throw new Error('x509Opts is required when clientIdScheme is x509_san_dns')
       }
+      if (!rpOpts.x509Opts.domain) {
+        throw new Error('x509Opts.domain is required when clientIdScheme is x509_san_dns')
+      }
 
       // Use DNS domain from x509Opts as client_id
       clientId = rpOpts.x509Opts.domain
       preferredPrefix = ClientIdentifierPrefix.X509_SAN_DNS
 
       console.log(`[createRPBuilder] Using x509_san_dns scheme with domain: ${clientId}`)
+    } else if (rpOpts.clientIdScheme === 'x509_hash') {
+      // X.509 certificate hash scheme (HAIP): client_id = base64url(SHA-256(DER(leaf)))
+      if (!rpOpts.x509Opts) {
+        throw new Error('x509Opts is required when clientIdScheme is x509_hash')
+      }
+
+      clientId = computeX509HashClientId(rpOpts.x509Opts.certificate)
+      preferredPrefix = ClientIdentifierPrefix.X509_HASH
+
+      console.log(`[createRPBuilder] Using x509_hash scheme with client_id: ${clientId}`)
     } else if (rpOpts.clientIdScheme === 'redirect_uri') {
       // Use response_uri as client_id when redirect_uri scheme is specified
       if (!rpOpts.responseUri) {
@@ -350,6 +364,19 @@ function pemToBase64(pem: string): string {
     .replace(/-----END CERTIFICATE-----/g, '')
     .replace(/\n/g, '')
     .trim()
+}
+
+/**
+ * Compute the Client Identifier value for the `x509_hash` Client Identifier
+ * Prefix (HAIP / OID4VP 1.0): the base64url encoding of the SHA-256 hash of the
+ * DER-encoded leaf certificate.
+ *
+ * @param leafCertificatePem leaf certificate in PEM format
+ * @returns base64url(SHA-256(DER(leaf)))
+ */
+export function computeX509HashClientId(leafCertificatePem: string): string {
+  const der = Buffer.from(pemToBase64(leafCertificatePem), 'base64')
+  return createHash('sha256').update(der).digest('base64url')
 }
 
 function getVerifyJwtCallback(

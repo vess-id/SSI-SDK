@@ -166,8 +166,11 @@ export interface IRPOptions {
    *
    * - 'x509_san_dns': X.509 certificate DNS SAN prefix (signing required, enterprise)
    *   client_id = "x509_san_dns:verifier.vess.id"
+   *
+   * - 'x509_hash': X.509 certificate hash prefix (signing required, HAIP)
+   *   client_id = "x509_hash:" + base64url(SHA-256(DER(leaf certificate)))
    */
-  clientIdScheme?: 'redirect_uri' | 'did' | 'x509_san_dns'
+  clientIdScheme?: 'redirect_uri' | 'did' | 'x509_san_dns' | 'x509_hash'
   /**
    * Response URI to use when clientIdScheme is 'redirect_uri'
    * This will be used as the client_id with redirect_uri prefix
@@ -175,15 +178,16 @@ export interface IRPOptions {
    */
   responseUri?: string
   /**
-   * X.509 certificate options for x509_san_dns scheme
-   * Required when clientIdScheme is 'x509_san_dns'
+   * X.509 certificate options for x509_san_dns / x509_hash schemes
+   * Required when clientIdScheme is 'x509_san_dns' or 'x509_hash'
    */
   x509Opts?: {
     /**
      * DNS domain for client_id (e.g., "verifier.vess.id")
-     * Must match certificate SAN DNS entry
+     * Must match certificate SAN DNS entry.
+     * Required for 'x509_san_dns'; not used for 'x509_hash'.
      */
-    domain: string
+    domain?: string
 
     /**
      * X.509 certificate in PEM format
