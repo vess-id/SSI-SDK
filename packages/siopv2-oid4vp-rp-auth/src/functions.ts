@@ -378,11 +378,9 @@ export function signCallback(
  * Both `\r` and `\n` must be removed: a real multi-line PEM with CRLF endings would
  * otherwise leave embedded `\r` inside the base64 body (`.trim()` only removes leading/
  * trailing whitespace). The resulting string is used verbatim as an x5c JWT header value,
- * which must be clean base64.
- *
- * @internal exported only for unit testing.
+ * which must be clean base64. This behaviour is covered by the `signCallback` x5c tests.
  */
-export function pemToBase64(pem: string): string {
+function pemToBase64(pem: string): string {
   return pem
     .replace(/-----BEGIN CERTIFICATE-----/g, '')
     .replace(/-----END CERTIFICATE-----/g, '')

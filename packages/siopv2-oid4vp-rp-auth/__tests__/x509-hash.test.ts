@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { createHash } from 'crypto'
 import { PassBy } from '@vess-id/did-auth-siop'
-import { computeX509HashClientId, pemToBase64, createRPBuilder } from '../src/functions'
+import { computeX509HashClientId, createRPBuilder, signCallback } from '../src/functions'
 import type { IRPOptions, IRequiredContext } from '../src/types/ISIOPv2RP'
 
 /**
@@ -52,11 +52,11 @@ describe('computeX509HashClientId', () => {
     expect(() => computeX509HashClientId('not a pem')).toThrow(/valid PEM certificate block/)
   })
 
-  it('strips PEM armor and multi-line wrapping (does NOT guard CRLF — see pemToBase64 suite)', () => {
+  it('strips PEM armor and multi-line wrapping (does NOT guard CRLF — see signCallback x5c suite)', () => {
     // NOTE: this only exercises armor/whitespace stripping. It is NOT a CRLF regression test:
     // computeX509HashClientId hashes via Buffer.from(.., 'base64'), which silently discards
-    // stray `\r`, so the old `\n`-only pemToBase64 would also pass here. The load-bearing CRLF
-    // regression guard lives in the `pemToBase64` describe block below.
+    // stray `\r`, so a `\n`-only strip would also pass here. The load-bearing CRLF regression
+    // guard is behavioural and lives in the `signCallback x5c header` describe block below.
     const der = Buffer.from('multi-line-armor-stripping-payload'.repeat(8))
     const expected = createHash('sha256').update(der).digest('base64url')
     const b64 = der.toString('base64')
@@ -68,31 +68,52 @@ describe('computeX509HashClientId', () => {
 })
 
 /**
- * This is the documented home of the CRLF regression test. The SHA-256 hash in the suite above
- * is computed via Buffer.from(.., 'base64'), which silently ignores stray `\r`, so it cannot
- * catch the CRLF stripping bug. The actual damage is in the x5c JWT header, which is the raw
- * pemToBase64 output. These assert that output is clean base64 (and would fail on the old
- * `\n`-only implementation).
+ * Behavioural home of the CRLF regression test. The bug (a `\r` left in the base64) only shows
+ * up in the x5c JWT header that signCallback builds — the SHA-256 hash path masks it because
+ * Buffer.from(.., 'base64') silently drops `\r`. So the guard is asserted on signCallback's
+ * observable output: the x5c array must be clean base64 even from a CRLF PEM. jwtCreateJwsCompactSignature
+ * is stubbed to capture the protected header, so no KMS / jwt-service is required.
  */
-describe('pemToBase64', () => {
-  it('strips both CR and LF from a multi-line CRLF PEM (x5c must be clean base64)', () => {
-    const der = Buffer.from('x5c-crlf-regression-test-payload'.repeat(8))
-    const b64 = der.toString('base64')
-    const wrapped = (b64.match(/.{1,64}/g) ?? []).join('\r\n')
-    expect(wrapped).toContain('\r\n') // sanity: genuinely multi-line
-    const pem = `-----BEGIN CERTIFICATE-----\r\n${wrapped}\r\n-----END CERTIFICATE-----`
-    const out = pemToBase64(pem)
-    expect(out).not.toContain('\r')
-    expect(out).not.toContain('\n')
-    expect(out).toBe(b64) // round-trips to the original unwrapped base64
+describe('signCallback x5c header', () => {
+  async function x5cFor(certificate: string, certificateChain?: string[]): Promise<string[]> {
+    let capturedHeader: any
+    const context = {
+      agent: {
+        jwtCreateJwsCompactSignature: async (args: any) => {
+          capturedHeader = args.protectedHeader
+          return { jwt: 'stub.header.signature' }
+        },
+      },
+    } as unknown as IRequiredContext
+    const idOpts = { method: 'did', identifier: 'did:jwk:eyJ0ZXN0IjoxfQ', kmsKeyRef: 'test-key' } as any
+    const x509Opts = { certificate, certificateChain, keyRef: 'test-key', alg: 'ES256' } as IRPOptions['x509Opts']
+    await signCallback(idOpts, context, x509Opts)({ method: 'did' } as any, { header: {}, payload: {} } as any, 'kid')
+    return capturedHeader.x5c
+  }
+
+  const crlfWrap = (der: Buffer): string =>
+    `-----BEGIN CERTIFICATE-----\r\n${(der.toString('base64').match(/.{1,64}/g) ?? []).join('\r\n')}\r\n-----END CERTIFICATE-----`
+
+  it('builds a clean base64 x5c from a multi-line CRLF certificate PEM', async () => {
+    const der = Buffer.from('x5c-crlf-regression-payload'.repeat(8))
+    const pem = crlfWrap(der)
+    expect(pem).toContain('\r\n') // sanity: genuinely CRLF, multi-line
+    const x5c = await x5cFor(pem)
+    // The load-bearing assertion: a stray `\r`/`\n` here would corrupt the x5c value on the wire.
+    expect(x5c[0]).not.toContain('\r')
+    expect(x5c[0]).not.toContain('\n')
+    expect(x5c[0]).toBe(der.toString('base64')) // round-trips to the unwrapped base64
+    expect(x5c).toHaveLength(1)
   })
 
-  it('handles LF-only PEMs as well', () => {
-    const der = Buffer.from('lf-only-payload'.repeat(8))
-    const b64 = der.toString('base64')
-    const wrapped = (b64.match(/.{1,64}/g) ?? []).join('\n')
-    const pem = `-----BEGIN CERTIFICATE-----\n${wrapped}\n-----END CERTIFICATE-----`
-    expect(pemToBase64(pem)).toBe(b64)
+  it('includes intermediate certs in x5c, each cleaned of CR/LF', async () => {
+    const leafDer = Buffer.from('leaf-cert-payload'.repeat(8))
+    const intermediateDer = Buffer.from('intermediate-cert-payload'.repeat(8))
+    const x5c = await x5cFor(crlfWrap(leafDer), [crlfWrap(intermediateDer)])
+    expect(x5c).toHaveLength(2)
+    expect(x5c[0]).toBe(leafDer.toString('base64'))
+    expect(x5c[1]).toBe(intermediateDer.toString('base64'))
+    expect(x5c.every((c) => !/[\r\n]/.test(c))).toBe(true)
   })
 })
 
