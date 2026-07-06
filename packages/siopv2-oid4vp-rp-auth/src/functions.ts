@@ -240,9 +240,7 @@ export async function createRPBuilder(args: {
         throw new Error('x509Opts.certificate must be a non-empty PEM string when clientIdScheme is x509_hash')
       }
 
-      // HAIP requires the authorization request to be sent as a signed request object so the
-      // verifier can validate the x509_hash client_id against the x5c chain. Only reject an
-      // explicitly unsigned request (PassBy.NONE); VALUE / REFERENCE / unset (default VALUE) are fine.
+      // HAIP requires a signed request object (x5c). Reject only an explicitly unsigned request.
       if (rpOpts.clientMetadataOpts?.passBy === PassBy.NONE) {
         throw new Error(
           'clientIdScheme x509_hash requires a signed request object; clientMetadataOpts.passBy must be PassBy.VALUE or PassBy.REFERENCE (not PassBy.NONE)',
@@ -373,12 +371,8 @@ export function signCallback(
 }
 
 /**
- * Convert PEM format to base64 (strip armor, CR and LF line endings).
- *
- * Both `\r` and `\n` must be removed: a real multi-line PEM with CRLF endings would
- * otherwise leave embedded `\r` inside the base64 body (`.trim()` only removes leading/
- * trailing whitespace). The resulting string is used verbatim as an x5c JWT header value,
- * which must be clean base64. This behaviour is covered by the `signCallback` x5c tests.
+ * Strip PEM armor and every line break, returning clean base64. The result is used verbatim
+ * as an x5c JWT header value, so it must contain no whitespace (covered by the signCallback tests).
  */
 function pemToBase64(pem: string): string {
   return pem
@@ -389,19 +383,11 @@ function pemToBase64(pem: string): string {
 }
 
 /**
- * Compute the Client Identifier value for the `x509_hash` Client Identifier
- * Prefix (HAIP / OID4VP 1.0): the base64url encoding of the SHA-256 hash of the
- * DER-encoded leaf certificate.
- *
- * Only the first PEM certificate block is hashed. If a full chain PEM
- * (leaf + intermediate(s) concatenated) is passed, hashing the whole string
- * would concatenate every DER structure and silently produce a wrong client_id,
- * so we extract the leaf block explicitly.
- *
- * @param leafCertificatePem leaf certificate in PEM format (a chain PEM is accepted; only the leaf is used)
- * @returns base64url(SHA-256(DER(leaf)))
+ * x509_hash client_id value (HAIP / OID4VP 1.0): base64url(SHA-256(DER(leaf))).
+ * Only the first (leaf) PEM block is hashed — a chain PEM would otherwise concatenate
+ * every DER and produce a wrong client_id.
  */
-export function computeX509HashClientId(leafCertificatePem: string): string {
+function computeX509HashClientId(leafCertificatePem: string): string {
   const leafBlock = leafCertificatePem.match(/-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/)
   if (!leafBlock) {
     throw new Error('x509Opts.certificate does not contain a valid PEM certificate block')

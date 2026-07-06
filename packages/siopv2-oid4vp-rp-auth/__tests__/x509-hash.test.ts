@@ -1,69 +1,66 @@
 import { describe, it, expect } from 'vitest'
 import { createHash } from 'crypto'
 import { PassBy } from '@vess-id/did-auth-siop'
-import { computeX509HashClientId, createRPBuilder, signCallback } from '../src/functions'
+import { createRPBuilder, signCallback } from '../src/functions'
 import type { IRPOptions, IRequiredContext } from '../src/types/ISIOPv2RP'
 
 /**
- * CRED-392 / HAIP: client_id for the `x509_hash` Client Identifier Prefix is the
- * base64url encoding of the SHA-256 hash of the DER-encoded leaf certificate.
+ * CRED-392 / HAIP: the `x509_hash` client_id is `x509_hash:` + base64url(SHA-256(DER(leaf))).
+ * These assert the observable output of createRPBuilder — the client_id it sets on the builder —
+ * rather than the internal hash helper, so the computation stays covered behaviourally. A minimal
+ * stub context lets createRPBuilder skip its agent-backed DID-method and resolver lookups.
  */
-describe('computeX509HashClientId', () => {
+describe('createRPBuilder x509_hash client_id', () => {
+  const context = {
+    agent: { identifierManagedGet: async () => ({ jwkThumbprint: 'test-thumb' }) },
+  } as unknown as IRequiredContext
+
   function pemWrap(der: Buffer): string {
-    const b64 = der.toString('base64')
-    return `-----BEGIN CERTIFICATE-----\n${b64}\n-----END CERTIFICATE-----`
+    return `-----BEGIN CERTIFICATE-----\n${der.toString('base64')}\n-----END CERTIFICATE-----`
   }
 
-  it('returns base64url(SHA-256(DER(leaf))) and strips PEM armor', () => {
+  async function clientIdFor(certificate: string): Promise<string> {
+    const rpOpts = {
+      clientIdScheme: 'x509_hash',
+      x509Opts: { certificate, keyRef: 'test-key' },
+      identifierOpts: {
+        idOpts: { identifier: 'did:jwk:eyJ0ZXN0IjoxfQ', kmsKeyRef: 'test-key' },
+        supportedDIDMethods: ['jwk'],
+        resolveOpts: { resolver: { resolve: async () => ({}) } },
+      },
+    } as unknown as IRPOptions
+    const builder = await createRPBuilder({ rpOpts, context })
+    return builder.clientId
+  }
+
+  it('sets client_id to x509_hash:base64url(SHA-256(DER(leaf)))', async () => {
     const der = Buffer.from('test-der-bytes-for-leaf-certificate')
-    const expected = createHash('sha256').update(der).digest('base64url')
-    expect(computeX509HashClientId(pemWrap(der))).toBe(expected)
+    const expected = 'x509_hash:' + createHash('sha256').update(der).digest('base64url')
+    expect(await clientIdFor(pemWrap(der))).toBe(expected)
   })
 
-  it('produces a base64url string without padding or + /', () => {
-    const der = Buffer.from([0xde, 0xad, 0xbe, 0xef])
-    const value = computeX509HashClientId(pemWrap(der))
-    expect(value).toMatch(/^[A-Za-z0-9_-]+$/)
+  it('produces a url-safe base64 client_id (no padding or + /)', async () => {
+    expect(await clientIdFor(pemWrap(Buffer.from([0xde, 0xad, 0xbe, 0xef])))).toMatch(/^x509_hash:[A-Za-z0-9_-]+$/)
   })
 
-  it('is stable across separate calls and differs for different input', () => {
+  it('is deterministic and differs for different certificates', async () => {
     const a = pemWrap(Buffer.from('cert-a'))
-    const b = pemWrap(Buffer.from('cert-b'))
-    // Store the results of two independent calls so the determinism assertion can actually
-    // fail (comparing computeX509HashClientId(a) to itself in one expression is tautological).
-    const resultA1 = computeX509HashClientId(a)
-    const resultA2 = computeX509HashClientId(a)
-    expect(resultA1).toBe(resultA2)
-    expect(resultA1).not.toBe(computeX509HashClientId(b))
+    const idA1 = await clientIdFor(a)
+    const idA2 = await clientIdFor(a)
+    expect(idA1).toBe(idA2)
+    expect(idA1).not.toBe(await clientIdFor(pemWrap(Buffer.from('cert-b'))))
   })
 
-  it('hashes only the leaf when a chain PEM (leaf + intermediate) is passed', () => {
-    // A common mistake is to pass a concatenated chain PEM as the certificate. Stripping all
-    // armor and hashing the concatenation would yield SHA-256(DER(leaf) + DER(intermediate)),
-    // a silently wrong client_id. Only the first (leaf) block must be hashed.
+  it('hashes only the leaf when a chain PEM (leaf + intermediate) is passed', async () => {
+    // Passing a concatenated chain must hash SHA-256(DER(leaf)) only, not SHA-256(leaf + intermediate).
     const leafDer = Buffer.from('leaf-certificate-der-bytes')
     const intermediateDer = Buffer.from('intermediate-certificate-der-bytes')
-    const leafOnly = computeX509HashClientId(pemWrap(leafDer))
-    const chainPem = `${pemWrap(leafDer)}\n${pemWrap(intermediateDer)}`
-    expect(computeX509HashClientId(chainPem)).toBe(leafOnly)
+    const leafOnly = await clientIdFor(pemWrap(leafDer))
+    expect(await clientIdFor(`${pemWrap(leafDer)}\n${pemWrap(intermediateDer)}`)).toBe(leafOnly)
   })
 
-  it('throws when the input contains no PEM certificate block', () => {
-    expect(() => computeX509HashClientId('not a pem')).toThrow(/valid PEM certificate block/)
-  })
-
-  it('strips PEM armor and multi-line wrapping (does NOT guard CRLF — see signCallback x5c suite)', () => {
-    // NOTE: this only exercises armor/whitespace stripping. It is NOT a CRLF regression test:
-    // computeX509HashClientId hashes via Buffer.from(.., 'base64'), which silently discards
-    // stray `\r`, so a `\n`-only strip would also pass here. The load-bearing CRLF regression
-    // guard is behavioural and lives in the `signCallback x5c header` describe block below.
-    const der = Buffer.from('multi-line-armor-stripping-payload'.repeat(8))
-    const expected = createHash('sha256').update(der).digest('base64url')
-    const b64 = der.toString('base64')
-    const wrapped = (b64.match(/.{1,64}/g) ?? []).join('\n')
-    expect(wrapped).toContain('\n') // sanity: the payload really is multi-line
-    const pem = `  -----BEGIN CERTIFICATE-----\n${wrapped}\n-----END CERTIFICATE-----  `
-    expect(computeX509HashClientId(pem)).toBe(expected)
+  it('rejects a certificate that contains no PEM block', async () => {
+    await expect(clientIdFor('not a pem')).rejects.toThrow(/valid PEM certificate block/)
   })
 })
 

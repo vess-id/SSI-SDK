@@ -180,20 +180,16 @@ export interface IRPOptions {
   /**
    * X.509 certificate options for x509_san_dns / x509_hash schemes
    * Required when clientIdScheme is 'x509_san_dns' or 'x509_hash'
-   *
-   * @remarks
-   * `domain` is optional at the type level because it is only used by `x509_san_dns`
-   * (the `x509_hash` scheme derives the client_id from the certificate hash and ignores
-   * it). The per-scheme requirement therefore cannot be expressed with a single object
-   * type and is enforced at runtime in `createRPBuilder`: passing `clientIdScheme:
-   * 'x509_san_dns'` without `x509Opts.domain` throws. When using `x509_san_dns`, always
-   * supply `domain`.
    */
   x509Opts?: {
     /**
-     * DNS domain for client_id (e.g., "verifier.vess.id")
-     * Must match certificate SAN DNS entry.
-     * Required for 'x509_san_dns' (enforced at runtime in createRPBuilder); not used for 'x509_hash'.
+     * DNS domain for client_id (e.g., "verifier.vess.id"); must match the certificate SAN DNS entry.
+     *
+     * @remarks
+     * Optional at the type level because only `x509_san_dns` uses it (`x509_hash` derives the
+     * client_id from the certificate hash and ignores it). The per-scheme requirement cannot be
+     * expressed with a single object type, so it is enforced at runtime in `createRPBuilder`:
+     * `clientIdScheme: 'x509_san_dns'` without `domain` throws.
      */
     domain?: string
 
