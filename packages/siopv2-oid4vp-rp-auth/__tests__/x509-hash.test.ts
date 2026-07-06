@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { createHash } from 'crypto'
-import { computeX509HashClientId, pemToBase64 } from '../src/functions'
+import { PassBy } from '@vess-id/did-auth-siop'
+import { computeX509HashClientId, pemToBase64, createRPBuilder } from '../src/functions'
+import type { IRPOptions, IRequiredContext } from '../src/types/ISIOPv2RP'
 
 /**
  * CRED-392 / HAIP: client_id for the `x509_hash` Client Identifier Prefix is the
@@ -24,11 +26,30 @@ describe('computeX509HashClientId', () => {
     expect(value).toMatch(/^[A-Za-z0-9_-]+$/)
   })
 
-  it('is stable for identical input and differs for different input', () => {
+  it('is stable across separate calls and differs for different input', () => {
     const a = pemWrap(Buffer.from('cert-a'))
     const b = pemWrap(Buffer.from('cert-b'))
-    expect(computeX509HashClientId(a)).toBe(computeX509HashClientId(a))
-    expect(computeX509HashClientId(a)).not.toBe(computeX509HashClientId(b))
+    // Store the results of two independent calls so the determinism assertion can actually
+    // fail (comparing computeX509HashClientId(a) to itself in one expression is tautological).
+    const resultA1 = computeX509HashClientId(a)
+    const resultA2 = computeX509HashClientId(a)
+    expect(resultA1).toBe(resultA2)
+    expect(resultA1).not.toBe(computeX509HashClientId(b))
+  })
+
+  it('hashes only the leaf when a chain PEM (leaf + intermediate) is passed', () => {
+    // A common mistake is to pass a concatenated chain PEM as the certificate. Stripping all
+    // armor and hashing the concatenation would yield SHA-256(DER(leaf) + DER(intermediate)),
+    // a silently wrong client_id. Only the first (leaf) block must be hashed.
+    const leafDer = Buffer.from('leaf-certificate-der-bytes')
+    const intermediateDer = Buffer.from('intermediate-certificate-der-bytes')
+    const leafOnly = computeX509HashClientId(pemWrap(leafDer))
+    const chainPem = `${pemWrap(leafDer)}\n${pemWrap(intermediateDer)}`
+    expect(computeX509HashClientId(chainPem)).toBe(leafOnly)
+  })
+
+  it('throws when the input contains no PEM certificate block', () => {
+    expect(() => computeX509HashClientId('not a pem')).toThrow(/valid PEM certificate block/)
   })
 
   it('strips PEM armor and multi-line wrapping (does NOT guard CRLF — see pemToBase64 suite)', () => {
@@ -72,5 +93,48 @@ describe('pemToBase64', () => {
     const wrapped = (b64.match(/.{1,64}/g) ?? []).join('\n')
     const pem = `-----BEGIN CERTIFICATE-----\n${wrapped}\n-----END CERTIFICATE-----`
     expect(pemToBase64(pem)).toBe(b64)
+  })
+})
+
+/**
+ * Guard coverage for the x509_hash branch of createRPBuilder. These exercise the three throw
+ * paths added in this PR (missing x509Opts, empty certificate, unsigned request) so a future
+ * refactor that drops a guard is caught. A minimal stub context is used: supportedDIDMethods and
+ * a resolveOpts.resolver are supplied so createRPBuilder skips the agent-backed DID-method and
+ * resolver lookups, and identifierManagedGet is stubbed (it runs before the client_id branch).
+ */
+describe('createRPBuilder x509_hash guards', () => {
+  const context = {
+    agent: { identifierManagedGet: async () => ({ jwkThumbprint: 'test-thumb' }) },
+  } as unknown as IRequiredContext
+
+  const baseRpOpts = (overrides: Partial<IRPOptions> = {}): IRPOptions =>
+    ({
+      clientIdScheme: 'x509_hash',
+      identifierOpts: {
+        idOpts: { identifier: 'did:jwk:eyJ0ZXN0IjoxfQ', kmsKeyRef: 'test-key' },
+        supportedDIDMethods: ['jwk'],
+        resolveOpts: { resolver: { resolve: async () => ({}) } },
+      },
+      ...overrides,
+    }) as unknown as IRPOptions
+
+  const validLeafPem = '-----BEGIN CERTIFICATE-----\nZHVtbXktbGVhZg==\n-----END CERTIFICATE-----'
+
+  it('throws when x509Opts is missing', async () => {
+    await expect(createRPBuilder({ rpOpts: baseRpOpts(), context })).rejects.toThrow(/x509Opts is required/)
+  })
+
+  it('throws when certificate is an empty / whitespace string', async () => {
+    const rpOpts = baseRpOpts({ x509Opts: { certificate: '   ', keyRef: 'test-key' } as IRPOptions['x509Opts'] })
+    await expect(createRPBuilder({ rpOpts, context })).rejects.toThrow(/non-empty PEM string/)
+  })
+
+  it('throws when passBy is NONE (HAIP requires a signed request object)', async () => {
+    const rpOpts = baseRpOpts({
+      x509Opts: { certificate: validLeafPem, keyRef: 'test-key' } as IRPOptions['x509Opts'],
+      clientMetadataOpts: { passBy: PassBy.NONE } as IRPOptions['clientMetadataOpts'],
+    })
+    await expect(createRPBuilder({ rpOpts, context })).rejects.toThrow(/signed request object/)
   })
 })

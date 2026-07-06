@@ -395,11 +395,20 @@ export function pemToBase64(pem: string): string {
  * Prefix (HAIP / OID4VP 1.0): the base64url encoding of the SHA-256 hash of the
  * DER-encoded leaf certificate.
  *
- * @param leafCertificatePem leaf certificate in PEM format
+ * Only the first PEM certificate block is hashed. If a full chain PEM
+ * (leaf + intermediate(s) concatenated) is passed, hashing the whole string
+ * would concatenate every DER structure and silently produce a wrong client_id,
+ * so we extract the leaf block explicitly.
+ *
+ * @param leafCertificatePem leaf certificate in PEM format (a chain PEM is accepted; only the leaf is used)
  * @returns base64url(SHA-256(DER(leaf)))
  */
 export function computeX509HashClientId(leafCertificatePem: string): string {
-  const der = Buffer.from(pemToBase64(leafCertificatePem), 'base64')
+  const leafBlock = leafCertificatePem.match(/-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/)
+  if (!leafBlock) {
+    throw new Error('x509Opts.certificate does not contain a valid PEM certificate block')
+  }
+  const der = Buffer.from(pemToBase64(leafBlock[0]), 'base64')
   return createHash('sha256').update(der).digest('base64url')
 }
 
