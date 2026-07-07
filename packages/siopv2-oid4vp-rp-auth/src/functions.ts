@@ -39,6 +39,7 @@ import { validate as isValidUUID } from 'uuid'
 import { IRequiredContext, IRPOptions, ISIOPIdentifierOptions } from './types/ISIOPv2RP'
 import { DcqlQuery } from 'dcql'
 import { defaultHasher } from '@sphereon/ssi-sdk.core'
+import { createHash } from 'crypto'
 
 export function getRequestVersion(rpOptions: IRPOptions): SupportedVersion {
   if (Array.isArray(rpOptions.supportedVersions) && rpOptions.supportedVersions.length > 0) {
@@ -216,12 +217,40 @@ export async function createRPBuilder(args: {
       if (!rpOpts.x509Opts) {
         throw new Error('x509Opts is required when clientIdScheme is x509_san_dns')
       }
+      if (!rpOpts.x509Opts.domain) {
+        throw new Error('x509Opts.domain is required when clientIdScheme is x509_san_dns')
+      }
+      if (!rpOpts.x509Opts.certificate?.trim()) {
+        throw new Error('x509Opts.certificate must be a non-empty PEM string when clientIdScheme is x509_san_dns')
+      }
 
       // Use DNS domain from x509Opts as client_id
       clientId = rpOpts.x509Opts.domain
       preferredPrefix = ClientIdentifierPrefix.X509_SAN_DNS
 
       console.log(`[createRPBuilder] Using x509_san_dns scheme with domain: ${clientId}`)
+    } else if (rpOpts.clientIdScheme === 'x509_hash') {
+      // X.509 certificate hash scheme (HAIP): client_id = base64url(SHA-256(DER(leaf)))
+      if (!rpOpts.x509Opts) {
+        throw new Error('x509Opts is required when clientIdScheme is x509_hash')
+      }
+      if (!rpOpts.x509Opts.certificate?.trim()) {
+        // An empty certificate would hash to a fixed, meaningless value (SHA-256 of empty DER)
+        // and silently register every misconfigured RP under the same client_id.
+        throw new Error('x509Opts.certificate must be a non-empty PEM string when clientIdScheme is x509_hash')
+      }
+
+      // HAIP requires a signed request object (x5c). Reject only an explicitly unsigned request.
+      if (rpOpts.clientMetadataOpts?.passBy === PassBy.NONE) {
+        throw new Error(
+          'clientIdScheme x509_hash requires a signed request object; clientMetadataOpts.passBy must be PassBy.VALUE or PassBy.REFERENCE (not PassBy.NONE)',
+        )
+      }
+
+      clientId = computeX509HashClientId(rpOpts.x509Opts.certificate)
+      preferredPrefix = ClientIdentifierPrefix.X509_HASH
+
+      console.log(`[createRPBuilder] Using x509_hash scheme with client_id: ${clientId}`)
     } else if (rpOpts.clientIdScheme === 'redirect_uri') {
       // Use response_uri as client_id when redirect_uri scheme is specified
       if (!rpOpts.responseUri) {
@@ -342,14 +371,29 @@ export function signCallback(
 }
 
 /**
- * Convert PEM format to base64 (strip headers and newlines)
+ * Strip PEM armor and every line break, returning clean base64. The result is used verbatim
+ * as an x5c JWT header value, so it must contain no whitespace (covered by the signCallback tests).
  */
 function pemToBase64(pem: string): string {
   return pem
     .replace(/-----BEGIN CERTIFICATE-----/g, '')
     .replace(/-----END CERTIFICATE-----/g, '')
-    .replace(/\n/g, '')
+    .replace(/[\r\n]/g, '')
     .trim()
+}
+
+/**
+ * x509_hash client_id value (HAIP / OID4VP 1.0): base64url(SHA-256(DER(leaf))).
+ * Only the first (leaf) PEM block is hashed — a chain PEM would otherwise concatenate
+ * every DER and produce a wrong client_id.
+ */
+function computeX509HashClientId(leafCertificatePem: string): string {
+  const leafBlock = leafCertificatePem.match(/-----BEGIN CERTIFICATE-----[\s\S]+?-----END CERTIFICATE-----/)
+  if (!leafBlock) {
+    throw new Error('x509Opts.certificate does not contain a valid PEM certificate block')
+  }
+  const der = Buffer.from(pemToBase64(leafBlock[0]), 'base64')
+  return createHash('sha256').update(der).digest('base64url')
 }
 
 function getVerifyJwtCallback(
