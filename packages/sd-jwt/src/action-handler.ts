@@ -311,23 +311,34 @@ export class SDJwtPlugin implements IAgentPlugin {
     const x5c: string[] | undefined = header?.x5c as string[]
     let jwk: JWK | JsonWebKey | undefined = header.jwk
     if (x5c) {
-      const trustAnchors = new Set<string>([...this.trustAnchorsInPEM])
-      if (trustAnchors.size === 0) {
-        trustAnchors.add(sphereonCA)
-        trustAnchors.add(funkeTestCA)
-      }
-      const certificateValidationResult = await context.agent.x509VerifyCertificateChain({
-        chain: x5c,
-        trustAnchors: Array.from(trustAnchors),
-        // TODO: Defaults to allowing untrusted certs! Fine for now, not when wallets go mainstream
-        opts: opts?.x5cValidation ?? { trustRootWhenNoAnchors: true, allowNoTrustAnchorsFound: true },
-      })
+      try {
+        const trustAnchors = new Set<string>([...this.trustAnchorsInPEM])
+        if (trustAnchors.size === 0) {
+          trustAnchors.add(sphereonCA)
+          trustAnchors.add(funkeTestCA)
+        }
+        const certificateValidationResult = await context.agent.x509VerifyCertificateChain({
+          chain: x5c,
+          trustAnchors: Array.from(trustAnchors),
+          // TODO: Defaults to allowing untrusted certs! Fine for now, not when wallets go mainstream
+          opts: opts?.x5cValidation ?? { trustRootWhenNoAnchors: true, allowNoTrustAnchorsFound: true },
+        })
 
-      if (certificateValidationResult.error || !certificateValidationResult?.certificateChain) {
-        return Promise.reject(Error(`Certificate chain validation failed. ${certificateValidationResult.message}`))
+        if (certificateValidationResult.error || !certificateValidationResult?.certificateChain) {
+          throw Error(`Certificate chain validation failed. ${certificateValidationResult.message}`)
+        }
+        const certInfo = certificateValidationResult.certificateChain[0]
+        jwk = certInfo.publicKeyJWK as JWK
+      } catch (error) {
+        const message = `x5c certificate chain validation failed, falling back to kid/DID/JWKS key resolution: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+        console.warn(message)
+        debug(message)
+        // Do not fall back to the self-asserted header.jwk: when the x5c chain does not validate, the
+        // sender-controlled header.jwk must not be used for signature verification
+        jwk = undefined
       }
-      const certInfo = certificateValidationResult.certificateChain[0]
-      jwk = certInfo.publicKeyJWK as JWK
     }
 
     if (!jwk && header.kid?.includes('did:')) {
