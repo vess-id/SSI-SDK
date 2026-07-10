@@ -1,6 +1,6 @@
 {
   "name": "@vess-id/ssi-sdk.oid4vci-issuer",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "source": "./src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",

@@ -1,6 +1,6 @@
 {
   "name": "@vess-id/ssi-sdk.siopv2-oid4vp-rp-auth",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "source": "src/index.ts",
   "type": "module",
   "main": "./dist/index.cjs",
