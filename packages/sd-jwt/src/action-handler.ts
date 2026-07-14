@@ -2,7 +2,7 @@ import { Jwt, SDJwt, type SdJwtPayload, type VerifierOptions } from '@sd-jwt/cor
 import { SDJwtVcInstance, type SdJwtVcPayload } from '@sd-jwt/sd-jwt-vc'
 import type { DisclosureFrame, HashAlgorithm, Hasher, JwtPayload, KbVerifier, PresentationFrame, Signer, Verifier } from '@sd-jwt/types'
 import { calculateJwkThumbprint, signatureAlgorithmFromKey } from '@sphereon/ssi-sdk-ext.key-utils'
-import type { X509CertificateChainValidationOpts } from '@sphereon/ssi-sdk-ext.x509-utils'
+import type { X509CertificateChainValidationOpts, X509ValidationResult } from '@sphereon/ssi-sdk-ext.x509-utils'
 import type { HasherSync, JsonWebKey, JWK, SdJwtTypeMetadata } from '@sphereon/ssi-types'
 import type { IAgentPlugin } from '@veramo/core'
 // import { decodeBase64url } from '@veramo/utils'
@@ -35,6 +35,7 @@ import type {
   IVerifySdJwtVcResult,
   SdJWTImplementation,
   SdJwtVerifySignature,
+  SdJwtX5cVerificationOpts,
   SignKeyArgs,
   SignKeyResult,
 } from './types'
@@ -52,6 +53,7 @@ const debug = Debug('@vess-id/ssi-sdk.sd-jwt')
 export class SDJwtPlugin implements IAgentPlugin {
   // @ts-ignore
   private readonly trustAnchorsInPEM: string[]
+  private readonly x5cVerification: SdJwtX5cVerificationOpts
   private readonly registeredImplementations: SdJWTImplementation
   private _signers: Record<string, Signer>
   private _defaultSigner?: Signer
@@ -62,8 +64,10 @@ export class SDJwtPlugin implements IAgentPlugin {
       defaultSigner?: Signer
     },
     trustAnchorsInPEM?: string[],
+    x5cVerification?: SdJwtX5cVerificationOpts,
   ) {
     this.trustAnchorsInPEM = trustAnchorsInPEM ?? []
+    this.x5cVerification = x5cVerification ?? { mode: 'fallback' }
     if (!registeredImplementations) {
       registeredImplementations = {}
     }
@@ -311,25 +315,75 @@ export class SDJwtPlugin implements IAgentPlugin {
     const x5c: string[] | undefined = header?.x5c as string[]
     let jwk: JWK | JsonWebKey | undefined = header.jwk
     if (x5c) {
+      const strict = this.x5cVerification.mode === 'strict'
+      const trustAnchors = new Set<string>([...this.trustAnchorsInPEM])
+      if (trustAnchors.size === 0) {
+        trustAnchors.add(sphereonCA)
+        trustAnchors.add(funkeTestCA)
+      }
+      const validationOpts: X509CertificateChainValidationOpts = strict
+        ? { trustRootWhenNoAnchors: false, allowNoTrustAnchorsFound: false }
+        : // TODO: Defaults to allowing untrusted certs! Fine for now, not when wallets go mainstream
+          (opts?.x5cValidation ?? { trustRootWhenNoAnchors: true, allowNoTrustAnchorsFound: true })
+
+      // 成功判定。strict 時は validator が trustAnchor を特定していること（= 設定済み anchor への
+      // 実到達）を必須とする。opts（allowNoTrustAnchorsFound: false）だけでは validator の
+      // 単一自己署名証明書パス（allowSingleNoCAChainElement）による anchor 照合なし成功を
+      // 塞げないため、結果側でも判定する。
+      const isAccepted = (result: X509ValidationResult): boolean => !result.error && !!result.certificateChain && (!strict || !!result.trustAnchor)
+
       try {
-        const trustAnchors = new Set<string>([...this.trustAnchorsInPEM])
-        if (trustAnchors.size === 0) {
-          trustAnchors.add(sphereonCA)
-          trustAnchors.add(funkeTestCA)
-        }
-        const certificateValidationResult = await context.agent.x509VerifyCertificateChain({
+        // ① そのままの x5c チェーンを検証（root 入りチェーンの従来動作を維持）
+        let certificateValidationResult = await context.agent.x509VerifyCertificateChain({
           chain: x5c,
           trustAnchors: Array.from(trustAnchors),
-          // TODO: Defaults to allowing untrusted certs! Fine for now, not when wallets go mainstream
-          opts: opts?.x5cValidation ?? { trustRootWhenNoAnchors: true, allowNoTrustAnchorsFound: true },
+          opts: validationOpts,
         })
 
-        if (certificateValidationResult.error || !certificateValidationResult?.certificateChain) {
-          throw Error(`Certificate chain validation failed. ${certificateValidationResult.message}`)
+        // ② 失敗時: chain completion（各 trust anchor をチェーン末尾に付加してリトライ）。
+        // HAIP 準拠の x5c は root CA を含まないため、検証者管理下の anchor で補完する。
+        // 誤った anchor を付加しても validator が全リンクの署名を検証するため偽陽性にはならない。
+        const completionFailures: string[] = []
+        if (!isAccepted(certificateValidationResult)) {
+          for (const anchor of trustAnchors) {
+            // 不正な PEM の anchor 等で validator が throw しても、後続 anchor の試行を継続する
+            try {
+              const completed = await context.agent.x509VerifyCertificateChain({
+                chain: [...x5c, anchor], // x5c は leaf-first。末尾 = root 位置に anchor（PEM）を付加
+                trustAnchors: Array.from(trustAnchors),
+                opts: validationOpts,
+              })
+              if (isAccepted(completed)) {
+                console.info(`x5c chain completed with configured trust anchor: ${completed.trustAnchor?.subject?.dn?.DN ?? '(unknown subject)'}`)
+                certificateValidationResult = completed
+                break
+              }
+              completionFailures.push(completed.message)
+              debug(`x5c chain completion attempt failed for one trust anchor: ${completed.message}`)
+            } catch (completionError) {
+              const completionMessage = completionError instanceof Error ? completionError.message : String(completionError)
+              completionFailures.push(completionMessage)
+              debug(`x5c chain completion attempt threw for one trust anchor: ${completionMessage}`)
+            }
+          }
         }
-        const certInfo = certificateValidationResult.certificateChain[0]
+
+        if (!isAccepted(certificateValidationResult)) {
+          const completionDetail =
+            completionFailures.length > 0
+              ? ` Chain completion with ${completionFailures.length} configured trust anchor(s) also failed: ${completionFailures.join('; ')}`
+              : ''
+          throw Error(`Certificate chain validation failed. ${certificateValidationResult.message}${completionDetail}`)
+        }
+        const certInfo = certificateValidationResult.certificateChain![0]
         jwk = certInfo.publicKeyJWK as JWK
       } catch (error) {
+        if (strict) {
+          // fail-close: kid/DID/JWKS フォールバックを行わない
+          throw new Error(
+            `invalid_issuer: x5c certificate chain validation failed (strict mode): ${error instanceof Error ? error.message : String(error)}`,
+          )
+        }
         const message = `x5c certificate chain validation failed, falling back to kid/DID/JWKS key resolution: ${
           error instanceof Error ? error.message : String(error)
         }`
