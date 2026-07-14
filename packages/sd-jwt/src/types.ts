@@ -304,3 +304,18 @@ export type GetSignerResult = {
   alg?: string
   signingKey?: SignKeyResult
 }
+
+export type SdJwtX5cVerificationOpts = {
+  /**
+   * x5c 検証の失敗時挙動。
+   * - 'fallback'（デフォルト）: 現行動作。x5c 検証失敗時に warn ログを出し
+   *   kid/DID/JWKS フォールバックへ進む（fail-open）。
+   * - 'strict': x5c 検証を allowNoTrustAnchorsFound: false で行い、かつ
+   *   検証結果に trustAnchor が存在すること（設定済み anchor への実到達）を
+   *   成功条件とする。失敗時はフォールバックせず例外で拒否する（fail-close）。
+   *   trustAnchor 必須判定は validator の単一自己署名証明書パス
+   *   （allowSingleNoCAChainElement）による anchor 照合なし成功を
+   *   拒否するために必要。
+   */
+  mode?: 'fallback' | 'strict'
+}
