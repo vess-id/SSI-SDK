@@ -10,6 +10,7 @@ import { SphereonKeyManagementSystem } from '@sphereon/ssi-sdk-ext.kms-local'
 import { validateX509CertificateChain, type X509CertificateChainValidationOpts } from '@sphereon/ssi-sdk-ext.x509-utils'
 import { ImDLMdoc } from '@vess-id/ssi-sdk.mdl-mdoc'
 import { createAgent, IAgentPlugin, IDIDManager, IKeyManager, IResolver, TAgent } from '@veramo/core'
+import Debug from 'debug'
 import { DIDManager, MemoryDIDStore } from '@veramo/did-manager'
 import { DIDResolverPlugin } from '@veramo/did-resolver'
 import { DIDDocument, Resolver, VerificationMethod } from 'did-resolver'
@@ -44,7 +45,10 @@ describe('SDJwtPlugin x5c chain completion', () => {
 
   let warnSpy: ReturnType<typeof vi.spyOn>
 
-  let infoSpy: ReturnType<typeof vi.spyOn>
+  // debug パッケージ（namespace: '@vess-id/ssi-sdk.sd-jwt'）の出力を捕捉する spy
+  let debugSpy: ReturnType<typeof vi.fn>
+  let prevDebugLog: typeof Debug.log
+  let prevDebugNamespaces: string
 
   // Behavior of the mocked x509VerifyCertificateChain, switched per test
   let x5cMockMode: X5cMockMode = 'complete-required'
@@ -207,12 +211,17 @@ describe('SDJwtPlugin x5c chain completion', () => {
     x5cMockSuccessJwk = undefined
     x509Calls = []
     warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
+    debugSpy = vi.fn()
+    prevDebugLog = Debug.log
+    prevDebugNamespaces = Debug.disable()
+    Debug.enable('@vess-id/ssi-sdk.sd-jwt')
+    Debug.log = debugSpy
   })
 
   afterEach(() => {
     warnSpy.mockRestore()
-    infoSpy.mockRestore()
+    Debug.log = prevDebugLog
+    Debug.enable(prevDebugNamespaces)
   })
 
   /**
@@ -258,9 +267,9 @@ describe('SDJwtPlugin x5c chain completion', () => {
     expect(x509Calls).toHaveLength(2)
     expect(x509Calls[0].chain).toEqual(dummyX5c)
     expect(x509Calls[1].chain).toEqual([...dummyX5c, trustedAnchorPem])
-    // フォールバック warn が出ないこと・completion 成功の info ログ（subject DN）が出ること
+    // フォールバック warn が出ないこと・completion 成功の debug ログ（subject DN）が出ること
     expect(warnSpy).not.toHaveBeenCalledWith(expect.stringContaining('falling back'))
-    expect(infoSpy).toHaveBeenCalledWith(expect.stringContaining(`x5c chain completed with configured trust anchor: ${trustedAnchorSubjectDN}`))
+    expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining(`x5c chain completed with configured trust anchor: ${trustedAnchorSubjectDN}`))
   })
 
   it('無関係な trust anchor のみ設定されている場合、chain completion も失敗し warn ログの上で kid の DID 解決にフォールバックして検証が成功すること', async () => {

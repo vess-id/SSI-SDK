@@ -333,16 +333,20 @@ export class SDJwtPlugin implements IAgentPlugin {
       const isAccepted = (result: X509ValidationResult): boolean => !result.error && !!result.certificateChain && (!strict || !!result.trustAnchor)
 
       try {
+        const trustAnchorList = Array.from(trustAnchors)
         // ① そのままの x5c チェーンを検証（root 入りチェーンの従来動作を維持）
         let certificateValidationResult = await context.agent.x509VerifyCertificateChain({
           chain: x5c,
-          trustAnchors: Array.from(trustAnchors),
+          trustAnchors: trustAnchorList,
           opts: validationOpts,
         })
 
         // ② 失敗時: chain completion（各 trust anchor をチェーン末尾に付加してリトライ）。
         // HAIP 準拠の x5c は root CA を含まないため、検証者管理下の anchor で補完する。
         // 誤った anchor を付加しても validator が全リンクの署名を検証するため偽陽性にはならない。
+        // 性能特性: 初回検証が失敗した場合、設定済み trust anchor を1つずつ逐次試行するため、
+        // 検証コストは anchor 数に比例する（O(N)）。anchor 数が多い運用では、issuer の DN 等による
+        // 事前フィルタで試行対象の anchor を絞り込む仕組みの導入を検討すること。
         const completionFailures: string[] = []
         if (!isAccepted(certificateValidationResult)) {
           for (const anchor of trustAnchors) {
@@ -350,11 +354,11 @@ export class SDJwtPlugin implements IAgentPlugin {
             try {
               const completed = await context.agent.x509VerifyCertificateChain({
                 chain: [...x5c, anchor], // x5c は leaf-first。末尾 = root 位置に anchor（PEM）を付加
-                trustAnchors: Array.from(trustAnchors),
+                trustAnchors: trustAnchorList,
                 opts: validationOpts,
               })
               if (isAccepted(completed)) {
-                console.info(`x5c chain completed with configured trust anchor: ${completed.trustAnchor?.subject?.dn?.DN ?? '(unknown subject)'}`)
+                debug(`x5c chain completed with configured trust anchor: ${completed.trustAnchor?.subject?.dn?.DN ?? '(unknown subject)'}`)
                 certificateValidationResult = completed
                 break
               }

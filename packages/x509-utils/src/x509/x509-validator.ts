@@ -294,6 +294,9 @@ const validateX509CertificateChainImpl = async ({
   }
 }
 
+// Note: not to be confused with the existing `areCertificatesEqual` in x509-utils.ts. That helper compares
+// pkijs Certificate objects by their signatureValue, whereas this one compares @peculiar/x509 X509Certificate
+// instances by their full DER-encoded bytes — different input types and different equality semantics.
 const isSameCertificate = (cert1: X509Certificate, cert2: X509Certificate): boolean => {
   // rawData is an ArrayBuffer; compare the actual DER bytes (ArrayBuffer.toString() would always yield '[object ArrayBuffer]')
   const raw1 = new Uint8Array(cert1.rawData)
