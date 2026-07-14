@@ -295,10 +295,7 @@ const validateX509CertificateChainImpl = async ({
 }
 
 const isSameCertificate = (cert1: X509Certificate, cert2: X509Certificate): boolean => {
-  // rawData is an ArrayBuffer; compare the actual DER bytes (ArrayBuffer.toString() would always yield '[object ArrayBuffer]')
-  const raw1 = new Uint8Array(cert1.rawData)
-  const raw2 = new Uint8Array(cert2.rawData)
-  return raw1.length === raw2.length && raw1.every((byte, index) => byte === raw2[index])
+  return cert1.rawData.toString() === cert2.rawData.toString()
 }
 
 const algorithmProvider: AlgorithmProvider = container.resolve(AlgorithmProvider)
