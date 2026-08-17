@@ -2727,11 +2727,11 @@ importers:
         specifier: 1.0.1
         version: 1.0.1(encoding@0.1.13)(typescript@5.8.3)
       '@vess-id/oid4vci-client':
-        specifier: 1.0.1
-        version: 1.0.1(encoding@0.1.13)
+        specifier: 1.0.2
+        version: 1.0.2(encoding@0.1.13)
       '@vess-id/oid4vci-common':
-        specifier: 1.0.3
-        version: 1.0.3(encoding@0.1.13)
+        specifier: 1.0.8
+        version: 1.0.8(encoding@0.1.13)
       '@vess-id/ssi-sdk.mdl-mdoc':
         specifier: workspace:*
         version: link:../mdl-mdoc
@@ -2785,8 +2785,8 @@ importers:
         specifier: 4.2.0
         version: 4.2.0(encoding@0.1.13)(express@4.21.2)
       '@vess-id/oid4vc-common':
-        specifier: 1.0.0
-        version: 1.0.0
+        specifier: 1.0.1
+        version: 1.0.1
       nock:
         specifier: ^13.5.4
         version: 13.5.6
@@ -2848,14 +2848,14 @@ importers:
         specifier: 1.0.1
         version: 1.0.1(encoding@0.1.13)(typescript@5.8.3)
       '@vess-id/oid4vc-common':
-        specifier: 1.0.0
-        version: 1.0.0
+        specifier: 1.0.1
+        version: 1.0.1
       '@vess-id/oid4vci-common':
-        specifier: 1.0.4
-        version: 1.0.4(encoding@0.1.13)
+        specifier: 1.0.8
+        version: 1.0.8(encoding@0.1.13)
       '@vess-id/oid4vci-issuer':
-        specifier: 1.0.7
-        version: 1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
+        specifier: 1.0.9
+        version: 1.0.9(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
       '@vess-id/ssi-sdk.data-store':
         specifier: workspace:*
         version: link:../data-store
@@ -8313,9 +8313,11 @@ packages:
 
   '@sphereon/kmp-crypto-kms-azure@0.2.0-SNAPSHOT.12':
     resolution: {integrity: sha512-XDsLNHmFkHcPkwqmYLhxn1vVs2H6rAglrfjtpulOCmvPaqwROMnjS89lMD7F3fUpF5e5sYpk8IL6WlPZGvAP/A==}
+    bundledDependencies: []
 
   '@sphereon/kmp-mdoc-core@0.2.0-SNAPSHOT.26':
     resolution: {integrity: sha512-QXJ6R8ENiZV2rPMbn06cw5JKwqUYN1kzVRbYfONqE1PEXx1noQ4md7uxr2zSczi0ubKkNcbyYDNtIMTZIhGzmQ==}
+    bundledDependencies: []
 
   '@sphereon/lto-did-ts@0.1.8-unstable.0':
     resolution: {integrity: sha512-3jzwwuYX/VYuze+T9/yg4PcsJ5iNNwAfTp4WfS4aSfPFBErDAfKXqn6kOb0wFYGkhejr3Jz+rljPC2iKZiHiGA==}
@@ -9166,20 +9168,20 @@ packages:
     resolution: {integrity: sha512-this4ogWULY0I1sft3joQ2XEHL7Xxp1t102kuerBJ0RKwinPSaqS5oL2CGkMZmoOA4AcqmW6+b0wJ1EJV4GM+g==}
     engines: {node: '>=20'}
 
-  '@vess-id/oid4vci-client@1.0.1':
-    resolution: {integrity: sha512-OmAbQ4ML7Prv2+50LuDYtkA8UBydD3j0G/QhO1/CTU1ark3UBVClaOWWLAfnnzHzZunYc/fZrtYvF6QObZF+hg==}
+  '@vess-id/oid4vc-common@1.0.1':
+    resolution: {integrity: sha512-LUzQ3jKkLYIv4U12RgTAagduIWGcP0/a2gJDIhKrNPxooTehs8zwjRXieNpxsH5J0GGBd0/8Jxxm9Tc/FhgZGg==}
     engines: {node: '>=20'}
 
-  '@vess-id/oid4vci-common@1.0.3':
-    resolution: {integrity: sha512-EyBJY76uzJ/VQvKzoAZ1vPNHECOgkqWEkVADzSn5wk4m50u/pHwrurjOtt3gIdcxvkn4+zhwV6lid9k+LQb+sw==}
+  '@vess-id/oid4vci-client@1.0.2':
+    resolution: {integrity: sha512-WpyGeOLer39ltvKVix8bA93srn1P+CuNJF4TCu22huL4Vpin6UUhS+gCIVRs2Bcl9CB/L2TfTDI4fztO/Zzl2Q==}
     engines: {node: '>=20'}
 
-  '@vess-id/oid4vci-common@1.0.4':
-    resolution: {integrity: sha512-Zh2vUiuqJMJaWpXSDRK+B808m6ClFsS0hZ2GInoZ1ArdEJZlHHhfxiIfOoCZyeoukzvaOk0F5APC+sMBy8u9dw==}
+  '@vess-id/oid4vci-common@1.0.8':
+    resolution: {integrity: sha512-SwYKeMR4S7JPiZ4tgH0R72TjnHfm74nJ4hV36wuLfOZvQuwofLPbPw0zmMDvy/Y9z9jNH1rJcpahP/MHHJUZnQ==}
     engines: {node: '>=20'}
 
-  '@vess-id/oid4vci-issuer@1.0.7':
-    resolution: {integrity: sha512-cwuOq5UNSvLHelZueGh/zvEA7jKwaeXybV/z3+M+z5Fu4Ic3zEJL8xGO+o5pbgJRgzLaPpM8tHqcOQQZF+s9fQ==}
+  '@vess-id/oid4vci-issuer@1.0.9':
+    resolution: {integrity: sha512-Y1G7NDU/1z72YL2VrsPkaY05QdAADjgDbTWrblNLB5cqHMZo/EKzTTz3xe1fvCmQipBP+Wona4WnWC49SHFerg==}
     engines: {node: '>=20'}
     peerDependencies:
       awesome-qr: ^2.1.5-rc.0
@@ -21736,7 +21738,7 @@ snapshots:
       '@sphereon/pex': 5.0.0-unstable.28
       '@sphereon/ssi-types': link:packages/ssi-types
       '@vess-id/jarm': 1.0.1(typescript@5.8.3)
-      '@vess-id/oid4vc-common': 1.0.0
+      '@vess-id/oid4vc-common': 1.0.1
       cross-fetch: 4.1.0(encoding@0.1.13)
       dcql: 1.0.1(typescript@5.8.3)
       debug: 4.4.3
@@ -21754,7 +21756,7 @@ snapshots:
 
   '@vess-id/jarm@1.0.1(typescript@5.8.3)':
     dependencies:
-      '@vess-id/oid4vc-common': 1.0.0
+      '@vess-id/oid4vc-common': 1.0.1
       valibot: 0.42.1(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
@@ -21782,21 +21784,28 @@ snapshots:
       uint8arrays: 3.1.1
       uuid: 9.0.1
 
-  '@vess-id/oid4vci-client@1.0.1(encoding@0.1.13)':
+  '@vess-id/oid4vc-common@1.0.1':
     dependencies:
       '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/oid4vc-common': 1.0.0
-      '@vess-id/oid4vci-common': 1.0.3(encoding@0.1.13)
+      jwt-decode: 4.0.0
+      uint8arrays: 3.1.1
+      uuid: 9.0.1
+
+  '@vess-id/oid4vci-client@1.0.2(encoding@0.1.13)':
+    dependencies:
+      '@sphereon/ssi-types': link:packages/ssi-types
+      '@vess-id/oid4vc-common': 1.0.1
+      '@vess-id/oid4vci-common': 1.0.8(encoding@0.1.13)
       cross-fetch: 4.1.0(encoding@0.1.13)
       debug: 4.4.3
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@vess-id/oid4vci-common@1.0.3(encoding@0.1.13)':
+  '@vess-id/oid4vci-common@1.0.8(encoding@0.1.13)':
     dependencies:
       '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/oid4vc-common': 1.0.0
+      '@vess-id/oid4vc-common': 1.0.1
       cross-fetch: 4.1.0(encoding@0.1.13)
       debug: 4.4.3
       jwt-decode: 4.0.0
@@ -21806,25 +21815,12 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vess-id/oid4vci-common@1.0.4(encoding@0.1.13)':
-    dependencies:
-      '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/oid4vc-common': 1.0.0
-      cross-fetch: 4.1.0(encoding@0.1.13)
-      debug: 4.4.3
-      jwt-decode: 4.0.0
-      uint8arrays: 3.1.1
-      uuid: 9.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-
-  '@vess-id/oid4vci-issuer@1.0.7(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
+  '@vess-id/oid4vci-issuer@1.0.9(@noble/hashes@1.6.1)(awesome-qr@2.1.5-rc.0(encoding@0.1.13))(encoding@0.1.13)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)':
     dependencies:
       '@sphereon/ssi-express-support': 0.34.1-next.3(@noble/hashes@1.6.1)(passport-azure-ad@4.3.5)(passport-http-bearer@1.0.1)
       '@sphereon/ssi-types': link:packages/ssi-types
-      '@vess-id/oid4vc-common': 1.0.0
-      '@vess-id/oid4vci-common': 1.0.4(encoding@0.1.13)
+      '@vess-id/oid4vc-common': 1.0.1
+      '@vess-id/oid4vci-common': 1.0.8(encoding@0.1.13)
       short-uuid: 4.2.2
       uuid: 9.0.1
     optionalDependencies:
