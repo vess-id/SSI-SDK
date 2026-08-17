@@ -26,8 +26,8 @@
     "build": "tsup --config ../../tsup.config.ts --tsconfig ../../tsconfig.tsup.json"
   },
   "dependencies": {
-    "@vess-id/did-auth-siop": "1.0.1",
-    "@vess-id/did-auth-siop-adapter": "1.0.1",
+    "@vess-id/did-auth-siop": "1.0.17",
+    "@vess-id/did-auth-siop-adapter": "1.0.2",
     "@vess-id/oid4vc-common": "1.0.0",
     "@sphereon/pex": "5.0.0-unstable.28",
     "@sphereon/pex-models": "^2.3.2",

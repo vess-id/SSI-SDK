@@ -26,7 +26,7 @@
     "build": "tsup --config ../../tsup.config.ts --tsconfig ../../tsconfig.tsup.json"
   },
   "dependencies": {
-    "@vess-id/did-auth-siop": "1.0.1",
+    "@vess-id/did-auth-siop": "1.0.17",
     "@sphereon/oid4vci-client": "0.20.0",
     "@vess-id/oid4vc-common": "1.0.1",
     "@vess-id/oid4vci-common": "1.0.8",
